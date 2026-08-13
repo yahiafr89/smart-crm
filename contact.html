@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title data-i18n="contact.pageTitle">
+        Demander un devis - Smart CRM
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="main-header">
+
+        <div class="logo">
+
+            <a href="index.html">
+                Smart CRM
+            </a>
+
+        </div>
+
+        <nav
+            class="main-nav"
+            aria-label="Navigation principale"
+            data-i18n-aria-label="nav.mainLabel"
+        >
+
+            <a
+                href="index.html"
+                data-i18n="nav.home"
+            >
+                Accueil
+            </a>
+
+            <a
+                href="about.html"
+                data-i18n="nav.about"
+            >
+                À propos
+            </a>
+
+            <a
+                href="services.html"
+                data-i18n="nav.services"
+            >
+                Services
+            </a>
+
+            <a
+                href="contact.html"
+                class="active"
+                aria-current="page"
+                data-i18n="nav.contact"
+            >
+                Contact
+            </a>
+
+        </nav>
+
+        <div
+            class="language-selector"
+            aria-label="Choix de la langue"
+            data-i18n-aria-label="language.selectorLabel"
+        >
+
+            <button
+                type="button"
+                id="lang-fr"
+                data-i18n="language.french"
+                aria-label="Français"
+            >
+                🇫🇷 Français
+            </button>
+
+            <button
+                type="button"
+                id="lang-en"
+                data-i18n="language.english"
+                aria-label="English"
+            >
+                🇬🇧 English
+            </button>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span
+                    class="hero-label"
+                    data-i18n="contact.heroLabel"
+                >
+                    Votre projet
+                </span>
+
+                <h1 data-i18n="contact.heroTitle">
+                    Parlons de votre projet.
+                </h1>
+
+                <p data-i18n="contact.heroText">
+                    Décrivez-nous votre besoin et notre équipe vous contactera pour étudier votre demande.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section
+            class="quote-section"
+            aria-labelledby="contact-form-title"
+        >
+
+            <div class="section-heading">
+
+                <span
+                    class="section-label"
+                    data-i18n="contact.formLabel"
+                >
+                    Demande de devis
+                </span>
+
+                <h2
+                    id="contact-form-title"
+                    data-i18n="contact.formTitle"
+                >
+                    Décrivez-nous votre projet
+                </h2>
+
+                <p data-i18n="contact.formText">
+                    Plus votre demande est précise, plus nous pourrons comprendre rapidement votre besoin.
+                </p>
+
+            </div>
+
+            <form
+                class="quote-form"
+                id="quote-form"
+            >
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label
+                            for="first-name"
+                            data-i18n="form.firstName"
+                        >
+                            Prénom *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="first-name"
+                            name="first_name"
+                            placeholder="Votre prénom"
+                            data-i18n-placeholder="form.firstNamePlaceholder"
+                            autocomplete="given-name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="last-name"
+                            data-i18n="form.lastName"
+                        >
+                            Nom *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="last-name"
+                            name="last_name"
+                            placeholder="Votre nom"
+                            data-i18n-placeholder="form.lastNamePlaceholder"
+                            autocomplete="family-name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="company"
+                        data-i18n="form.company"
+                    >
+                        Entreprise
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        placeholder="Nom de votre entreprise"
+                        data-i18n-placeholder="form.companyPlaceholder"
+                        autocomplete="organization"
+                    >
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label
+                            for="email"
+                            data-i18n="form.email"
+                        >
+                            Email *
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="vous@entreprise.com"
+                            data-i18n-placeholder="form.emailPlaceholder"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="phone"
+                            data-i18n="form.phone"
+                        >
+                            Téléphone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="+212 6..."
+                            data-i18n-placeholder="form.phonePlaceholder"
+                            autocomplete="tel"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="service"
+                        data-i18n="form.service"
+                    >
+                        Service recherché *
+                    </label>
+
+                    <select
+                        id="service"
+                        name="service"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            data-i18n="form.servicePlaceholder"
+                        >
+                            Sélectionnez un service
+                        </option>
+
+                        <option
+                            value="web-development"
+                            data-i18n="service.webTitle"
+                        >
+                            Développement web
+                        </option>
+
+                        <option
+                            value="automation"
+                            data-i18n="service.automationTitle"
+                        >
+                            Automatisation
+                        </option>
+
+                        <option
+                            value="digital-solution"
+                            data-i18n="service.digitalTitle"
+                        >
+                            Solutions digitales
+                        </option>
+
+                        <option
+                            value="business-application"
+                            data-i18n="service.businessTitle"
+                        >
+                            Applications métier
+                        </option>
+
+                        <option
+                            value="digital-consulting"
+                            data-i18n="service.consultingTitle"
+                        >
+                            Conseil digital
+                        </option>
+
+                        <option
+                            value="other"
+                            data-i18n="form.other"
+                        >
+                            Autre
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="budget"
+                        data-i18n="form.budget"
+                    >
+                        Budget estimatif
+                    </label>
+
+                    <select
+                        id="budget"
+                        name="budget"
+                    >
+
+                        <option
+                            value=""
+                            data-i18n="form.budgetPlaceholder"
+                        >
+                            Sélectionnez une estimation
+                        </option>
+
+                        <option
+                            value="under-10000"
+                            data-i18n="form.budgetUnder10000"
+                        >
+                            Moins de 10 000 MAD
+                        </option>
+
+                        <option
+                            value="10000-30000"
+                            data-i18n="form.budget10000To30000"
+                        >
+                            10 000 – 30 000 MAD
+                        </option>
+
+                        <option
+                            value="30000-50000"
+                            data-i18n="form.budget30000To50000"
+                        >
+                            30 000 – 50 000 MAD
+                        </option>
+
+                        <option
+                            value="over-50000"
+                            data-i18n="form.budgetOver50000"
+                        >
+                            Plus de 50 000 MAD
+                        </option>
+
+                        <option
+                            value="not-defined"
+                            data-i18n="form.budgetUnknown"
+                        >
+                            Je ne sais pas encore
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="deadline"
+                        data-i18n="form.deadline"
+                    >
+                        Délai souhaité
+                    </label>
+
+                    <select
+                        id="deadline"
+                        name="deadline"
+                    >
+
+                        <option
+                            value=""
+                            data-i18n="form.deadlinePlaceholder"
+                        >
+                            Sélectionnez un délai
+                        </option>
+
+                        <option
+                            value="urgent"
+                            data-i18n="form.deadlineUrgent"
+                        >
+                            Dès que possible
+                        </option>
+
+                        <option
+                            value="1-month"
+                            data-i18n="form.deadlineOneMonth"
+                        >
+                            Dans le mois
+                        </option>
+
+                        <option
+                            value="1-3-months"
+                            data-i18n="form.deadlineOneToThreeMonths"
+                        >
+                            Dans 1 à 3 mois
+                        </option>
+
+                        <option
+                            value="3-6-months"
+                            data-i18n="form.deadlineThreeToSixMonths"
+                        >
+                            Dans 3 à 6 mois
+                        </option>
+
+                        <option
+                            value="flexible"
+                            data-i18n="form.deadlineFlexible"
+                        >
+                            Je suis flexible
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="message"
+                        data-i18n="form.message"
+                    >
+                        Décrivez votre projet *
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="8"
+                        placeholder="Expliquez votre besoin, vos objectifs, les fonctionnalités souhaitées..."
+                        data-i18n-placeholder="form.messagePlaceholder"
+                        minlength="20"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <fieldset class="contact-preference">
+
+                    <legend data-i18n="contact.preferenceTitle">
+                        Comment souhaitez-vous être contacté ?
+                    </legend>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="contact_preference"
+                            value="email"
+                            checked
+                        >
+
+                        <span data-i18n="contact.preferenceEmail">
+                            Par e-mail
+                        </span>
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="contact_preference"
+                            value="phone"
+                        >
+
+                        <span data-i18n="contact.preferencePhone">
+                            Par téléphone
+                        </span>
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="contact_preference"
+                            value="any"
+                        >
+
+                        <span data-i18n="contact.preferenceAny">
+                            Peu importe
+                        </span>
+
+                    </label>
+
+                </fieldset>
+
+                <div class="form-group consent-group">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="consent"
+                            value="accepted"
+                            required
+                        >
+
+                        <span data-i18n="contact.consent">
+                            J'accepte que mes informations soient utilisées afin de traiter ma demande.
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                    data-i18n="form.submit"
+                >
+                    Envoyer ma demande
+                </button>
+
+                <p
+                    id="form-success"
+                    class="form-success"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                    data-i18n="contact.success"
+                >
+                    Votre demande a bien été enregistrée. Notre équipe vous contactera prochainement.
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <a href="index.html">
+                    Smart CRM
+                </a>
+
+                <p data-i18n="footer.description">
+                    Des solutions adaptées à vos projets et aux besoins de votre entreprise.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h3 data-i18n="footer.navigation">
+                    Navigation
+                </h3>
+
+                <a
+                    href="index.html"
+                    data-i18n="nav.home"
+                >
+                    Accueil
+                </a>
+
+                <a
+                    href="about.html"
+                    data-i18n="nav.about"
+                >
+                    À propos
+                </a>
+
+                <a
+                    href="services.html"
+                    data-i18n="nav.services"
+                >
+                    Services
+                </a>
+
+                <a
+                    href="contact.html"
+                    class="active"
+                    aria-current="page"
+                    data-i18n="nav.contact"
+                >
+                    Contact
+                </a>
+
+            </div>
+
+            <div class="footer-contact">
+
+                <h3 data-i18n="footer.contact">
+                    Contact
+                </h3>
+
+                <p>
+                    Email : contact@example.com
+                </p>
+
+                <p>
+                    Téléphone : +212 5 XX XX XX XX
+                </p>
+
+                <p data-i18n="footer.country">
+                    Maroc
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p data-i18n="footer.copyright">
+                © 2026 Smart CRM. Tous droits réservés.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="JS/script.js"></script>
+
+</body>
+
+</html>

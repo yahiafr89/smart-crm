@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title data-i18n="prospects.pageTitle">
+        Prospects - Smart CRM
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+</head>
+
+<body>
+
+    <header class="main-header">
+
+        <div class="logo">
+            <a href="dashboard.html">
+                Smart CRM
+            </a>
+        </div>
+
+        <nav
+            class="main-nav"
+            aria-label="Navigation principale"
+            data-i18n-aria-label="nav.mainLabel"
+        >
+
+            <a
+                href="dashboard.html"
+                data-i18n="nav.dashboard"
+            >
+                Tableau de bord
+            </a>
+
+            <a
+                href="prospects.html"
+                class="active"
+                aria-current="page"
+                data-i18n="nav.prospects"
+            >
+                Prospects
+            </a>
+
+            <a
+                href="commerciaux.html"
+                data-i18n="nav.salespeople"
+            >
+                Commerciaux
+            </a>
+
+            <a
+                href="administration.html"
+                data-i18n="nav.administration"
+            >
+                Administration
+            </a>
+
+        </nav>
+
+        <div
+            class="language-selector"
+            aria-label="Choix de la langue"
+            data-i18n-aria-label="language.selectorLabel"
+        >
+
+            <button
+                type="button"
+                id="lang-fr"
+                data-i18n="language.french"
+                aria-label="Français"
+            >
+                🇫🇷 Français
+            </button>
+
+            <button
+                type="button"
+                id="lang-en"
+                data-i18n="language.english"
+                aria-label="English"
+            >
+                🇬🇧 English
+            </button>
+
+        </div>
+
+    </header>
+
+    <main class="prospects-page">
+
+        <div class="page-header">
+
+            <div>
+
+                <span
+                    class="page-label"
+                    data-i18n="prospects.management"
+                >
+                    Gestion commerciale
+                </span>
+
+                <h1 data-i18n="nav.prospects">
+                    Prospects
+                </h1>
+
+                <p data-i18n="prospects.pageDescription">
+                    Consultez, recherchez et gérez vos prospects.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-primary"
+                id="show-prospect-form"
+                data-i18n="dashboard.newProspect"
+            >
+                + Nouveau prospect
+            </button>
+
+        </div>
+
+        <section
+            class="prospect-form-card"
+            id="prospect-form-section"
+            aria-labelledby="prospect-form-title"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span
+                        class="section-label"
+                        data-i18n="prospects.newProspect"
+                    >
+                        Nouveau prospect
+                    </span>
+
+                    <h2
+                        id="prospect-form-title"
+                        data-i18n="prospects.addProspect"
+                    >
+                        Ajouter un prospect
+                    </h2>
+
+                    <p data-i18n="prospects.formDescription">
+                        Renseignez les informations du nouveau prospect.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form id="prospect-form">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-first-name"
+                            data-i18n="prospect.firstNameRequired"
+                        >
+                            Prénom *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="prospect-first-name"
+                            name="first_name"
+                            placeholder="Ex. Ahmed"
+                            data-i18n-placeholder="prospects.firstNamePlaceholder"
+                            autocomplete="given-name"
+                            required
+                            minlength="2"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-last-name"
+                            data-i18n="prospect.lastNameRequired"
+                        >
+                            Nom *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="prospect-last-name"
+                            name="last_name"
+                            placeholder="Ex. Benali"
+                            data-i18n-placeholder="prospects.lastNamePlaceholder"
+                            autocomplete="family-name"
+                            required
+                            minlength="2"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-company"
+                            data-i18n="prospect.company"
+                        >
+                            Entreprise
+                        </label>
+
+                        <input
+                            type="text"
+                            id="prospect-company"
+                            name="company"
+                            placeholder="Ex. Atlas Solutions"
+                            data-i18n-placeholder="prospects.companyPlaceholder"
+                            autocomplete="organization"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-email"
+                            data-i18n="prospect.emailRequired"
+                        >
+                            E-mail *
+                        </label>
+
+                        <input
+                            type="email"
+                            id="prospect-email"
+                            name="email"
+                            placeholder="Ex. ahmed@example.com"
+                            data-i18n-placeholder="prospects.emailPlaceholder"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-phone"
+                            data-i18n="prospect.phone"
+                        >
+                            Téléphone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="prospect-phone"
+                            name="phone"
+                            placeholder="+212 6..."
+                            data-i18n-placeholder="prospects.phonePlaceholder"
+                            autocomplete="tel"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-city"
+                            data-i18n="prospect.city"
+                        >
+                            Ville
+                        </label>
+
+                        <input
+                            type="text"
+                            id="prospect-city"
+                            name="city"
+                            placeholder="Ex. Casablanca"
+                            data-i18n-placeholder="prospects.cityPlaceholder"
+                            autocomplete="address-level2"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-status"
+                            data-i18n="prospect.status"
+                        >
+                            Statut
+                        </label>
+
+                        <select
+                            id="prospect-status"
+                            name="status"
+                        >
+
+                            <option
+                                value="new"
+                                data-i18n="status.new"
+                            >
+                                Nouveau
+                            </option>
+
+                            <option
+                                value="progress"
+                                data-i18n="status.progress"
+                            >
+                                En cours
+                            </option>
+
+                            <option
+                                value="negotiation"
+                                data-i18n="status.negotiation"
+                            >
+                                En négociation
+                            </option>
+
+                            <option
+                                value="converted"
+                                data-i18n="status.converted"
+                            >
+                                Converti
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            for="prospect-commercial"
+                            data-i18n="prospect.salesperson"
+                        >
+                            Commercial responsable
+                        </label>
+
+                        <select
+                            id="prospect-commercial"
+                            name="commercial"
+                        >
+
+                            <option
+                                value=""
+                                data-i18n="common.unassigned"
+                            >
+                                Non assigné
+                            </option>
+
+                            <option value="ahmed">
+                                Ahmed
+                            </option>
+
+                            <option value="fatima">
+                                Fatima
+                            </option>
+
+                            <option value="youssef">
+                                Youssef
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="prospect-comments"
+                        data-i18n="prospects.comments"
+                    >
+                        Commentaires
+                    </label>
+
+                    <textarea
+                        id="prospect-comments"
+                        name="comments"
+                        rows="5"
+                        placeholder="Ajoutez des informations complémentaires..."
+                        data-i18n-placeholder="prospects.commentsPlaceholder"
+                    ></textarea>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="btn-primary"
+                        id="prospect-submit"
+                        data-i18n="actions.save"
+                    >
+                        Enregistrer le prospect
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <section
+            class="prospects-list"
+            aria-labelledby="prospects-list-title"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span
+                        class="section-label"
+                        data-i18n="prospects.database"
+                    >
+                        Base prospects
+                    </span>
+
+                    <h2
+                        id="prospects-list-title"
+                        data-i18n="prospects.listTitle"
+                    >
+                        Liste des prospects
+                    </h2>
+
+                    <p data-i18n="prospects.listDescription">
+                        Retrouvez ici l'ensemble des prospects enregistrés.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="prospects-toolbar">
+
+                <div class="search-box">
+
+                    <label
+                        for="prospect-search"
+                        data-i18n="prospects.searchLabel"
+                    >
+                        Rechercher un prospect
+                    </label>
+
+                    <input
+                        type="search"
+                        id="prospect-search"
+                        placeholder="Nom, entreprise ou e-mail..."
+                        data-i18n-placeholder="prospects.searchPlaceholder"
+                    >
+
+                </div>
+
+                <div class="filter-box">
+
+                    <label
+                        for="status-filter"
+                        data-i18n="prospect.status"
+                    >
+                        Statut
+                    </label>
+
+                    <select id="status-filter">
+
+                        <option
+                            value="all"
+                            data-i18n="common.all"
+                        >
+                            Tous
+                        </option>
+
+                        <option
+                            value="new"
+                            data-i18n="status.new"
+                        >
+                            Nouveau
+                        </option>
+
+                        <option
+                            value="progress"
+                            data-i18n="status.progress"
+                        >
+                            En cours
+                        </option>
+
+                        <option
+                            value="negotiation"
+                            data-i18n="status.negotiation"
+                        >
+                            En négociation
+                        </option>
+
+                        <option
+                            value="converted"
+                            data-i18n="status.converted"
+                        >
+                            Converti
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th data-i18n="prospect.firstName">
+                                Prénom
+                            </th>
+
+                            <th data-i18n="prospect.lastName">
+                                Nom
+                            </th>
+
+                            <th data-i18n="prospect.company">
+                                Entreprise
+                            </th>
+
+                            <th data-i18n="prospect.email">
+                                E-mail
+                            </th>
+
+                            <th data-i18n="prospect.phone">
+                                Téléphone
+                            </th>
+
+                            <th data-i18n="prospect.city">
+                                Ville
+                            </th>
+
+                            <th data-i18n="prospect.status">
+                                Statut
+                            </th>
+
+                            <th data-i18n="prospect.salesperson">
+                                Commercial
+                            </th>
+
+                            <th data-i18n="prospects.actions">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="prospects-table-body"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <div
+            class="prospect-modal"
+            id="prospect-modal"
+            aria-hidden="true"
+        >
+
+            <div
+                class="prospect-modal-content"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="prospect-modal-title"
+            >
+
+                <div class="prospect-modal-header">
+
+                    <h2
+                        id="prospect-modal-title"
+                        data-i18n="prospects.details"
+                    >
+                        Détails du prospect
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="modal-close"
+                        id="modal-close"
+                        aria-label="Fermer"
+                        data-i18n-aria-label="prospects.close"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+                <div id="prospect-details"></div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="JS/script.js"></script>
+
+</body>
+
+</html>

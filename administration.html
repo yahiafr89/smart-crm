@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title data-i18n="admin.pageTitle">
+        Administration - Smart CRM
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="main-header">
+
+        <div class="logo">
+            <a href="dashboard.html">
+                Smart CRM
+            </a>
+        </div>
+
+        <nav
+            class="main-nav"
+            aria-label="Navigation principale"
+            data-i18n-aria-label="nav.mainLabel"
+        >
+
+            <a
+                href="dashboard.html"
+                data-i18n="nav.dashboard"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="prospects.html"
+                data-i18n="nav.prospects"
+            >
+                Prospects
+            </a>
+
+            <a
+                href="commerciaux.html"
+                data-i18n="nav.salespeople"
+            >
+                Commerciaux
+            </a>
+
+            <a
+                href="administration.html"
+                class="active"
+                aria-current="page"
+                data-i18n="nav.administration"
+            >
+                Administration
+            </a>
+
+        </nav>
+
+        <div
+            class="language-selector"
+            aria-label="Choix de la langue"
+            data-i18n-aria-label="language.selectorLabel"
+        >
+
+            <button
+                type="button"
+                id="lang-fr"
+                data-i18n="language.french"
+                aria-label="Français"
+            >
+                🇫🇷 Français
+            </button>
+
+            <button
+                type="button"
+                id="lang-en"
+                data-i18n="language.english"
+                aria-label="English"
+            >
+                🇬🇧 English
+            </button>
+
+        </div>
+
+    </header>
+
+    <main class="administration-page">
+
+        <div class="page-header">
+
+            <div>
+
+                <h1 data-i18n="admin.title">
+                    Administration
+                </h1>
+
+                <p data-i18n="admin.description">
+                    Gérez les utilisateurs, les statistiques et les paramètres du CRM.
+                </p>
+
+            </div>
+
+        </div>
+
+        <section class="admin-stats-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2 data-i18n="admin.statistics.title">
+                        Statistiques générales
+                    </h2>
+
+                    <p data-i18n="admin.statistics.description">
+                        Vue globale de l'activité du CRM.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="admin-stats-grid">
+
+                <article class="admin-stat-card">
+
+                    <span
+                        class="admin-stat-label"
+                        data-i18n="admin.stats.prospects"
+                    >
+                        Total prospects
+                    </span>
+
+                    <strong
+                        class="admin-stat-value"
+                        id="admin-total-prospects"
+                    >
+                        0
+                    </strong>
+
+                </article>
+
+                <article class="admin-stat-card">
+
+                    <span
+                        class="admin-stat-label"
+                        data-i18n="admin.stats.salespeople"
+                    >
+                        Commerciaux
+                    </span>
+
+                    <strong
+                        class="admin-stat-value"
+                        id="admin-total-salespeople"
+                    >
+                        0
+                    </strong>
+
+                </article>
+
+                <article class="admin-stat-card">
+
+                    <span
+                        class="admin-stat-label"
+                        data-i18n="admin.stats.clients"
+                    >
+                        Clients
+                    </span>
+
+                    <strong
+                        class="admin-stat-value"
+                        id="admin-total-clients"
+                    >
+                        0
+                    </strong>
+
+                </article>
+
+                <article class="admin-stat-card">
+
+                    <span
+                        class="admin-stat-label"
+                        data-i18n="admin.stats.contracts"
+                    >
+                        Contrats signés
+                    </span>
+
+                    <strong
+                        class="admin-stat-value"
+                        id="admin-total-contracts"
+                    >
+                        0
+                    </strong>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="admin-users-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2 data-i18n="admin.users.title">
+                        Gestion des utilisateurs
+                    </h2>
+
+                    <p data-i18n="admin.users.description">
+                        Gérez les utilisateurs ayant accès au CRM.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-primary"
+                    id="add-user-button"
+                    data-i18n="admin.users.add"
+                >
+                    + Ajouter un utilisateur
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th data-i18n="admin.users.user">
+                                Utilisateur
+                            </th>
+
+                            <th data-i18n="admin.users.email">
+                                E-mail
+                            </th>
+
+                            <th data-i18n="admin.users.role">
+                                Rôle
+                            </th>
+
+                            <th data-i18n="admin.users.status">
+                                Statut
+                            </th>
+
+                            <th data-i18n="admin.users.actions">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="admin-users-table-body">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <section class="admin-settings-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2 data-i18n="admin.settings.title">
+                        Paramètres
+                    </h2>
+
+                    <p data-i18n="admin.settings.description">
+                        Configurez les paramètres généraux du CRM.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form
+                class="settings-form"
+                id="settings-form"
+            >
+
+                <div class="form-group">
+
+                    <label
+                        for="company-name"
+                        data-i18n="admin.settings.companyName"
+                    >
+                        Nom de l'entreprise
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company-name"
+                        name="company-name"
+                        data-i18n-placeholder="admin.settings.companyNamePlaceholder"
+                        placeholder="Nom de votre entreprise"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="company-email"
+                        data-i18n="admin.settings.companyEmail"
+                    >
+                        E-mail de contact
+                    </label>
+
+                    <input
+                        type="email"
+                        id="company-email"
+                        name="company-email"
+                        data-i18n-placeholder="admin.settings.companyEmailPlaceholder"
+                        placeholder="contact@entreprise.com"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        for="default-status"
+                        data-i18n="admin.settings.defaultStatus"
+                    >
+                        Statut par défaut d'un nouveau prospect
+                    </label>
+
+                    <select
+                        id="default-status"
+                        name="default-status"
+                    >
+
+                        <option
+                            value="new"
+                            data-i18n="status.new"
+                        >
+                            Nouveau
+                        </option>
+
+                        <option
+                            value="progress"
+                            data-i18n="status.progress"
+                        >
+                            En cours
+                        </option>
+
+                        <option
+                            value="negotiation"
+                            data-i18n="status.negotiation"
+                        >
+                            En négociation
+                        </option>
+
+                        <option
+                            value="converted"
+                            data-i18n="status.converted"
+                        >
+                            Converti
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <button
+                        type="reset"
+                        class="btn-secondary"
+                        data-i18n="admin.settings.reset"
+                    >
+                        Réinitialiser
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn-primary"
+                        data-i18n="admin.settings.save"
+                    >
+                        Sauvegarder
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <a href="dashboard.html">
+                    Smart CRM
+                </a>
+
+                <p data-i18n="footer.description">
+                    Des solutions adaptées à vos projets et aux besoins de votre entreprise.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h3 data-i18n="footer.navigation">
+                    Navigation
+                </h3>
+
+                <a
+                    href="dashboard.html"
+                    data-i18n="nav.dashboard"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="prospects.html"
+                    data-i18n="nav.prospects"
+                >
+                    Prospects
+                </a>
+
+                <a
+                    href="commerciaux.html"
+                    data-i18n="nav.salespeople"
+                >
+                    Commerciaux
+                </a>
+
+                <a
+                    href="administration.html"
+                    class="active"
+                    aria-current="page"
+                    data-i18n="nav.administration"
+                >
+                    Administration
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p data-i18n="footer.copyright">
+                © 2026 Smart CRM. Tous droits réservés.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="JS/script.js"></script>
+
+</body>
+
+</html>

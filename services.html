@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title data-i18n="services.pageTitle">
+        Services - Smart CRM
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="main-header">
+
+        <div class="logo">
+
+            <a href="index.html">
+                Smart CRM
+            </a>
+
+        </div>
+
+        <nav
+            class="main-nav"
+            aria-label="Navigation principale"
+            data-i18n-aria-label="nav.mainLabel"
+        >
+
+            <a
+                href="index.html"
+                data-i18n="nav.home"
+            >
+                Accueil
+            </a>
+
+            <a
+                href="about.html"
+                data-i18n="nav.about"
+            >
+                À propos
+            </a>
+
+            <a
+                href="services.html"
+                class="active"
+                aria-current="page"
+                data-i18n="nav.services"
+            >
+                Services
+            </a>
+
+            <a
+                href="contact.html"
+                data-i18n="nav.contact"
+            >
+                Contact
+            </a>
+
+        </nav>
+
+        <div
+            class="language-selector"
+            aria-label="Choix de la langue"
+            data-i18n-aria-label="language.selectorLabel"
+        >
+
+            <button
+                type="button"
+                id="lang-fr"
+                data-i18n="language.french"
+                aria-label="Français"
+            >
+                🇫🇷 Français
+            </button>
+
+            <button
+                type="button"
+                id="lang-en"
+                data-i18n="language.english"
+                aria-label="English"
+            >
+                🇬🇧 English
+            </button>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section
+            class="hero"
+            aria-labelledby="services-hero-title"
+        >
+
+            <div class="hero-content">
+
+                <span
+                    class="hero-label"
+                    data-i18n="services.heroLabel"
+                >
+                    Nos services
+                </span>
+
+                <h1
+                    id="services-hero-title"
+                    data-i18n="services.heroTitle"
+                >
+                    Des solutions adaptées à vos projets.
+                </h1>
+
+                <p data-i18n="services.heroText">
+                    Découvrez nos différentes prestations et choisissez celle qui correspond le mieux à votre besoin.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section
+            class="services"
+            aria-labelledby="services-title"
+        >
+
+            <div class="section-heading">
+
+                <span
+                    class="section-label"
+                    data-i18n="services.expertiseLabel"
+                >
+                    Nos expertises
+                </span>
+
+                <h2
+                    id="services-title"
+                    data-i18n="services.expertiseTitle"
+                >
+                    Ce que nous pouvons réaliser pour vous
+                </h2>
+
+                <p data-i18n="services.expertiseText">
+                    Chaque demande est étudiée individuellement afin de proposer une solution adaptée.
+                </p>
+
+            </div>
+
+            <div class="services-grid">
+
+                <article class="service-card">
+
+                    <h3 data-i18n="service.webTitle">
+                        Développement web
+                    </h3>
+
+                    <p data-i18n="service.webText">
+                        Création de sites web et d'applications adaptés aux besoins de votre entreprise.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        data-i18n="home.requestQuote"
+                    >
+                        Demander un devis
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <h3 data-i18n="service.automationTitle">
+                        Automatisation
+                    </h3>
+
+                    <p data-i18n="service.automationText">
+                        Automatisez vos processus et réduisez les tâches répétitives de votre équipe.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        data-i18n="home.requestQuote"
+                    >
+                        Demander un devis
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <h3 data-i18n="service.digitalTitle">
+                        Solutions digitales
+                    </h3>
+
+                    <p data-i18n="service.digitalText">
+                        Concevez des outils numériques adaptés aux objectifs et aux contraintes de votre activité.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        data-i18n="home.requestQuote"
+                    >
+                        Demander un devis
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <h3 data-i18n="service.businessTitle">
+                        Applications métier
+                    </h3>
+
+                    <p data-i18n="service.businessText">
+                        Développez des applications personnalisées pour améliorer vos opérations quotidiennes.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        data-i18n="home.requestQuote"
+                    >
+                        Demander un devis
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <h3 data-i18n="service.consultingTitle">
+                        Conseil digital
+                    </h3>
+
+                    <p data-i18n="service.consultingText">
+                        Identifiez les meilleures solutions numériques pour faire évoluer votre activité.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        data-i18n="home.requestQuote"
+                    >
+                        Demander un devis
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <h3 data-i18n="service.customTitle">
+                        Projet personnalisé
+                    </h3>
+
+                    <p data-i18n="service.customText">
+                        Vous avez un besoin spécifique ? Décrivez-nous votre projet et discutons-en.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        data-i18n="service.customButton"
+                    >
+                        Décrire mon projet
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <a href="index.html">
+                    Smart CRM
+                </a>
+
+                <p data-i18n="footer.description">
+                    Des solutions adaptées à vos projets et aux besoins de votre entreprise.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h3 data-i18n="footer.navigation">
+                    Navigation
+                </h3>
+
+                <a
+                    href="index.html"
+                    data-i18n="nav.home"
+                >
+                    Accueil
+                </a>
+
+                <a
+                    href="about.html"
+                    data-i18n="nav.about"
+                >
+                    À propos
+                </a>
+
+                <a
+                    href="services.html"
+                    class="active"
+                    aria-current="page"
+                    data-i18n="nav.services"
+                >
+                    Services
+                </a>
+
+                <a
+                    href="contact.html"
+                    data-i18n="nav.contact"
+                >
+                    Contact
+                </a>
+
+            </div>
+
+            <div class="footer-contact">
+
+                <h3 data-i18n="footer.contact">
+                    Contact
+                </h3>
+
+                <p>
+                    <span data-i18n="footer.email">
+                        Email
+                    </span>
+                    : contact@example.com
+                </p>
+
+                <p>
+                    <span data-i18n="footer.phone">
+                        Téléphone
+                    </span>
+                    : +212 5 XX XX XX XX
+                </p>
+
+                <p data-i18n="footer.country">
+                    Maroc
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p data-i18n="footer.copyright">
+                © 2026 Smart CRM. Tous droits réservés.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="JS/script.js"></script>
+
+</body>
+
+</html>

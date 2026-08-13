@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title data-i18n="dashboard.pageTitle">
+        Dashboard - Smart CRM
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="main-header">
+
+        <div class="logo">
+
+            <a href="dashboard.html">
+                Smart CRM
+            </a>
+
+        </div>
+
+        <nav
+            class="main-nav"
+            aria-label="Navigation principale"
+            data-i18n-aria-label="nav.mainLabel"
+        >
+
+            <a
+                href="dashboard.html"
+                class="active"
+                aria-current="page"
+                data-i18n="nav.dashboard"
+            >
+                Tableau de bord
+            </a>
+
+            <a
+                href="prospects.html"
+                data-i18n="nav.prospects"
+            >
+                Prospects
+            </a>
+
+            <a
+                href="commerciaux.html"
+                data-i18n="nav.salespeople"
+            >
+                Commerciaux
+            </a>
+
+            <a
+                href="administration.html"
+                data-i18n="nav.administration"
+            >
+                Administration
+            </a>
+
+        </nav>
+
+        <div
+            class="language-selector"
+            aria-label="Choix de la langue"
+            data-i18n-aria-label="language.selectorLabel"
+        >
+
+            <button
+                type="button"
+                id="lang-fr"
+                data-i18n="language.french"
+                aria-label="Français"
+            >
+                🇫🇷 Français
+            </button>
+
+            <button
+                type="button"
+                id="lang-en"
+                data-i18n="language.english"
+                aria-label="English"
+            >
+                🇬🇧 English
+            </button>
+
+        </div>
+
+    </header>
+
+    <main class="dashboard">
+
+        <div class="page-header">
+
+            <div>
+
+                <span
+                    class="page-label"
+                    data-i18n="dashboard.overview"
+                >
+                    Vue d'ensemble
+                </span>
+
+                <h1 data-i18n="nav.dashboard">
+                    Tableau de bord
+                </h1>
+
+                <p data-i18n="dashboard.welcome">
+                    Bienvenue dans votre espace de gestion des prospects.
+                </p>
+
+            </div>
+
+            <a
+                href="prospects.html"
+                class="btn-primary"
+                data-i18n="dashboard.newProspect"
+            >
+                + Nouveau prospect
+            </a>
+
+        </div>
+
+        <section
+            class="stats-grid"
+            aria-label="Statistiques principales"
+            data-i18n-aria-label="dashboard.mainStatistics"
+        >
+
+            <article class="stat-card">
+
+                <span
+                    class="stat-label"
+                    data-i18n="dashboard.totalProspects"
+                >
+                    Total prospects
+                </span>
+
+                <strong
+                    class="stat-value"
+                    id="total-prospects"
+                >
+                    0
+                </strong>
+
+                <span
+                    class="stat-description"
+                    data-i18n="dashboard.registeredProspects"
+                >
+                    Prospects enregistrés
+                </span>
+
+            </article>
+
+            <article class="stat-card">
+
+                <span
+                    class="stat-label"
+                    data-i18n="dashboard.newProspects"
+                >
+                    Nouveaux prospects
+                </span>
+
+                <strong
+                    class="stat-value"
+                    id="new-prospects"
+                >
+                    0
+                </strong>
+
+                <span
+                    class="stat-description"
+                    data-i18n="dashboard.thisWeek"
+                >
+                    Cette semaine
+                </span>
+
+            </article>
+
+            <article class="stat-card">
+
+                <span
+                    class="stat-label"
+                    data-i18n="dashboard.inProgress"
+                >
+                    Prospects en cours
+                </span>
+
+                <strong
+                    class="stat-value"
+                    id="in-progress-prospects"
+                >
+                    0
+                </strong>
+
+                <span
+                    class="stat-description"
+                    data-i18n="dashboard.toProcess"
+                >
+                    À traiter
+                </span>
+
+            </article>
+
+            <article class="stat-card">
+
+                <span
+                    class="stat-label"
+                    data-i18n="dashboard.converted"
+                >
+                    Prospects convertis
+                </span>
+
+                <strong
+                    class="stat-value"
+                    id="converted-prospects"
+                >
+                    0
+                </strong>
+
+                <span
+                    class="stat-description"
+                    data-i18n="dashboard.thisMonth"
+                >
+                    Ce mois-ci
+                </span>
+
+            </article>
+
+        </section>
+
+        <section
+            class="recent-prospects"
+            aria-labelledby="recent-prospects-title"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span
+                        class="section-label"
+                        data-i18n="dashboard.recentActivity"
+                    >
+                        Activité récente
+                    </span>
+
+                    <h2
+                        id="recent-prospects-title"
+                        data-i18n="dashboard.latestProspects"
+                    >
+                        Derniers prospects
+                    </h2>
+
+                    <p data-i18n="dashboard.recentlyAdded">
+                        Les prospects récemment ajoutés au CRM.
+                    </p>
+
+                </div>
+
+                <a
+                    href="prospects.html"
+                    class="view-all-link"
+                    data-i18n="dashboard.viewAll"
+                >
+                    Voir tous les prospects
+                </a>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th data-i18n="prospect.name">
+                                Prospect
+                            </th>
+
+                            <th data-i18n="prospect.company">
+                                Entreprise
+                            </th>
+
+                            <th data-i18n="prospect.city">
+                                Ville
+                            </th>
+
+                            <th data-i18n="prospect.status">
+                                Statut
+                            </th>
+
+                            <th data-i18n="prospect.salesperson">
+                                Commercial
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="dashboard-recent-prospects">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="JS/script.js"></script>
+
+</body>
+
+</html>
