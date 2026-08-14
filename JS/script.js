@@ -1824,16 +1824,6 @@ function getSalespersonById(salespersonId) {
 
 function getSalespersonDisplayName(prospect) {
 
-    const storedName =
-        String(
-            prospect?.salesperson ||
-            ""
-        ).trim();
-
-    if (storedName) {
-        return storedName;
-    }
-
     const salesperson =
         getSalespersonById(
             prospect?.salespersonId
@@ -1845,6 +1835,16 @@ function getSalespersonDisplayName(prospect) {
             `${salesperson.firstName} ${salesperson.lastName}`
                 .trim()
         );
+    }
+
+    const storedName =
+        String(
+            prospect?.salesperson ||
+            ""
+        ).trim();
+
+    if (storedName) {
+        return storedName;
     }
 
     return t(
