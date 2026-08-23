@@ -1420,10 +1420,24 @@ td strong {
 }
 
 
-.status-progress {
-    background: rgba(255, 159, 10, 0.12);
+.status-contacted {
+    background: rgba(90, 200, 250, 0.14);
 
-    color: #ad6800;
+    color: #0077a8;
+}
+
+
+.status-qualified {
+    background: rgba(52, 199, 89, 0.11);
+
+    color: #21883e;
+}
+
+
+.status-proposal-sent {
+    background: rgba(88, 86, 214, 0.11);
+
+    color: #514fc1;
 }
 
 
@@ -1434,14 +1448,22 @@ td strong {
 }
 
 
-.status-converted,
+.status-won,
 .status-active {
-    background: rgba(52, 199, 89, 0.11);
+    background: rgba(52, 199, 89, 0.14);
 
-    color: #21883e;
+    color: #187a35;
 }
 
 
+.status-lost {
+    background: rgba(255, 59, 48, 0.1);
+
+    color: #c62f27;
+}
+
+
+.status-archived,
 .status-inactive {
     background: rgba(142, 142, 147, 0.12);
 
