@@ -50,6 +50,12 @@ const modalClose =
 const dashboardRecentProspects =
     document.getElementById("dashboard-recent-prospects");
 
+const leadStatusChart =
+    document.getElementById("lead-status-chart");
+
+const pipelineTotalLeads =
+    document.getElementById("pipeline-total-leads");
+
 const frenchLanguageButton =
     document.getElementById("lang-fr");
 
@@ -638,6 +644,21 @@ const translations = {
 
         "dashboard.mainStatistics":
             "Statistiques principales",
+
+        "dashboard.pipelineLabel":
+            "Pipeline commercial",
+
+        "dashboard.pipelineTitle":
+            "Répartition des leads par statut",
+
+        "dashboard.pipelineDescription":
+            "Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.",
+
+        "dashboard.pipelineTotal":
+            "Total leads",
+
+        "dashboard.pipelineEmpty":
+            "Aucun lead enregistré pour le moment.",
 
         "dashboard.overview":
             "Vue d'ensemble",
@@ -1412,6 +1433,21 @@ const translations = {
 
         "dashboard.mainStatistics":
             "Main statistics",
+
+        "dashboard.pipelineLabel":
+            "Sales pipeline",
+
+        "dashboard.pipelineTitle":
+            "Lead distribution by status",
+
+        "dashboard.pipelineDescription":
+            "See at a glance how your leads are progressing through the sales cycle.",
+
+        "dashboard.pipelineTotal":
+            "Total leads",
+
+        "dashboard.pipelineEmpty":
+            "No leads registered yet.",
 
         "dashboard.overview":
             "Overview",
@@ -2451,7 +2487,7 @@ if (quoteForm) {
 
                 quoteForm.reset();
 
-                refreshDashboardStats();
+                renderLeadStatusChart();
 
             } catch (error) {
 
@@ -3492,91 +3528,157 @@ function isDateInCurrentMonth(value) {
     );
 }
 
-function calculateDashboardStats(prospects) {
+function calculateLeadStatusDistribution(prospects) {
+
+    const counts =
+        Object.fromEntries(
+            LEAD_STATUSES.map(
+                status => [
+                    status,
+                    0
+                ]
+            )
+        );
+
+    prospects.forEach(
+        prospect => {
+
+            const status =
+                normalizeLeadStatus(
+                    prospect.status
+                );
+
+            counts[status] += 1;
+        }
+    );
 
     return {
-
-        total:
-            prospects.length,
-
-        new:
-            prospects.filter(
-                prospect =>
-                    prospect.status ===
-                        "new" &&
-                    isDateInCurrentWeek(
-                        prospect.createdAt
-                    )
-            ).length,
-
-        inProgress:
-            prospects.filter(
-                prospect =>
-                    [
-                        "contacted",
-                        "qualified",
-                        "proposal_sent",
-                        "negotiation"
-                    ].includes(
-                        normalizeLeadStatus(
-                            prospect.status
-                        )
-                    )
-            ).length,
-
-        converted:
-            prospects.filter(
-                prospect =>
-                    normalizeLeadStatus(
-                        prospect.status
-                    ) === "won" &&
-                    isDateInCurrentMonth(
-                        prospect.wonAt ||
-                        prospect.convertedAt ||
-                        prospect.createdAt
-                    )
-            ).length
+        total: prospects.length,
+        counts
     };
 }
 
-function refreshDashboardStats() {
+function getStatusPercentage(count, total) {
 
-    const stats =
-        calculateDashboardStats(
-            getProspects()
+    if (!total) {
+        return 0;
+    }
+
+    return Math.round(
+        (count / total) * 100
+    );
+}
+
+function renderLeadStatusChart() {
+
+    if (!leadStatusChart) {
+        return;
+    }
+
+    const prospects =
+        getProspects();
+
+    const distribution =
+        calculateLeadStatusDistribution(
+            prospects
         );
 
-    const values = {
+    if (pipelineTotalLeads) {
 
-        "total-prospects":
-            stats.total,
+        pipelineTotalLeads.textContent =
+            distribution.total;
+    }
 
-        "new-prospects":
-            stats.new,
+    if (!distribution.total) {
 
-        "in-progress-prospects":
-            stats.inProgress,
+        leadStatusChart.innerHTML = `
+            <p class="lead-status-empty">
+                ${escapeHTML(
+                    t("dashboard.pipelineEmpty")
+                )}
+            </p>
+        `;
 
-        "converted-prospects":
-            stats.converted
-    };
+        return;
+    }
 
-    Object.entries(values)
-        .forEach(
-            ([id, value]) => {
+    leadStatusChart.innerHTML =
+        LEAD_STATUSES
+            .map(
+                status => {
 
-                const element =
-                    document.getElementById(
-                        id
-                    );
+                    const count =
+                        distribution.counts[
+                            status
+                        ];
 
-                if (element) {
+                    const percentage =
+                        getStatusPercentage(
+                            count,
+                            distribution.total
+                        );
 
-                    element.textContent =
-                        value;
+                    const statusInfo =
+                        getStatusInfo(
+                            status
+                        );
+
+                    return `
+                        <article
+                            class="lead-status-row"
+                            data-status="${escapeHTML(status)}"
+                        >
+
+                            <div class="lead-status-meta">
+
+                                <div class="lead-status-name">
+
+                                    <span
+                                        class="lead-status-dot ${statusInfo.className}"
+                                        aria-hidden="true"
+                                    ></span>
+
+                                    <span>
+                                        ${escapeHTML(statusInfo.text)}
+                                    </span>
+
+                                </div>
+
+                                <div class="lead-status-values">
+
+                                    <strong>
+                                        ${count}
+                                    </strong>
+
+                                    <span>
+                                        ${percentage}%
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div
+                                class="lead-status-track"
+                                role="progressbar"
+                                aria-valuemin="0"
+                                aria-valuemax="${distribution.total}"
+                                aria-valuenow="${count}"
+                                aria-label="${escapeHTML(statusInfo.text)}"
+                            >
+
+                                <span
+                                    class="lead-status-fill ${statusInfo.className}"
+                                    style="--status-width: ${percentage}%"
+                                ></span>
+
+                            </div>
+
+                        </article>
+                    `;
                 }
-            }
-        );
+            )
+            .join("");
 }
 
 function renderDashboardRecentProspects() {
@@ -3701,7 +3803,7 @@ function renderDashboardRecentProspects() {
 
 function renderDashboard() {
 
-    refreshDashboardStats();
+    renderLeadStatusChart();
 
     renderDashboardRecentProspects();
 }

@@ -133,110 +133,53 @@
         </div>
 
         <section
-            class="stats-grid"
-            aria-label="Statistiques principales"
-            data-i18n-aria-label="dashboard.mainStatistics"
+            class="lead-status-overview"
+            aria-labelledby="lead-status-overview-title"
         >
 
-            <article class="stat-card">
+            <div class="section-header lead-status-header">
 
-                <span
-                    class="stat-label"
-                    data-i18n="dashboard.totalProspects"
-                >
-                    Total prospects
-                </span>
+                <div>
 
-                <strong
-                    class="stat-value"
-                    id="total-prospects"
-                >
-                    0
-                </strong>
+                    <span
+                        class="section-label"
+                        data-i18n="dashboard.pipelineLabel"
+                    >
+                        Pipeline commercial
+                    </span>
 
-                <span
-                    class="stat-description"
-                    data-i18n="dashboard.registeredProspects"
-                >
-                    Prospects enregistrés
-                </span>
+                    <h2
+                        id="lead-status-overview-title"
+                        data-i18n="dashboard.pipelineTitle"
+                    >
+                        Répartition des leads par statut
+                    </h2>
 
-            </article>
+                    <p data-i18n="dashboard.pipelineDescription">
+                        Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.
+                    </p>
 
-            <article class="stat-card">
+                </div>
 
-                <span
-                    class="stat-label"
-                    data-i18n="dashboard.newProspects"
-                >
-                    Nouveaux prospects
-                </span>
+                <div class="pipeline-total">
 
-                <strong
-                    class="stat-value"
-                    id="new-prospects"
-                >
-                    0
-                </strong>
+                    <span data-i18n="dashboard.pipelineTotal">
+                        Total leads
+                    </span>
 
-                <span
-                    class="stat-description"
-                    data-i18n="dashboard.thisWeek"
-                >
-                    Cette semaine
-                </span>
+                    <strong id="pipeline-total-leads">
+                        0
+                    </strong>
 
-            </article>
+                </div>
 
-            <article class="stat-card">
+            </div>
 
-                <span
-                    class="stat-label"
-                    data-i18n="dashboard.inProgress"
-                >
-                    Prospects en cours
-                </span>
-
-                <strong
-                    class="stat-value"
-                    id="in-progress-prospects"
-                >
-                    0
-                </strong>
-
-                <span
-                    class="stat-description"
-                    data-i18n="dashboard.toProcess"
-                >
-                    À traiter
-                </span>
-
-            </article>
-
-            <article class="stat-card">
-
-                <span
-                    class="stat-label"
-                    data-i18n="dashboard.converted"
-                >
-                    Prospects convertis
-                </span>
-
-                <strong
-                    class="stat-value"
-                    id="converted-prospects"
-                >
-                    0
-                </strong>
-
-                <span
-                    class="stat-description"
-                    data-i18n="dashboard.thisMonth"
-                >
-                    Ce mois-ci
-                </span>
-
-            </article>
+            <div
+                class="lead-status-chart"
+                id="lead-status-chart"
+                aria-live="polite"
+            ></div>
 
         </section>
 

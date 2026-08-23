@@ -1130,9 +1130,233 @@ textarea:focus-visible {
 
 
 /* ============================================================
+   LEAD STATUS PIPELINE
+============================================================ */
+
+.lead-status-overview {
+    margin-bottom: 34px;
+}
+
+
+.lead-status-header {
+    align-items: center;
+}
+
+
+.pipeline-total {
+    min-width: 112px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    gap: 2px;
+}
+
+
+.pipeline-total span {
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.pipeline-total strong {
+    color: var(--color-text);
+
+    font-size: 30px;
+    font-weight: 720;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.04em;
+}
+
+
+.lead-status-chart {
+    display: grid;
+
+    gap: 17px;
+}
+
+
+.lead-status-row {
+    display: grid;
+
+    gap: 8px;
+}
+
+
+.lead-status-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+.lead-status-name {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--color-text);
+
+    font-size: 13px;
+    font-weight: 620;
+}
+
+
+.lead-status-dot {
+    width: 9px;
+    height: 9px;
+
+    flex: 0 0 9px;
+
+    padding: 0;
+
+    border-radius: 50%;
+}
+
+
+.lead-status-values {
+    display: flex;
+    align-items: baseline;
+
+    gap: 8px;
+
+    white-space: nowrap;
+}
+
+
+.lead-status-values strong {
+    min-width: 24px;
+
+    color: var(--color-text);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    text-align: right;
+}
+
+
+.lead-status-values span {
+    min-width: 36px;
+
+    color: var(--color-text-light);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-align: right;
+}
+
+
+.lead-status-track {
+    position: relative;
+
+    height: 12px;
+
+    overflow: hidden;
+
+    border-radius: var(--radius-pill);
+
+    background: rgba(118, 118, 128, 0.09);
+
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+
+.lead-status-fill {
+    display: block;
+
+    width: var(--status-width);
+    height: 100%;
+
+    min-width: 0;
+
+    border-radius: inherit;
+
+    transition:
+        width 0.45s ease;
+}
+
+
+.lead-status-fill.status-new,
+.lead-status-dot.status-new {
+    background: #007aff;
+}
+
+
+.lead-status-fill.status-contacted,
+.lead-status-dot.status-contacted {
+    background: #32ade6;
+}
+
+
+.lead-status-fill.status-qualified,
+.lead-status-dot.status-qualified {
+    background: #34c759;
+}
+
+
+.lead-status-fill.status-proposal-sent,
+.lead-status-dot.status-proposal-sent {
+    background: #5856d6;
+}
+
+
+.lead-status-fill.status-negotiation,
+.lead-status-dot.status-negotiation {
+    background: #af52de;
+}
+
+
+.lead-status-fill.status-won,
+.lead-status-dot.status-won {
+    background: #248a3d;
+}
+
+
+.lead-status-fill.status-lost,
+.lead-status-dot.status-lost {
+    background: #ff3b30;
+}
+
+
+.lead-status-fill.status-archived,
+.lead-status-dot.status-archived {
+    background: #8e8e93;
+}
+
+
+.lead-status-empty {
+    margin: 0;
+
+    padding: 26px;
+
+    border: 1px dashed var(--color-border-strong);
+
+    border-radius: var(--radius-md);
+
+    color: var(--color-text-secondary);
+
+    text-align: center;
+}
+
+
+/* ============================================================
    CRM CARDS
 ============================================================ */
 
+.lead-status-overview,
 .recent-prospects,
 .prospect-form-card,
 .prospects-list,
@@ -2140,6 +2364,7 @@ td strong {
     }
 
 
+    .lead-status-overview,
     .recent-prospects,
     .prospect-form-card,
     .prospects-list,
@@ -2156,6 +2381,21 @@ td strong {
         align-items: flex-start;
 
         flex-direction: column;
+    }
+
+
+    .pipeline-total {
+        align-items: flex-start;
+    }
+
+
+    .lead-status-meta {
+        gap: 10px;
+    }
+
+
+    .lead-status-chart {
+        gap: 15px;
     }
 
 
