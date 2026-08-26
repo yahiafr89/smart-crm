@@ -2,484 +2,545 @@
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title data-i18n="salespeople.pageTitle">
         Commerciaux - Smart CRM
     </title>
 
-    <link rel="stylesheet" href="CSS/style.css">
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+
 </head>
 
-<body>
+<body class="crm-app-body">
 
-    <header class="main-header">
+    <div class="crm-app-shell">
 
-        <div class="logo">
-            <a href="dashboard.html">Smart CRM</a>
-        </div>
+        <aside class="crm-sidebar">
 
-        <nav
-            class="main-nav"
-            aria-label="Navigation principale"
-            data-i18n-aria-label="nav.mainLabel"
-        >
-
-            <a
-                href="dashboard.html"
-                data-i18n="nav.dashboard"
-            >
-                Dashboard
-            </a>
-
-            <a
-                href="prospects.html"
-                data-i18n="nav.prospects"
-            >
-                Prospects
-            </a>
-
-            <a
-                href="commerciaux.html"
-                class="active"
-                aria-current="page"
-                data-i18n="nav.salespeople"
-            >
-                Commerciaux
-            </a>
-
-            <a
-                href="administration.html"
-                data-i18n="nav.administration"
-            >
-                Administration
-            </a>
-
-        </nav>
-
-        <div
-            class="language-selector"
-            aria-label="Choix de la langue"
-            data-i18n-aria-label="language.selectorLabel"
-        >
-
-            <button
-                type="button"
-                id="lang-fr"
-                data-i18n="language.french"
-                aria-label="Français"
-            >
-                🇫🇷 Français
-            </button>
-
-            <button
-                type="button"
-                id="lang-en"
-                data-i18n="language.english"
-                aria-label="English"
-            >
-                🇬🇧 English
-            </button>
-
-        </div>
-
-    </header>
-
-    <main class="salespeople-page">
-
-        <div class="page-header">
-
-            <div>
-
-                <h1 data-i18n="salespeople.title">
-                    Commerciaux
-                </h1>
-
-                <p data-i18n="salespeople.pageDescription">
-                    Gérez les membres de votre équipe commerciale.
-                </p>
-
-            </div>
-
-            <button
-                type="button"
-                class="btn-primary"
-                id="show-salesperson-form"
-                data-i18n="salespeople.addButton"
-            >
-                + Ajouter un commercial
-            </button>
-
-        </div>
-
-        <section
-            class="salesperson-form-section"
-            id="salesperson-form-section"
-        >
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2 data-i18n="salespeople.addTitle">
-                        Ajouter un commercial
-                    </h2>
-
-                    <p data-i18n="salespeople.addDescription">
-                        Enregistrez les informations d'un nouveau membre de l'équipe.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <form
-                class="salesperson-form"
-                id="salesperson-form"
-            >
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label
-                            for="salesperson-lastname"
-                            data-i18n="salespeople.lastNameRequired"
-                        >
-                            Nom *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="salesperson-lastname"
-                            name="lastname"
-                            data-i18n-placeholder="salespeople.lastNamePlaceholder"
-                            placeholder="Nom"
-                            autocomplete="family-name"
-                            required
-                        >
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label
-                            for="salesperson-firstname"
-                            data-i18n="salespeople.firstNameRequired"
-                        >
-                            Prénom *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="salesperson-firstname"
-                            name="firstname"
-                            data-i18n-placeholder="salespeople.firstNamePlaceholder"
-                            placeholder="Prénom"
-                            autocomplete="given-name"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label
-                            for="salesperson-email"
-                            data-i18n="salespeople.emailRequired"
-                        >
-                            E-mail professionnel *
-                        </label>
-
-                        <input
-                            type="email"
-                            id="salesperson-email"
-                            name="email"
-                            data-i18n-placeholder="salespeople.emailPlaceholder"
-                            placeholder="prenom@entreprise.com"
-                            autocomplete="email"
-                            required
-                        >
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label
-                            for="salesperson-phone"
-                            data-i18n="salespeople.phone"
-                        >
-                            Téléphone
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="salesperson-phone"
-                            name="phone"
-                            data-i18n-placeholder="salespeople.phonePlaceholder"
-                            placeholder="+212 6..."
-                            autocomplete="tel"
-                        >
-
-                    </div>
-
-                </div>
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label
-                            for="salesperson-role"
-                            data-i18n="salespeople.roleRequired"
-                        >
-                            Rôle *
-                        </label>
-
-                        <select
-                            id="salesperson-role"
-                            name="role"
-                            required
-                        >
-
-                            <option
-                                value=""
-                                data-i18n="salespeople.rolePlaceholder"
-                            >
-                                Choisissez un rôle
-                            </option>
-
-                            <option
-                                value="commercial"
-                                data-i18n="roles.commercial"
-                            >
-                                Commercial
-                            </option>
-
-                            <option
-                                value="manager"
-                                data-i18n="roles.manager"
-                            >
-                                Manager
-                            </option>
-
-                            <option
-                                value="administrator"
-                                data-i18n="roles.administrator"
-                            >
-                                Administrateur
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label
-                            for="salesperson-status"
-                            data-i18n="salespeople.status"
-                        >
-                            Statut
-                        </label>
-
-                        <select
-                            id="salesperson-status"
-                            name="status"
-                        >
-
-                            <option
-                                value="active"
-                                data-i18n="status.active"
-                            >
-                                Actif
-                            </option>
-
-                            <option
-                                value="inactive"
-                                data-i18n="status.inactive"
-                            >
-                                Inactif
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-                <div class="form-actions">
-
-                    <button
-                        type="reset"
-                        class="btn-secondary"
-                        id="salesperson-cancel"
-                        data-i18n="actions.cancel"
-                    >
-                        Annuler
-                    </button>
-
-                    <button
-                        type="submit"
-                        class="btn-primary"
-                        id="salesperson-submit"
-                        data-i18n="salespeople.addSubmit"
-                    >
-                        Ajouter le commercial
-                    </button>
-
-                </div>
-
-            </form>
-
-        </section>
-
-        <section class="salespeople-list-section">
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2 data-i18n="salespeople.teamTitle">
-                        Équipe commerciale
-                    </h2>
-
-                    <p data-i18n="salespeople.teamDescription">
-                        Consultez les membres de votre équipe.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="table-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th data-i18n="salespeople.lastName">
-                                Nom
-                            </th>
-
-                            <th data-i18n="prospect.email">
-                                E-mail
-                            </th>
-
-                            <th data-i18n="prospect.phone">
-                                Téléphone
-                            </th>
-
-                            <th data-i18n="salespeople.role">
-                                Rôle
-                            </th>
-
-                            <th data-i18n="prospect.status">
-                                Statut
-                            </th>
-
-                            <th data-i18n="prospects.actions">
-                                Actions
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="salespeople-table-body"></tbody>
-
-                </table>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <footer class="main-footer">
-
-        <div class="footer-content">
-
-            <div class="footer-brand">
-
-                <a href="dashboard.html">
-                    Smart CRM
-                </a>
-
-                <p data-i18n="footer.crmDescription">
-                    Gestion intelligente des prospects et des équipes commerciales.
-                </p>
-
-            </div>
-
-            <div class="footer-links">
-
-                <h3 data-i18n="footer.navigation">
-                    Navigation
-                </h3>
+            <div class="crm-sidebar-top">
 
                 <a
                     href="dashboard.html"
-                    data-i18n="nav.dashboard"
+                    class="crm-brand"
+                    aria-label="Smart CRM"
                 >
-                    Dashboard
+
+                    <span
+                        class="brand-mark"
+                        aria-hidden="true"
+                    >
+
+                        <svg
+                            viewBox="0 0 32 32"
+                            role="img"
+                            focusable="false"
+                        >
+                            <path d="M7 22.5V17.5M16 22.5V12.5M25 22.5V7.5"></path>
+                            <path d="M6.5 9.5L13 7L18.5 9.5L26 4.5"></path>
+
+                            <circle cx="6.5" cy="9.5" r="1.8"></circle>
+                            <circle cx="13" cy="7" r="1.8"></circle>
+                            <circle cx="18.5" cy="9.5" r="1.8"></circle>
+                            <circle cx="26" cy="4.5" r="1.8"></circle>
+                        </svg>
+
+                    </span>
+
+                    <span class="crm-brand-text">
+
+                        <strong>
+                            Smart CRM
+                        </strong>
+
+                        <small>
+                            Workspace
+                        </small>
+
+                    </span>
+
                 </a>
 
-                <a
-                    href="prospects.html"
-                    data-i18n="nav.prospects"
+                <nav
+                    class="crm-sidebar-nav"
+                    aria-label="Navigation principale"
+                    data-i18n-aria-label="nav.mainLabel"
                 >
-                    Prospects
-                </a>
 
-                <a
-                    href="commerciaux.html"
-                    class="active"
-                    aria-current="page"
-                    data-i18n="nav.salespeople"
-                >
-                    Commerciaux
-                </a>
+                    <a href="dashboard.html">
 
-                <a
-                    href="administration.html"
-                    data-i18n="nav.administration"
-                >
-                    Administration
-                </a>
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ▦
+                        </span>
+
+                        <span data-i18n="nav.dashboard">
+                            Tableau de bord
+                        </span>
+
+                    </a>
+
+                    <a href="prospects.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ◇
+                        </span>
+
+                        <span data-i18n="nav.prospects">
+                            Prospects
+                        </span>
+
+                    </a>
+
+                    <a
+                        href="commerciaux.html"
+                        class="active"
+                        aria-current="page"
+                    >
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ♙
+                        </span>
+
+                        <span data-i18n="nav.salespeople">
+                            Commerciaux
+                        </span>
+
+                    </a>
+
+                    <a href="administration.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ⚙
+                        </span>
+
+                        <span data-i18n="nav.administration">
+                            Administration
+                        </span>
+
+                    </a>
+
+                </nav>
 
             </div>
 
-            <div class="footer-contact">
+            <div class="crm-sidebar-bottom">
 
-                <h3>
-                    Smart CRM
-                </h3>
+                <div class="crm-user-card">
 
-                <p data-i18n="footer.internalSpace">
-                    Espace de gestion interne
-                </p>
+                    <span
+                        class="crm-user-avatar"
+                        aria-hidden="true"
+                    >
+                        DM
+                    </span>
+
+                    <div class="crm-user-meta">
+
+                        <strong>
+                            Compte démo
+                        </strong>
+
+                        <span>
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="crm-user-menu-button"
+                        aria-label="Options utilisateur"
+                    >
+                        •••
+                    </button>
+
+                </div>
 
             </div>
 
+        </aside>
+
+        <div class="crm-app-main">
+
+            <header class="crm-topbar">
+
+                <div class="crm-topbar-title">
+
+                    <span class="crm-topbar-eyebrow">
+                        Équipe commerciale
+                    </span>
+
+                    <h1 data-i18n="salespeople.title">
+                        Commerciaux
+                    </h1>
+
+                </div>
+
+                <div class="crm-topbar-actions">
+
+                    <div
+                        class="language-selector"
+                        aria-label="Choix de la langue"
+                        data-i18n-aria-label="language.selectorLabel"
+                    >
+
+                        <button
+                            type="button"
+                            id="lang-fr"
+                            data-i18n="language.french"
+                            aria-label="Français"
+                        >
+                            🇫🇷 Français
+                        </button>
+
+                        <button
+                            type="button"
+                            id="lang-en"
+                            data-i18n="language.english"
+                            aria-label="English"
+                        >
+                            🇬🇧 English
+                        </button>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-primary"
+                        id="show-salesperson-form"
+                        data-i18n="salespeople.addButton"
+                    >
+                        + Ajouter un commercial
+                    </button>
+
+                </div>
+
+            </header>
+
+            <main class="salespeople-page crm-dashboard-main">
+
+                <section class="crm-page-intro">
+
+                    <p data-i18n="salespeople.pageDescription">
+                        Gérez les membres de votre équipe commerciale.
+                    </p>
+
+                </section>
+
+                <section
+                    class="salesperson-form-section"
+                    id="salesperson-form-section"
+                >
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2 data-i18n="salespeople.addTitle">
+                                Ajouter un commercial
+                            </h2>
+
+                            <p data-i18n="salespeople.addDescription">
+                                Enregistrez les informations d'un nouveau membre de l'équipe.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="salesperson-form"
+                        id="salesperson-form"
+                    >
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label
+                                    for="salesperson-lastname"
+                                    data-i18n="salespeople.lastNameRequired"
+                                >
+                                    Nom *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="salesperson-lastname"
+                                    name="lastname"
+                                    data-i18n-placeholder="salespeople.lastNamePlaceholder"
+                                    placeholder="Nom"
+                                    autocomplete="family-name"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label
+                                    for="salesperson-firstname"
+                                    data-i18n="salespeople.firstNameRequired"
+                                >
+                                    Prénom *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="salesperson-firstname"
+                                    name="firstname"
+                                    data-i18n-placeholder="salespeople.firstNamePlaceholder"
+                                    placeholder="Prénom"
+                                    autocomplete="given-name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label
+                                    for="salesperson-email"
+                                    data-i18n="salespeople.emailRequired"
+                                >
+                                    E-mail professionnel *
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="salesperson-email"
+                                    name="email"
+                                    data-i18n-placeholder="salespeople.emailPlaceholder"
+                                    placeholder="prenom@entreprise.com"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label
+                                    for="salesperson-phone"
+                                    data-i18n="salespeople.phone"
+                                >
+                                    Téléphone
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="salesperson-phone"
+                                    name="phone"
+                                    data-i18n-placeholder="salespeople.phonePlaceholder"
+                                    placeholder="+212 6..."
+                                    autocomplete="tel"
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label
+                                    for="salesperson-role"
+                                    data-i18n="salespeople.roleRequired"
+                                >
+                                    Rôle *
+                                </label>
+
+                                <select
+                                    id="salesperson-role"
+                                    name="role"
+                                    required
+                                >
+
+                                    <option
+                                        value=""
+                                        data-i18n="salespeople.rolePlaceholder"
+                                    >
+                                        Choisissez un rôle
+                                    </option>
+
+                                    <option
+                                        value="commercial"
+                                        data-i18n="roles.commercial"
+                                    >
+                                        Commercial
+                                    </option>
+
+                                    <option
+                                        value="manager"
+                                        data-i18n="roles.manager"
+                                    >
+                                        Manager
+                                    </option>
+
+                                    <option
+                                        value="administrator"
+                                        data-i18n="roles.administrator"
+                                    >
+                                        Administrateur
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label
+                                    for="salesperson-status"
+                                    data-i18n="salespeople.status"
+                                >
+                                    Statut
+                                </label>
+
+                                <select
+                                    id="salesperson-status"
+                                    name="status"
+                                >
+
+                                    <option
+                                        value="active"
+                                        data-i18n="status.active"
+                                    >
+                                        Actif
+                                    </option>
+
+                                    <option
+                                        value="inactive"
+                                        data-i18n="status.inactive"
+                                    >
+                                        Inactif
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button
+                                type="reset"
+                                class="btn-secondary"
+                                id="salesperson-cancel"
+                                data-i18n="actions.cancel"
+                            >
+                                Annuler
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn-primary"
+                                id="salesperson-submit"
+                                data-i18n="salespeople.addSubmit"
+                            >
+                                Ajouter le commercial
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <section class="salespeople-list-section">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2 data-i18n="salespeople.teamTitle">
+                                Équipe commerciale
+                            </h2>
+
+                            <p data-i18n="salespeople.teamDescription">
+                                Consultez les membres de votre équipe.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th data-i18n="salespeople.lastName">
+                                        Nom
+                                    </th>
+
+                                    <th data-i18n="prospect.email">
+                                        E-mail
+                                    </th>
+
+                                    <th data-i18n="prospect.phone">
+                                        Téléphone
+                                    </th>
+
+                                    <th data-i18n="salespeople.role">
+                                        Rôle
+                                    </th>
+
+                                    <th data-i18n="prospect.status">
+                                        Statut
+                                    </th>
+
+                                    <th data-i18n="prospects.actions">
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="salespeople-table-body"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </main>
+
         </div>
 
-        <div class="footer-bottom">
-
-            <p data-i18n="footer.copyright">
-                © 2026 Smart CRM. Tous droits réservés.
-            </p>
-
-        </div>
-
-    </footer>
+    </div>
 
     <script src="JS/script.js"></script>
 

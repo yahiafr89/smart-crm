@@ -2,7 +2,6 @@
 <html lang="fr">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -18,253 +17,372 @@
         rel="stylesheet"
         href="CSS/style.css"
     >
-
 </head>
 
-<body>
+<body class="crm-app-body">
 
-    <header class="main-header">
+    <div class="crm-app-shell">
 
-        <div class="logo">
+        <aside class="crm-sidebar">
 
-            <a href="dashboard.html">
-                Smart CRM
-            </a>
-
-        </div>
-
-        <nav
-            class="main-nav"
-            aria-label="Navigation principale"
-            data-i18n-aria-label="nav.mainLabel"
-        >
-
-            <a
-                href="dashboard.html"
-                class="active"
-                aria-current="page"
-                data-i18n="nav.dashboard"
-            >
-                Tableau de bord
-            </a>
-
-            <a
-                href="prospects.html"
-                data-i18n="nav.prospects"
-            >
-                Prospects
-            </a>
-
-            <a
-                href="commerciaux.html"
-                data-i18n="nav.salespeople"
-            >
-                Commerciaux
-            </a>
-
-            <a
-                href="administration.html"
-                data-i18n="nav.administration"
-            >
-                Administration
-            </a>
-
-        </nav>
-
-        <div
-            class="language-selector"
-            aria-label="Choix de la langue"
-            data-i18n-aria-label="language.selectorLabel"
-        >
-
-            <button
-                type="button"
-                id="lang-fr"
-                data-i18n="language.french"
-                aria-label="Français"
-            >
-                🇫🇷 Français
-            </button>
-
-            <button
-                type="button"
-                id="lang-en"
-                data-i18n="language.english"
-                aria-label="English"
-            >
-                🇬🇧 English
-            </button>
-
-        </div>
-
-    </header>
-
-    <main class="dashboard">
-
-        <div class="page-header">
-
-            <div>
-
-                <span
-                    class="page-label"
-                    data-i18n="dashboard.overview"
-                >
-                    Vue d'ensemble
-                </span>
-
-                <h1 data-i18n="nav.dashboard">
-                    Tableau de bord
-                </h1>
-
-                <p data-i18n="dashboard.welcome">
-                    Bienvenue dans votre espace de gestion des prospects.
-                </p>
-
-            </div>
-
-            <a
-                href="prospects.html"
-                class="btn-primary"
-                data-i18n="dashboard.newProspect"
-            >
-                + Nouveau prospect
-            </a>
-
-        </div>
-
-        <section
-            class="lead-status-overview"
-            aria-labelledby="lead-status-overview-title"
-        >
-
-            <div class="section-header lead-status-header">
-
-                <div>
-
-                    <span
-                        class="section-label"
-                        data-i18n="dashboard.pipelineLabel"
-                    >
-                        Pipeline commercial
-                    </span>
-
-                    <h2
-                        id="lead-status-overview-title"
-                        data-i18n="dashboard.pipelineTitle"
-                    >
-                        Répartition des leads par statut
-                    </h2>
-
-                    <p data-i18n="dashboard.pipelineDescription">
-                        Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.
-                    </p>
-
-                </div>
-
-                <div class="pipeline-total">
-
-                    <span data-i18n="dashboard.pipelineTotal">
-                        Total leads
-                    </span>
-
-                    <strong id="pipeline-total-leads">
-                        0
-                    </strong>
-
-                </div>
-
-            </div>
-
-            <div
-                class="lead-status-chart"
-                id="lead-status-chart"
-                aria-live="polite"
-            ></div>
-
-        </section>
-
-        <section
-            class="recent-prospects"
-            aria-labelledby="recent-prospects-title"
-        >
-
-            <div class="section-header">
-
-                <div>
-
-                    <span
-                        class="section-label"
-                        data-i18n="dashboard.recentActivity"
-                    >
-                        Activité récente
-                    </span>
-
-                    <h2
-                        id="recent-prospects-title"
-                        data-i18n="dashboard.latestProspects"
-                    >
-                        Derniers prospects
-                    </h2>
-
-                    <p data-i18n="dashboard.recentlyAdded">
-                        Les prospects récemment ajoutés au CRM.
-                    </p>
-
-                </div>
+            <div class="crm-sidebar-top">
 
                 <a
-                    href="prospects.html"
-                    class="view-all-link"
-                    data-i18n="dashboard.viewAll"
+                    href="dashboard.html"
+                    class="crm-brand"
+                    aria-label="Smart CRM"
                 >
-                    Voir tous les prospects
+
+                    <span
+                        class="brand-mark"
+                        aria-hidden="true"
+                    >
+
+                        <svg
+                            viewBox="0 0 32 32"
+                            role="img"
+                            focusable="false"
+                        >
+                            <path d="M7 22.5V17.5M16 22.5V12.5M25 22.5V7.5"></path>
+                            <path d="M6.5 9.5L13 7L18.5 9.5L26 4.5"></path>
+
+                            <circle cx="6.5" cy="9.5" r="1.8"></circle>
+                            <circle cx="13" cy="7" r="1.8"></circle>
+                            <circle cx="18.5" cy="9.5" r="1.8"></circle>
+                            <circle cx="26" cy="4.5" r="1.8"></circle>
+                        </svg>
+
+                    </span>
+
+                    <span class="crm-brand-text">
+
+                        <strong>
+                            Smart CRM
+                        </strong>
+
+                        <small>
+                            Workspace
+                        </small>
+
+                    </span>
+
                 </a>
 
+                <nav
+                    class="crm-sidebar-nav"
+                    aria-label="Navigation principale"
+                    data-i18n-aria-label="nav.mainLabel"
+                >
+
+                    <a
+                        href="dashboard.html"
+                        class="active"
+                        aria-current="page"
+                    >
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ▦
+                        </span>
+
+                        <span data-i18n="nav.dashboard">
+                            Tableau de bord
+                        </span>
+
+                    </a>
+
+                    <a href="prospects.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ◇
+                        </span>
+
+                        <span data-i18n="nav.prospects">
+                            Prospects
+                        </span>
+
+                    </a>
+
+                    <a href="commerciaux.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ♙
+                        </span>
+
+                        <span data-i18n="nav.salespeople">
+                            Commerciaux
+                        </span>
+
+                    </a>
+
+                    <a href="administration.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ⚙
+                        </span>
+
+                        <span data-i18n="nav.administration">
+                            Administration
+                        </span>
+
+                    </a>
+
+                </nav>
+
             </div>
 
-            <div class="table-container">
+            <div class="crm-sidebar-bottom">
 
-                <table>
+                <div class="crm-user-card">
 
-                    <thead>
+                    <span
+                        class="crm-user-avatar"
+                        aria-hidden="true"
+                    >
+                        DM
+                    </span>
 
-                        <tr>
+                    <div class="crm-user-meta">
 
-                            <th data-i18n="prospect.name">
-                                Prospect
-                            </th>
+                        <strong>
+                            Compte démo
+                        </strong>
 
-                            <th data-i18n="prospect.company">
-                                Entreprise
-                            </th>
+                        <span>
+                            Administrator
+                        </span>
 
-                            <th data-i18n="prospect.city">
-                                Ville
-                            </th>
+                    </div>
 
-                            <th data-i18n="prospect.status">
-                                Statut
-                            </th>
+                    <button
+                        type="button"
+                        class="crm-user-menu-button"
+                        aria-label="Options utilisateur"
+                    >
+                        •••
+                    </button>
 
-                            <th data-i18n="prospect.salesperson">
-                                Commercial
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="dashboard-recent-prospects">
-
-                    </tbody>
-
-                </table>
+                </div>
 
             </div>
 
-        </section>
+        </aside>
 
-    </main>
+        <div class="crm-app-main">
+
+            <header class="crm-topbar">
+
+                <div class="crm-topbar-title">
+
+                    <span
+                        class="crm-topbar-eyebrow"
+                        data-i18n="dashboard.overview"
+                    >
+                        Vue d'ensemble
+                    </span>
+
+                    <h1 data-i18n="nav.dashboard">
+                        Tableau de bord
+                    </h1>
+
+                </div>
+
+                <div class="crm-topbar-actions">
+
+                    <div
+                        class="language-selector"
+                        aria-label="Choix de la langue"
+                        data-i18n-aria-label="language.selectorLabel"
+                    >
+
+                        <button
+                            type="button"
+                            id="lang-fr"
+                            data-i18n="language.french"
+                            aria-label="Français"
+                        >
+                            🇫🇷 Français
+                        </button>
+
+                        <button
+                            type="button"
+                            id="lang-en"
+                            data-i18n="language.english"
+                            aria-label="English"
+                        >
+                            🇬🇧 English
+                        </button>
+
+                    </div>
+
+                    <a
+                        href="prospects.html"
+                        class="btn-primary crm-new-prospect-button"
+                        data-i18n="dashboard.newProspect"
+                    >
+                        + Nouveau prospect
+                    </a>
+
+                </div>
+
+            </header>
+
+            <main class="dashboard crm-dashboard-main">
+
+                <section class="crm-page-intro">
+
+                    <p data-i18n="dashboard.welcome">
+                        Bienvenue dans votre espace de gestion des prospects.
+                    </p>
+
+                </section>
+
+                <section
+                    class="lead-status-overview"
+                    aria-labelledby="lead-status-overview-title"
+                >
+
+                    <div class="section-header lead-status-header">
+
+                        <div>
+
+                            <span
+                                class="section-label"
+                                data-i18n="dashboard.pipelineLabel"
+                            >
+                                Pipeline commercial
+                            </span>
+
+                            <h2
+                                id="lead-status-overview-title"
+                                data-i18n="dashboard.pipelineTitle"
+                            >
+                                Répartition des leads par statut
+                            </h2>
+
+                            <p data-i18n="dashboard.pipelineDescription">
+                                Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.
+                            </p>
+
+                        </div>
+
+                        <div class="pipeline-total">
+
+                            <span data-i18n="dashboard.pipelineTotal">
+                                Total leads
+                            </span>
+
+                            <strong id="pipeline-total-leads">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="lead-status-chart"
+                        id="lead-status-chart"
+                        aria-live="polite"
+                    ></div>
+
+                </section>
+
+                <section
+                    class="recent-prospects"
+                    aria-labelledby="recent-prospects-title"
+                >
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <span
+                                class="section-label"
+                                data-i18n="dashboard.recentActivity"
+                            >
+                                Activité récente
+                            </span>
+
+                            <h2
+                                id="recent-prospects-title"
+                                data-i18n="dashboard.latestProspects"
+                            >
+                                Derniers prospects
+                            </h2>
+
+                            <p data-i18n="dashboard.recentlyAdded">
+                                Les prospects récemment ajoutés au CRM.
+                            </p>
+
+                        </div>
+
+                        <a
+                            href="prospects.html"
+                            class="view-all-link"
+                            data-i18n="dashboard.viewAll"
+                        >
+                            Voir tous les prospects
+                        </a>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th data-i18n="prospect.name">
+                                        Prospect
+                                    </th>
+
+                                    <th data-i18n="prospect.company">
+                                        Entreprise
+                                    </th>
+
+                                    <th data-i18n="prospect.city">
+                                        Ville
+                                    </th>
+
+                                    <th data-i18n="prospect.status">
+                                        Statut
+                                    </th>
+
+                                    <th data-i18n="prospect.salesperson">
+                                        Commercial
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="dashboard-recent-prospects"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
 
     <script src="JS/script.js"></script>
 

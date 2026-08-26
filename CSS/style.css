@@ -925,6 +925,740 @@ textarea:focus-visible {
 
 
 /* ============================================================
+   CRM APPLICATION LAYOUT
+============================================================ */
+
+.crm-app-body {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f7f9fc 0%,
+            #f3f6fb 100%
+        );
+}
+
+
+.crm-app-shell {
+    min-height: 100vh;
+
+    display: grid;
+
+    grid-template-columns:
+        252px
+        minmax(0, 1fr);
+}
+
+
+.crm-sidebar {
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 24px 18px;
+
+    border-right:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    background:
+        linear-gradient(
+            180deg,
+            #0a1533 0%,
+            var(--color-navy) 52%,
+            #0e1d42 100%
+        );
+
+    color: #ffffff;
+
+    overflow-y: auto;
+}
+
+
+.crm-sidebar-top {
+    display: grid;
+
+    gap: 34px;
+}
+
+
+.crm-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 2px 6px;
+}
+
+
+.crm-brand .brand-mark {
+    width: 38px;
+    height: 38px;
+
+    flex-basis: 38px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1c3f85,
+            #2f6fed
+        );
+
+    box-shadow:
+        0 10px 28px rgba(
+            37,
+            99,
+            235,
+            0.28
+        );
+}
+
+
+.crm-brand-text {
+    display: grid;
+
+    gap: 1px;
+}
+
+
+.crm-brand-text strong {
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: -0.025em;
+}
+
+
+.crm-brand-text small {
+    color: rgba(
+        226,
+        232,
+        240,
+        0.52
+    );
+
+    font-size: 10px;
+    font-weight: 500;
+
+    letter-spacing: 0.04em;
+}
+
+
+.crm-sidebar-nav {
+    display: grid;
+
+    gap: 7px;
+}
+
+
+.crm-sidebar-nav a {
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px 12px;
+
+    border:
+        1px solid transparent;
+
+    border-radius: 12px;
+
+    color: rgba(
+        226,
+        232,
+        240,
+        0.7
+    );
+
+    font-size: 13px;
+    font-weight: 550;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.crm-sidebar-nav a:hover {
+    color: #ffffff;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.055
+        );
+
+    transform:
+        translateX(2px);
+}
+
+
+.crm-sidebar-nav a.active {
+    color: #ffffff;
+
+    border-color:
+        rgba(
+            96,
+            165,
+            250,
+            0.16
+        );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(
+                59,
+                130,
+                246,
+                0.2
+            ),
+            rgba(
+                124,
+                58,
+                237,
+                0.1
+            )
+        );
+
+    box-shadow:
+        inset 3px 0 0 #60a5fa;
+}
+
+
+.crm-nav-icon {
+    width: 22px;
+    height: 22px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 22px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    color: #9ec5ff;
+
+    font-size: 12px;
+}
+
+
+.crm-sidebar-nav a.active .crm-nav-icon {
+    background:
+        rgba(
+            96,
+            165,
+            250,
+            0.16
+        );
+
+    color: #ffffff;
+}
+
+
+.crm-sidebar-bottom {
+    padding-top: 24px;
+}
+
+
+.crm-user-card {
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    border:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border-radius: 14px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.045
+        );
+}
+
+
+.crm-user-avatar {
+    width: 34px;
+    height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2f6fed,
+            #7c3aed
+        );
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.crm-user-meta {
+    min-width: 0;
+
+    display: grid;
+
+    gap: 1px;
+}
+
+
+.crm-user-meta strong {
+    overflow: hidden;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.crm-user-meta span {
+    overflow: hidden;
+
+    color:
+        rgba(
+            226,
+            232,
+            240,
+            0.5
+        );
+
+    font-size: 9px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.crm-user-menu-button {
+    border: none;
+
+    padding: 4px;
+
+    background: transparent;
+
+    color:
+        rgba(
+            226,
+            232,
+            240,
+            0.5
+        );
+
+    cursor: pointer;
+}
+
+
+.crm-app-main {
+    min-width: 0;
+}
+
+
+.crm-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 850;
+
+    min-height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    padding:
+        14px
+        clamp(
+            24px,
+            3vw,
+            42px
+        );
+
+    border-bottom:
+        1px solid
+        rgba(
+            15,
+            23,
+            42,
+            0.07
+        );
+
+    background:
+        rgba(
+            248,
+            250,
+            253,
+            0.84
+        );
+
+    backdrop-filter:
+        blur(22px)
+        saturate(170%);
+
+    -webkit-backdrop-filter:
+        blur(22px)
+        saturate(170%);
+}
+
+
+.crm-topbar-title {
+    min-width: 0;
+
+    display: grid;
+
+    gap: 2px;
+}
+
+
+.crm-topbar-eyebrow {
+    color:
+        var(
+            --color-text-light
+        );
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+}
+
+
+.crm-topbar-title h1 {
+    margin: 0;
+
+    color: var(--color-navy);
+
+    font-size: 24px;
+    font-weight: 700;
+
+    letter-spacing: -0.04em;
+
+    line-height: 1.2;
+}
+
+
+.crm-topbar-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.crm-new-prospect-button {
+    min-height: 40px;
+
+    padding-inline: 15px;
+}
+
+
+.crm-dashboard-main {
+    max-width: 1480px;
+
+    padding:
+        34px
+        clamp(
+            24px,
+            3vw,
+            42px
+        )
+        64px;
+}
+
+
+.crm-page-intro {
+    margin-bottom: 24px;
+}
+
+
+.crm-page-intro p {
+    margin: 0;
+
+    color:
+        var(
+            --color-text-secondary
+        );
+
+    font-size: 14px;
+}
+
+
+.crm-app-body .lead-status-overview,
+.crm-app-body .recent-prospects {
+    border-color:
+        rgba(
+            15,
+            23,
+            42,
+            0.065
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.88
+        );
+
+    box-shadow:
+        0 14px 38px
+        rgba(
+            15,
+            23,
+            42,
+            0.055
+        );
+}
+
+
+@media (max-width: 1050px) {
+
+    .crm-app-shell {
+        grid-template-columns:
+            214px
+            minmax(0, 1fr);
+    }
+
+
+    .crm-sidebar {
+        padding-inline: 14px;
+    }
+
+
+    .crm-brand-text small,
+    .crm-user-meta span {
+        display: none;
+    }
+
+
+    .crm-topbar {
+        padding-inline: 22px;
+    }
+
+
+    .crm-dashboard-main {
+        padding-inline: 22px;
+    }
+
+}
+
+
+@media (max-width: 820px) {
+
+    .crm-app-shell {
+        display: block;
+    }
+
+
+    .crm-sidebar {
+        position: relative;
+
+        width: 100%;
+        height: auto;
+
+        display: block;
+
+        padding:
+            14px
+            16px;
+
+        overflow: visible;
+    }
+
+
+    .crm-sidebar-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 14px;
+    }
+
+
+    .crm-brand {
+        flex-shrink: 0;
+    }
+
+
+    .crm-brand-text small {
+        display: none;
+    }
+
+
+    .crm-sidebar-nav {
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .crm-sidebar-nav a {
+        min-height: 40px;
+
+        flex-shrink: 0;
+
+        padding:
+            8px
+            10px;
+
+        font-size: 11px;
+    }
+
+
+    .crm-sidebar-nav a.active {
+        box-shadow: none;
+    }
+
+
+    .crm-nav-icon {
+        display: none;
+    }
+
+
+    .crm-sidebar-bottom {
+        display: none;
+    }
+
+
+    .crm-topbar {
+        position: relative;
+
+        min-height: auto;
+
+        padding:
+            18px
+            20px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .crm-topbar-actions {
+        margin-left: auto;
+    }
+
+
+    .crm-dashboard-main {
+        padding:
+            26px
+            20px
+            52px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .crm-sidebar-top {
+        display: grid;
+
+        gap: 12px;
+    }
+
+
+    .crm-sidebar-nav {
+        width: 100%;
+    }
+
+
+    .crm-topbar {
+        align-items: flex-start;
+    }
+
+
+    .crm-topbar-actions {
+        width: 100%;
+
+        justify-content:
+            space-between;
+
+        margin-left: 0;
+    }
+
+
+    .crm-new-prospect-button {
+        white-space: nowrap;
+    }
+
+
+    .crm-dashboard-main {
+        padding:
+            22px
+            16px
+            46px;
+    }
+
+}
+
+
+/* ============================================================
    DASHBOARD / CRM PAGE CONTAINERS
 ============================================================ */
 
@@ -3298,4 +4032,10 @@ td strong {
             1 !important;
     }
 
+}
+
+/* Étape 2 : priorité au layout CRM pour le Dashboard */
+.crm-app-body .dashboard.crm-dashboard-main {
+    width: 100%;
+    margin: 0;
 }
