@@ -1,883 +1,290 @@
 <!DOCTYPE html>
+
 <html lang="fr">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title data-i18n="page.homeTitle">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="page.homeTitle">
         Smart CRM - Gérez vos prospects intelligemment
     </title>
-
-    <link
-        rel="stylesheet"
-        href="CSS/style.css"
-    >
-
+<link href="CSS/style.css" rel="stylesheet"/>
 </head>
-
 <body>
-
-    <header class="main-header">
-
-        <div class="logo">
-
-            <a href="index.html">
+<header class="main-header">
+<div class="logo">
+<a href="index.html">
                 Smart CRM
             </a>
-
-        </div>
-
-        <nav
-            class="main-nav"
-            aria-label="Navigation principale"
-            data-i18n-aria-label="nav.mainLabel"
-        >
-
-            <a
-                href="index.html"
-                class="active"
-                aria-current="page"
-                data-i18n="nav.home"
-            >
+</div>
+<nav aria-label="Navigation principale" class="main-nav" data-i18n-aria-label="nav.mainLabel">
+<a aria-current="page" class="active" data-i18n="nav.home" href="index.html">
                 Accueil
             </a>
-
-            <a
-                href="about.html"
-                data-i18n="nav.about"
-            >
+<a data-i18n="nav.about" href="about.html">
                 À propos
             </a>
-
-            <a
-                href="services.html"
-                data-i18n="nav.services"
-            >
+<a data-i18n="nav.services" href="services.html">
                 Services
             </a>
-
-            <a
-                href="contact.html"
-                data-i18n="nav.contact"
-            >
+<a data-i18n="nav.contact" href="contact.html">
                 Contact
             </a>
-
-        </nav>
-
-        <div
-            class="language-selector"
-            aria-label="Choix de la langue"
-            data-i18n-aria-label="language.selectorLabel"
-        >
-
-            <button
-                type="button"
-                id="lang-fr"
-                data-i18n="language.french"
-                aria-label="Français"
-            >
+</nav>
+<div aria-label="Choix de la langue" class="language-selector" data-i18n-aria-label="language.selectorLabel">
+<button aria-label="Français" data-i18n="language.french" id="lang-fr" type="button">
                 🇫🇷 Français
             </button>
-
-            <button
-                type="button"
-                id="lang-en"
-                data-i18n="language.english"
-                aria-label="English"
-            >
+<button aria-label="English" data-i18n="language.english" id="lang-en" type="button">
                 🇬🇧 English
             </button>
-
-        </div>
-
-    </header>
-
-    <main>
-
-        <section
-            class="hero"
-            aria-labelledby="hero-title"
-        >
-
-            <div class="hero-content">
-
-                <span
-                    class="hero-label"
-                    data-i18n="home.heroLabel"
-                >
+</div>
+</header>
+<main>
+<section aria-labelledby="hero-title" class="hero">
+<div class="hero-content">
+<span class="hero-label" data-i18n="home.heroLabel">
                     Un projet ? Parlons-en.
                 </span>
-
-                <h1
-                    id="hero-title"
-                    data-i18n="home.heroTitle"
-                >
+<h1 data-i18n="home.heroTitle" id="hero-title">
                     Donnez vie à votre projet avec une solution adaptée à vos besoins.
                 </h1>
-
-                <p data-i18n="home.heroText">
+<p data-i18n="home.heroText">
                     Décrivez-nous votre projet, votre besoin ou votre problématique.
                     Notre équipe étudiera votre demande et vous proposera une solution adaptée.
                 </p>
-
-                <a
-                    href="contact.html"
-                    class="btn-primary"
-                    data-i18n="home.requestQuote"
-                >
+<a class="btn-primary" data-i18n="home.requestQuote" href="contact.html">
                     Demander un devis
                 </a>
-
-            </div>
-
-        </section>
-
-        <section
-            class="services"
-            aria-labelledby="services-title"
-        >
-
-            <div class="section-heading">
-
-                <span
-                    class="section-label"
-                    data-i18n="home.servicesLabel"
-                >
+</div>
+</section>
+<section aria-labelledby="services-title" class="services">
+<div class="section-heading">
+<span class="section-label" data-i18n="home.servicesLabel">
                     Nos services
                 </span>
-
-                <h2
-                    id="services-title"
-                    data-i18n="home.servicesTitle"
-                >
+<h2 data-i18n="home.servicesTitle" id="services-title">
                     Des solutions adaptées à vos besoins
                 </h2>
-
-                <p data-i18n="home.servicesText">
+<p data-i18n="home.servicesText">
                     Découvrez nos services et décrivez-nous votre projet
                     pour recevoir une proposition adaptée.
                 </p>
-
-            </div>
-
-            <div class="services-grid">
-
-                <article class="service-card">
-
-                    <h3 data-i18n="service.webTitle">
+</div>
+<div class="services-grid">
+<article class="service-card">
+<h3 data-i18n="service.webTitle">
                         Développement web
                     </h3>
-
-                    <p data-i18n="service.webText">
+<p data-i18n="service.webText">
                         Création de sites web et d'applications adaptés
                         aux besoins de votre entreprise.
                     </p>
-
-                    <a
-                        href="contact.html"
-                        data-i18n="home.requestQuote"
-                    >
+<a data-i18n="home.requestQuote" href="contact.html">
                         Demander un devis
                     </a>
-
-                </article>
-
-                <article class="service-card">
-
-                    <h3 data-i18n="service.automationTitle">
+</article>
+<article class="service-card">
+<h3 data-i18n="service.automationTitle">
                         Automatisation
                     </h3>
-
-                    <p data-i18n="service.automationText">
+<p data-i18n="service.automationText">
                         Automatisez vos tâches répétitives et optimisez
                         vos processus métier.
                     </p>
-
-                    <a
-                        href="contact.html"
-                        data-i18n="home.requestQuote"
-                    >
+<a data-i18n="home.requestQuote" href="contact.html">
                         Demander un devis
                     </a>
-
-                </article>
-
-                <article class="service-card">
-
-                    <h3 data-i18n="service.digitalTitle">
+</article>
+<article class="service-card">
+<h3 data-i18n="service.digitalTitle">
                         Solutions digitales
                     </h3>
-
-                    <p data-i18n="service.digitalText">
+<p data-i18n="service.digitalText">
                         Conception de solutions numériques adaptées
                         à vos objectifs et à votre activité.
                     </p>
-
-                    <a
-                        href="contact.html"
-                        data-i18n="home.requestQuote"
-                    >
+<a data-i18n="home.requestQuote" href="contact.html">
                         Demander un devis
                     </a>
-
-                </article>
-
-            </div>
-
-        </section>
-
-        <section
-            class="benefits"
-            aria-labelledby="benefits-title"
-        >
-
-            <div class="section-heading">
-
-                <span
-                    class="section-label"
-                    data-i18n="home.benefitsLabel"
-                >
+</article>
+</div>
+</section>
+<section aria-labelledby="benefits-title" class="benefits">
+<div class="section-heading">
+<span class="section-label" data-i18n="home.benefitsLabel">
                     Pourquoi nous choisir ?
                 </span>
-
-                <h2
-                    id="benefits-title"
-                    data-i18n="home.benefitsTitle"
-                >
+<h2 data-i18n="home.benefitsTitle" id="benefits-title">
                     Une approche pensée pour votre projet
                 </h2>
-
-                <p data-i18n="home.benefitsText">
+<p data-i18n="home.benefitsText">
                     Nous commençons par comprendre votre besoin avant
                     de proposer une solution adaptée.
                 </p>
-
-            </div>
-
-            <div class="benefits-grid">
-
-                <article class="benefit-card">
-
-                    <div
-                        class="benefit-number"
-                        aria-hidden="true"
-                    >
+</div>
+<div class="benefits-grid">
+<article class="benefit-card">
+<div aria-hidden="true" class="benefit-number">
                         01
                     </div>
-
-                    <h3 data-i18n="benefit.understandTitle">
+<h3 data-i18n="benefit.understandTitle">
                         Comprendre votre besoin
                     </h3>
-
-                    <p data-i18n="benefit.understandText">
+<p data-i18n="benefit.understandText">
                         Nous analysons votre demande, vos objectifs
                         et les contraintes de votre projet.
                     </p>
-
-                </article>
-
-                <article class="benefit-card">
-
-                    <div
-                        class="benefit-number"
-                        aria-hidden="true"
-                    >
+</article>
+<article class="benefit-card">
+<div aria-hidden="true" class="benefit-number">
                         02
                     </div>
-
-                    <h3 data-i18n="benefit.solutionTitle">
+<h3 data-i18n="benefit.solutionTitle">
                         Proposer la bonne solution
                     </h3>
-
-                    <p data-i18n="benefit.solutionText">
+<p data-i18n="benefit.solutionText">
                         Nous vous proposons une solution adaptée
                         à votre situation et à vos objectifs.
                     </p>
-
-                </article>
-
-                <article class="benefit-card">
-
-                    <div
-                        class="benefit-number"
-                        aria-hidden="true"
-                    >
+</article>
+<article class="benefit-card">
+<div aria-hidden="true" class="benefit-number">
                         03
                     </div>
-
-                    <h3 data-i18n="benefit.supportTitle">
+<h3 data-i18n="benefit.supportTitle">
                         Vous accompagner
                     </h3>
-
-                    <p data-i18n="benefit.supportText">
+<p data-i18n="benefit.supportText">
                         Notre équipe vous accompagne de la première
                         demande jusqu'à la réalisation du projet.
                     </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-        <section
-            class="quote-section"
-            aria-labelledby="quote-title"
-        >
-
-            <div class="section-heading">
-
-                <span
-                    class="section-label"
-                    data-i18n="home.quoteLabel"
-                >
+</article>
+</div>
+</section>
+<section aria-labelledby="quote-title" class="quote-section">
+<div class="section-heading">
+<span class="section-label" data-i18n="home.quoteLabel">
                     Votre projet
                 </span>
-
-                <h2
-                    id="quote-title"
-                    data-i18n="home.quoteTitle"
-                >
+<h2 data-i18n="home.quoteTitle" id="quote-title">
                     Décrivez-nous votre besoin
                 </h2>
-
-                <p data-i18n="home.quoteText">
+<p data-i18n="home.quoteText">
                     Expliquez-nous votre projet et notre équipe vous
                     contactera pour étudier votre demande.
                 </p>
-
-            </div>
-
-            <form
-                class="quote-form"
-                id="quote-form"
-            >
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label
-                            for="first-name"
-                            data-i18n="form.firstName"
-                        >
+</div>
+<form class="quote-form" id="quote-form">
+<div class="form-row">
+<div class="form-group">
+<label data-i18n="form.firstName" for="first-name">
                             Prénom *
                         </label>
-
-                        <input
-                            type="text"
-                            id="first-name"
-                            name="first_name"
-                            placeholder="Votre prénom"
-                            data-i18n-placeholder="form.firstNamePlaceholder"
-                            autocomplete="given-name"
-                            required
-                            minlength="2"
-                        >
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label
-                            for="last-name"
-                            data-i18n="form.lastName"
-                        >
+<input autocomplete="given-name" data-i18n-placeholder="form.firstNamePlaceholder" id="first-name" minlength="2" name="first_name" placeholder="Votre prénom" required="" type="text"/>
+</div>
+<div class="form-group">
+<label data-i18n="form.lastName" for="last-name">
                             Nom *
                         </label>
-
-                        <input
-                            type="text"
-                            id="last-name"
-                            name="last_name"
-                            placeholder="Votre nom"
-                            data-i18n-placeholder="form.lastNamePlaceholder"
-                            autocomplete="family-name"
-                            required
-                            minlength="2"
-                        >
-
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label
-                        for="company"
-                        data-i18n="form.company"
-                    >
+<input autocomplete="family-name" data-i18n-placeholder="form.lastNamePlaceholder" id="last-name" minlength="2" name="last_name" placeholder="Votre nom" required="" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label data-i18n="form.company" for="company">
                         Entreprise
                     </label>
-
-                    <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        placeholder="Nom de votre entreprise"
-                        data-i18n-placeholder="form.companyPlaceholder"
-                        autocomplete="organization"
-                    >
-
-                </div>
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label
-                            for="email"
-                            data-i18n="form.email"
-                        >
+<input autocomplete="organization" data-i18n-placeholder="form.companyPlaceholder" id="company" name="company" placeholder="Nom de votre entreprise" type="text"/>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label data-i18n="form.email" for="email">
                             Email *
                         </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="vous@entreprise.com"
-                            data-i18n-placeholder="form.emailPlaceholder"
-                            autocomplete="email"
-                            required
-                        >
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label
-                            for="phone"
-                            data-i18n="form.phone"
-                        >
+<input autocomplete="email" data-i18n-placeholder="form.emailPlaceholder" id="email" name="email" placeholder="vous@entreprise.com" required="" type="email"/>
+</div>
+<div class="form-group">
+<label data-i18n="form.phone" for="phone">
                             Téléphone
                         </label>
+<input autocomplete="tel" data-i18n-placeholder="form.phonePlaceholder" id="phone" name="phone" placeholder="+212 6..." type="tel"/>
+</div>
+</div>
 
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            placeholder="+212 6..."
-                            data-i18n-placeholder="form.phonePlaceholder"
-                            autocomplete="tel"
-                        >
 
-                    </div>
 
-                </div>
-
-                <div class="form-group">
-
-                    <label
-                        for="service"
-                        data-i18n="form.service"
-                    >
-                        Service recherché *
-                    </label>
-
-                    <select
-                        id="service"
-                        name="service"
-                        required
-                    >
-
-                        <option
-                            value=""
-                            data-i18n="form.servicePlaceholder"
-                        >
-                            Sélectionnez un service
-                        </option>
-
-                        <option
-                            value="web-development"
-                            data-i18n="service.webTitle"
-                        >
-                            Développement web
-                        </option>
-
-                        <option
-                            value="automation"
-                            data-i18n="service.automationTitle"
-                        >
-                            Automatisation
-                        </option>
-
-                        <option
-                            value="digital-solution"
-                            data-i18n="service.digitalTitle"
-                        >
-                            Solutions digitales
-                        </option>
-
-                        <option
-                            value="business-application"
-                            data-i18n="service.businessTitle"
-                        >
-                            Applications métier
-                        </option>
-
-                        <option
-                            value="digital-consulting"
-                            data-i18n="service.consultingTitle"
-                        >
-                            Conseil digital
-                        </option>
-
-                        <option
-                            value="other"
-                            data-i18n="form.other"
-                        >
-                            Autre
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label
-                        for="budget"
-                        data-i18n="form.budget"
-                    >
-                        Budget estimatif
-                    </label>
-
-                    <select
-                        id="budget"
-                        name="budget"
-                    >
-
-                        <option
-                            value=""
-                            data-i18n="form.budgetPlaceholder"
-                        >
-                            Sélectionnez une estimation
-                        </option>
-
-                        <option
-                            value="under-10000"
-                            data-i18n="form.budgetUnder10000"
-                        >
-                            Moins de 10 000 MAD
-                        </option>
-
-                        <option
-                            value="10000-30000"
-                            data-i18n="form.budget10000To30000"
-                        >
-                            10 000 – 30 000 MAD
-                        </option>
-
-                        <option
-                            value="30000-50000"
-                            data-i18n="form.budget30000To50000"
-                        >
-                            30 000 – 50 000 MAD
-                        </option>
-
-                        <option
-                            value="over-50000"
-                            data-i18n="form.budgetOver50000"
-                        >
-                            Plus de 50 000 MAD
-                        </option>
-
-                        <option
-                            value="not-defined"
-                            data-i18n="form.budgetUnknown"
-                        >
-                            Je ne sais pas encore
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label
-                        for="deadline"
-                        data-i18n="form.deadline"
-                    >
-                        Délai souhaité
-                    </label>
-
-                    <select
-                        id="deadline"
-                        name="deadline"
-                    >
-
-                        <option
-                            value=""
-                            data-i18n="form.deadlinePlaceholder"
-                        >
-                            Sélectionnez un délai
-                        </option>
-
-                        <option
-                            value="urgent"
-                            data-i18n="form.deadlineUrgent"
-                        >
-                            Dès que possible
-                        </option>
-
-                        <option
-                            value="1-month"
-                            data-i18n="form.deadlineOneMonth"
-                        >
-                            Dans le mois
-                        </option>
-
-                        <option
-                            value="1-3-months"
-                            data-i18n="form.deadlineOneToThreeMonths"
-                        >
-                            Dans 1 à 3 mois
-                        </option>
-
-                        <option
-                            value="3-6-months"
-                            data-i18n="form.deadlineThreeToSixMonths"
-                        >
-                            Dans 3 à 6 mois
-                        </option>
-
-                        <option
-                            value="flexible"
-                            data-i18n="form.deadlineFlexible"
-                        >
-                            Je suis flexible
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label
-                        for="message"
-                        data-i18n="form.message"
-                    >
+<div class="form-group">
+<label data-i18n="form.message" for="message">
                         Décrivez votre projet *
                     </label>
+<textarea data-i18n-placeholder="form.messagePlaceholder" id="message" minlength="20" name="message" placeholder="Décrivez votre besoin, vos objectifs et les fonctionnalités souhaitées..." required="" rows="7"></textarea>
+</div>
 
-                    <textarea
-                        id="message"
-                        name="message"
-                        rows="7"
-                        placeholder="Décrivez votre besoin, vos objectifs et les fonctionnalités souhaitées..."
-                        data-i18n-placeholder="form.messagePlaceholder"
-                        required
-                        minlength="20"
-                    ></textarea>
 
-                </div>
-
-                <div class="form-group">
-
-                    <fieldset class="contact-preference">
-
-                        <legend data-i18n="contact.preferenceTitle">
-                            Comment souhaitez-vous être contacté ?
-                        </legend>
-
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="contact_preference"
-                                value="email"
-                                checked
-                            >
-
-                            <span data-i18n="contact.preferenceEmail">
-                                Par e-mail
-                            </span>
-
-                        </label>
-
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="contact_preference"
-                                value="phone"
-                            >
-
-                            <span data-i18n="contact.preferencePhone">
-                                Par téléphone
-                            </span>
-
-                        </label>
-
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="contact_preference"
-                                value="any"
-                            >
-
-                            <span data-i18n="contact.preferenceAny">
-                                Peu importe
-                            </span>
-
-                        </label>
-
-                    </fieldset>
-
-                </div>
-
-                <div class="form-group consent-group">
-
-                    <label>
-
-                        <input
-                            type="checkbox"
-                            name="consent"
-                            value="accepted"
-                            required
-                        >
-
-                        <span data-i18n="contact.consent">
-                            J'accepte que mes informations soient utilisées
-                            afin de traiter ma demande.
-                        </span>
-
-                    </label>
-
-                </div>
-
-                <button
-                    type="submit"
-                    class="btn-primary"
-                    data-i18n="form.submit"
-                >
+<button class="btn-primary" data-i18n="form.submit" type="submit">
                     Envoyer ma demande
                 </button>
-
-                <p
-                    id="form-success"
-                    class="form-success"
-                    role="status"
-                    aria-live="polite"
-                    hidden
-                    data-i18n="contact.success"
-                >
+<p aria-live="polite" class="form-success" data-i18n="contact.success" hidden="" id="form-success" role="status">
                     Votre demande a bien été enregistrée.
                     Notre équipe vous contactera prochainement.
                 </p>
-
-            </form>
-
-        </section>
-
-    </main>
-
-    <footer class="main-footer">
-
-        <div class="footer-content">
-
-            <div class="footer-brand">
-
-                <a href="index.html">
+</form>
+</section>
+</main>
+<footer class="main-footer">
+<div class="footer-content">
+<div class="footer-brand">
+<a href="index.html">
                     Smart CRM
                 </a>
-
-                <p data-i18n="footer.description">
+<p data-i18n="footer.description">
                     Des solutions adaptées à vos projets
                     et aux besoins de votre entreprise.
                 </p>
-
-            </div>
-
-            <div class="footer-links">
-
-                <h3 data-i18n="footer.navigation">
+</div>
+<div class="footer-links">
+<h3 data-i18n="footer.navigation">
                     Navigation
                 </h3>
-
-                <a
-                    href="index.html"
-                    class="active"
-                    aria-current="page"
-                    data-i18n="nav.home"
-                >
+<a aria-current="page" class="active" data-i18n="nav.home" href="index.html">
                     Accueil
                 </a>
-
-                <a
-                    href="about.html"
-                    data-i18n="nav.about"
-                >
+<a data-i18n="nav.about" href="about.html">
                     À propos
                 </a>
-
-                <a
-                    href="services.html"
-                    data-i18n="nav.services"
-                >
+<a data-i18n="nav.services" href="services.html">
                     Services
                 </a>
-
-                <a
-                    href="contact.html"
-                    data-i18n="nav.contact"
-                >
+<a data-i18n="nav.contact" href="contact.html">
                     Contact
                 </a>
-
-            </div>
-
-            <div class="footer-contact">
-
-                <h3 data-i18n="footer.contact">
+</div>
+<div class="footer-contact">
+<h3 data-i18n="footer.contact">
                     Contact
                 </h3>
-
-                <p>
-                    <span data-i18n="footer.email">
+<p>
+<span data-i18n="footer.email">
                         Email
                     </span>
                     : contact@example.com
                 </p>
-
-                <p>
-                    <span data-i18n="footer.phone">
+<p>
+<span data-i18n="footer.phone">
                         Téléphone
                     </span>
                     : +212 5 XX XX XX XX
                 </p>
-
-                <p data-i18n="footer.country">
+<p data-i18n="footer.country">
                     Maroc
                 </p>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <p data-i18n="footer.copyright">
+</div>
+</div>
+<div class="footer-bottom">
+<p data-i18n="footer.copyright">
                 © 2026 Smart CRM. Tous droits réservés.
             </p>
-
-        </div>
-
-    </footer>
-
-    <script src="JS/script.js"></script>
-
+</div>
+</footer>
+<script src="JS/script.js"></script>
 </body>
-
 </html>

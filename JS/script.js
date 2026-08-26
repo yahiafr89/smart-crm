@@ -1,96 +1,6 @@
-const API_URL = "https://xxxxxxxxxxx";
+const API_URL =
+    "https://subway-goliath-reversing.ngrok-free.dev/webhook-test/crm/lead-intake";
 
-const LANGUAGE_STORAGE_KEY = "smartCRM_language";
-const CRM_STORAGE_KEY = "smartCRM_prospects";
-const SALESPEOPLE_STORAGE_KEY = "smartCRM_salespeople";
-const SETTINGS_STORAGE_KEY = "smartCRM_settings";
-
-let currentLanguage =
-    localStorage.getItem(LANGUAGE_STORAGE_KEY) || "fr";
-
-let prospectBeingEditedId = null;
-let salespersonBeingEditedId = null;
-
-const quoteForm =
-    document.getElementById("quote-form");
-
-const successMessage =
-    document.getElementById("form-success");
-
-const prospectsTableBody =
-    document.getElementById("prospects-table-body");
-
-const prospectSearch =
-    document.getElementById("prospect-search");
-
-const statusFilter =
-    document.getElementById("status-filter");
-
-const prospectForm =
-    document.getElementById("prospect-form");
-
-const prospectSubmit =
-    document.getElementById("prospect-submit");
-
-const prospectFormSection =
-    document.getElementById("prospect-form-section");
-
-const showProspectFormButton =
-    document.getElementById("show-prospect-form");
-
-const prospectModal =
-    document.getElementById("prospect-modal");
-
-const prospectDetails =
-    document.getElementById("prospect-details");
-
-const modalClose =
-    document.getElementById("modal-close");
-
-const dashboardRecentProspects =
-    document.getElementById("dashboard-recent-prospects");
-
-const leadStatusChart =
-    document.getElementById("lead-status-chart");
-
-const pipelineTotalLeads =
-    document.getElementById("pipeline-total-leads");
-
-const frenchLanguageButton =
-    document.getElementById("lang-fr");
-
-const englishLanguageButton =
-    document.getElementById("lang-en");
-
-const salespersonForm =
-    document.getElementById("salesperson-form");
-
-const salespersonSubmit =
-    document.getElementById("salesperson-submit");
-
-const salespersonCancel =
-    document.getElementById("salesperson-cancel");
-
-const salespersonFormSection =
-    document.getElementById("salesperson-form-section");
-
-const showSalespersonFormButton =
-    document.getElementById("show-salesperson-form");
-
-const salespeopleTableBody =
-    document.getElementById("salespeople-table-body");
-
-const adminUsersTableBody =
-    document.getElementById("admin-users-table-body");
-
-const settingsForm =
-    document.getElementById("settings-form");
-
-const loginForm =
-    document.getElementById("login-form");
-
-const loginError =
-    document.getElementById("login-error");
 
 const translations = {
 
@@ -123,6 +33,7 @@ const translations = {
         "admin.pageTitle":
             "Administration - Smart CRM",
 
+
         "nav.mainLabel":
             "Navigation principale",
 
@@ -150,6 +61,7 @@ const translations = {
         "nav.administration":
             "Administration",
 
+
         "language.selectorLabel":
             "Choix de la langue",
 
@@ -158,6 +70,7 @@ const translations = {
 
         "language.english":
             "🇬🇧 English",
+
 
         "home.heroLabel":
             "Un projet ? Parlons-en.",
@@ -198,41 +111,6 @@ const translations = {
         "home.quoteText":
             "Expliquez-nous votre projet et notre équipe vous contactera pour étudier votre demande.",
 
-        "about.heroLabel":
-            "À propos de nous",
-
-        "about.heroTitle":
-            "Nous transformons les idées en solutions concrètes.",
-
-        "about.heroText":
-            "Notre équipe accompagne les entreprises dans la réalisation de leurs projets en proposant des solutions adaptées à leurs besoins.",
-
-        "about.approachLabel":
-            "Notre approche",
-
-        "about.approachTitle":
-            "Comprendre avant de proposer",
-
-        "about.approachText":
-            "Chaque projet est différent. Nous commençons donc par comprendre les objectifs, les contraintes et les attentes de nos clients avant de construire une solution adaptée.",
-
-        "services.heroLabel":
-            "Nos services",
-
-        "services.heroTitle":
-            "Des solutions adaptées à vos projets.",
-
-        "services.heroText":
-            "Découvrez nos différentes prestations et choisissez celle qui correspond le mieux à votre besoin.",
-
-        "services.expertiseLabel":
-            "Nos expertises",
-
-        "services.expertiseTitle":
-            "Ce que nous pouvons réaliser pour vous",
-
-        "services.expertiseText":
-            "Chaque demande est étudiée individuellement afin de proposer une solution adaptée.",
 
         "service.webTitle":
             "Développement web",
@@ -273,6 +151,7 @@ const translations = {
         "service.customButton":
             "Décrire mon projet",
 
+
         "benefit.understandTitle":
             "Comprendre votre besoin",
 
@@ -290,6 +169,45 @@ const translations = {
 
         "benefit.supportText":
             "Notre équipe vous accompagne de la première demande jusqu'à la réalisation du projet.",
+
+
+        "about.heroLabel":
+            "À propos de nous",
+
+        "about.heroTitle":
+            "Nous transformons les idées en solutions concrètes.",
+
+        "about.heroText":
+            "Notre équipe accompagne les entreprises dans la réalisation de leurs projets en proposant des solutions adaptées à leurs besoins.",
+
+        "about.approachLabel":
+            "Notre approche",
+
+        "about.approachTitle":
+            "Comprendre avant de proposer",
+
+        "about.approachText":
+            "Chaque projet est différent. Nous commençons donc par comprendre les objectifs, les contraintes et les attentes de nos clients avant de construire une solution adaptée.",
+
+
+        "services.heroLabel":
+            "Nos services",
+
+        "services.heroTitle":
+            "Des solutions adaptées à vos projets.",
+
+        "services.heroText":
+            "Découvrez nos différentes prestations et choisissez celle qui correspond le mieux à votre besoin.",
+
+        "services.expertiseLabel":
+            "Nos expertises",
+
+        "services.expertiseTitle":
+            "Ce que nous pouvons réaliser pour vous",
+
+        "services.expertiseText":
+            "Chaque demande est étudiée individuellement afin de proposer une solution adaptée.",
+
 
         "contact.heroLabel":
             "Votre projet",
@@ -309,23 +227,9 @@ const translations = {
         "contact.formText":
             "Plus votre demande est précise, plus nous pourrons comprendre rapidement votre besoin.",
 
-        "contact.preferenceTitle":
-            "Comment souhaitez-vous être contacté ?",
-
-        "contact.preferenceEmail":
-            "Par e-mail",
-
-        "contact.preferencePhone":
-            "Par téléphone",
-
-        "contact.preferenceAny":
-            "Peu importe",
-
-        "contact.consent":
-            "J'accepte que mes informations soient utilisées afin de traiter ma demande.",
-
         "contact.success":
             "Votre demande a bien été enregistrée. Notre équipe vous contactera prochainement.",
+
 
         "form.firstName":
             "Prénom *",
@@ -357,57 +261,6 @@ const translations = {
         "form.phonePlaceholder":
             "+212 6...",
 
-        "form.service":
-            "Service recherché *",
-
-        "form.servicePlaceholder":
-            "Sélectionnez un service",
-
-        "form.other":
-            "Autre",
-
-        "form.budget":
-            "Budget estimatif",
-
-        "form.budgetPlaceholder":
-            "Sélectionnez une estimation",
-
-        "form.budgetUnder10000":
-            "Moins de 10 000 MAD",
-
-        "form.budget10000To30000":
-            "10 000 – 30 000 MAD",
-
-        "form.budget30000To50000":
-            "30 000 – 50 000 MAD",
-
-        "form.budgetOver50000":
-            "Plus de 50 000 MAD",
-
-        "form.budgetUnknown":
-            "Je ne sais pas encore",
-
-        "form.deadline":
-            "Délai souhaité",
-
-        "form.deadlinePlaceholder":
-            "Sélectionnez un délai",
-
-        "form.deadlineUrgent":
-            "Dès que possible",
-
-        "form.deadlineOneMonth":
-            "Dans le mois",
-
-        "form.deadlineOneToThreeMonths":
-            "Dans 1 à 3 mois",
-
-        "form.deadlineThreeToSixMonths":
-            "Dans 3 à 6 mois",
-
-        "form.deadlineFlexible":
-            "Je suis flexible",
-
         "form.message":
             "Décrivez votre projet *",
 
@@ -417,38 +270,39 @@ const translations = {
         "form.submit":
             "Envoyer ma demande",
 
-        "form.success":
-            "Votre demande a été envoyée avec succès.",
 
-        "footer.description":
-            "Des solutions adaptées à vos projets et aux besoins de votre entreprise.",
+        "login.eyebrow":
+            "Espace Smart CRM",
 
-        "footer.crmDescription":
-            "Gestion intelligente des prospects et des équipes commerciales.",
-
-        "footer.internalSpace":
-            "Espace de gestion interne",
-
-        "footer.navigation":
-            "Navigation",
-
-        "footer.contact":
-            "Contact",
-
-        "footer.email":
-            "Email",
-
-        "footer.phone":
-            "Téléphone",
-
-        "footer.country":
-            "Maroc",
-
-        "footer.copyright":
-            "© 2026 Smart CRM. Tous droits réservés.",
+        "login.welcome":
+            "Bienvenue",
 
         "login.subtitle":
             "Connectez-vous pour accéder à votre espace.",
+
+        "login.rememberMe":
+            "Se souvenir de moi",
+
+        "login.forgotPassword":
+            "Mot de passe oublié ?",
+
+        "login.visualLabel":
+            "Présentation Smart CRM",
+
+        "login.visualEyebrow":
+            "CRM intelligent",
+
+        "login.visualTitle":
+            "Transformez chaque opportunité en prochaine action.",
+
+        "login.visualText":
+            "Centralisez vos prospects, priorisez les opportunités et donnez à votre équipe une vue claire pour avancer plus vite.",
+
+        "login.pipeline":
+            "Pipeline commercial",
+
+        "login.trustNote":
+            "Une interface pensée pour les équipes commerciales modernes.",
 
         "login.email":
             "Adresse e-mail",
@@ -468,113 +322,40 @@ const translations = {
         "login.authorizedUsers":
             "Espace réservé aux utilisateurs autorisés.",
 
-        "login.demoMessage":
-            "Authentification backend non connectée. Accès au dashboard en mode démonstration.",
 
-        "actions.view":
-            "Voir",
+        "dashboard.overview":
+            "Vue d'ensemble",
 
-        "actions.edit":
-            "Modifier",
+        "dashboard.welcome":
+            "Bienvenue dans votre espace de gestion des prospects.",
 
-        "actions.delete":
-            "Supprimer",
+        "dashboard.newProspect":
+            "+ Nouveau prospect",
 
-        "actions.save":
-            "Enregistrer le prospect",
+        "dashboard.pipelineLabel":
+            "Pipeline commercial",
 
-        "actions.saveChanges":
-            "Enregistrer les modifications",
+        "dashboard.pipelineTitle":
+            "Répartition des leads par statut",
 
-        "actions.cancel":
-            "Annuler",
+        "dashboard.pipelineDescription":
+            "Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.",
 
-        "actions.disable":
-            "Désactiver",
+        "dashboard.pipelineTotal":
+            "Total leads",
 
-        "status.new":
-            "Nouveau",
+        "dashboard.recentActivity":
+            "Activité récente",
 
-        "status.contacted":
-            "Contacté",
+        "dashboard.latestProspects":
+            "Derniers prospects",
 
-        "status.qualified":
-            "Qualifié",
+        "dashboard.recentlyAdded":
+            "Les prospects récemment ajoutés au CRM.",
 
-        "status.proposalSent":
-            "Proposition envoyée",
+        "dashboard.viewAll":
+            "Voir tous les prospects",
 
-        "status.negotiation":
-            "Négociation",
-
-        "status.won":
-            "Gagné",
-
-        "status.lost":
-            "Perdu",
-
-        "status.archived":
-            "Archivé",
-
-        "status.active":
-            "Actif",
-
-        "status.inactive":
-            "Inactif",
-
-        "roles.commercial":
-            "Commercial",
-
-        "roles.manager":
-            "Manager",
-
-        "roles.administrator":
-            "Administrateur",
-
-        "common.all":
-            "Tous",
-
-        "common.unassigned":
-            "Non assigné",
-
-        "prospect.name":
-            "Prospect",
-
-        "prospect.firstName":
-            "Prénom",
-
-        "prospect.firstNameRequired":
-            "Prénom *",
-
-        "prospect.lastName":
-            "Nom",
-
-        "prospect.lastNameRequired":
-            "Nom *",
-
-        "prospect.company":
-            "Entreprise",
-
-        "prospect.email":
-            "E-mail",
-
-        "prospect.emailRequired":
-            "E-mail *",
-
-        "prospect.phone":
-            "Téléphone",
-
-        "prospect.city":
-            "Ville",
-
-        "prospect.status":
-            "Statut",
-
-        "prospect.salesperson":
-            "Commercial responsable",
-
-        "prospect.comments":
-            "Commentaires",
 
         "prospects.management":
             "Gestion commerciale",
@@ -639,74 +420,97 @@ const translations = {
         "prospects.close":
             "Fermer",
 
-        "confirm.delete":
-            "Voulez-vous vraiment supprimer {name} ?",
 
-        "dashboard.mainStatistics":
-            "Statistiques principales",
+        "prospect.firstName":
+            "Prénom",
 
-        "dashboard.pipelineLabel":
-            "Pipeline commercial",
+        "prospect.firstNameRequired":
+            "Prénom *",
 
-        "dashboard.pipelineTitle":
-            "Répartition des leads par statut",
+        "prospect.lastName":
+            "Nom",
 
-        "dashboard.pipelineDescription":
-            "Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.",
+        "prospect.lastNameRequired":
+            "Nom *",
 
-        "dashboard.pipelineTotal":
-            "Total leads",
+        "prospect.name":
+            "Prospect",
 
-        "dashboard.pipelineEmpty":
-            "Aucun lead enregistré pour le moment.",
+        "prospect.company":
+            "Entreprise",
 
-        "dashboard.overview":
-            "Vue d'ensemble",
+        "prospect.email":
+            "E-mail",
 
-        "dashboard.welcome":
-            "Bienvenue dans votre espace de gestion des prospects.",
+        "prospect.emailRequired":
+            "E-mail *",
 
-        "dashboard.newProspect":
-            "+ Nouveau prospect",
+        "prospect.phone":
+            "Téléphone",
 
-        "dashboard.totalProspects":
-            "Total prospects",
+        "prospect.city":
+            "Ville",
 
-        "dashboard.registeredProspects":
-            "Prospects enregistrés",
+        "prospect.status":
+            "Statut",
 
-        "dashboard.newProspects":
-            "Nouveaux prospects",
+        "prospect.salesperson":
+            "Commercial",
 
-        "dashboard.thisWeek":
-            "Cette semaine",
 
-        "dashboard.inProgress":
-            "Prospects actifs",
+        "status.new":
+            "Nouveau",
 
-        "dashboard.toProcess":
-            "À traiter",
+        "status.contacted":
+            "Contacté",
 
-        "dashboard.converted":
-            "Opportunités gagnées",
+        "status.qualified":
+            "Qualifié",
 
-        "dashboard.thisMonth":
-            "Ce mois-ci",
+        "status.proposalSent":
+            "Proposition envoyée",
 
-        "dashboard.recentActivity":
-            "Activité récente",
+        "status.negotiation":
+            "Négociation",
 
-        "dashboard.latestProspects":
-            "Derniers prospects",
+        "status.won":
+            "Gagné",
 
-        "dashboard.recentlyAdded":
-            "Les prospects récemment ajoutés au CRM.",
+        "status.lost":
+            "Perdu",
 
-        "dashboard.viewAll":
-            "Voir tous les prospects",
+        "status.archived":
+            "Archivé",
 
-        "dashboard.noProspects":
-            "Aucun prospect enregistré.",
+        "status.active":
+            "Actif",
+
+        "status.inactive":
+            "Inactif",
+
+
+        "common.all":
+            "Tous",
+
+        "common.unassigned":
+            "Non assigné",
+
+
+        "actions.save":
+            "Enregistrer le prospect",
+
+        "actions.cancel":
+            "Annuler",
+
+        "actions.edit":
+            "Modifier",
+
+        "actions.delete":
+            "Supprimer",
+
+        "actions.view":
+            "Voir",
+
 
         "salespeople.title":
             "Commerciaux",
@@ -726,17 +530,17 @@ const translations = {
         "salespeople.lastNameRequired":
             "Nom *",
 
-        "salespeople.firstNameRequired":
-            "Prénom *",
-
-        "salespeople.emailRequired":
-            "E-mail professionnel *",
-
         "salespeople.lastNamePlaceholder":
             "Nom",
 
+        "salespeople.firstNameRequired":
+            "Prénom *",
+
         "salespeople.firstNamePlaceholder":
             "Prénom",
+
+        "salespeople.emailRequired":
+            "E-mail professionnel *",
 
         "salespeople.emailPlaceholder":
             "prenom@entreprise.com",
@@ -759,9 +563,6 @@ const translations = {
         "salespeople.addSubmit":
             "Ajouter le commercial",
 
-        "salespeople.saveChanges":
-            "Enregistrer les modifications",
-
         "salespeople.teamTitle":
             "Équipe commerciale",
 
@@ -774,14 +575,16 @@ const translations = {
         "salespeople.role":
             "Rôle",
 
-        "salespeople.disable":
-            "Désactiver",
 
-        "salespeople.activate":
-            "Activer",
+        "roles.commercial":
+            "Commercial",
 
-        "salespeople.confirmDelete":
-            "Voulez-vous vraiment supprimer {name} ?",
+        "roles.manager":
+            "Manager",
+
+        "roles.administrator":
+            "Administrateur",
+
 
         "admin.title":
             "Administration",
@@ -831,27 +634,6 @@ const translations = {
         "admin.users.actions":
             "Actions",
 
-        "admin.users.disable":
-            "Désactiver",
-
-        "admin.users.activate":
-            "Activer",
-
-        "admin.roles.salesperson":
-            "Commercial",
-
-        "admin.roles.manager":
-            "Manager",
-
-        "admin.roles.administrator":
-            "Administrateur",
-
-        "admin.status.active":
-            "Actif",
-
-        "admin.status.inactive":
-            "Inactif",
-
         "admin.settings.title":
             "Paramètres",
 
@@ -879,14 +661,41 @@ const translations = {
         "admin.settings.save":
             "Sauvegarder",
 
-        "admin.settings.saved":
-            "Paramètres sauvegardés."
+
+        "footer.description":
+            "Des solutions adaptées à vos projets et aux besoins de votre entreprise.",
+
+        "footer.crmDescription":
+            "Gestion intelligente des prospects et des équipes commerciales.",
+
+        "footer.navigation":
+            "Navigation",
+
+        "footer.contact":
+            "Contact",
+
+        "footer.email":
+            "Email",
+
+        "footer.phone":
+            "Téléphone",
+
+        "footer.country":
+            "Maroc",
+
+        "footer.internalSpace":
+            "Espace de gestion interne",
+
+        "footer.copyright":
+            "© 2026 Smart CRM. Tous droits réservés."
+
     },
+
 
     en: {
 
         "page.homeTitle":
-            "Smart CRM - Manage your prospects intelligently",
+            "Smart CRM - Manage your leads intelligently",
 
         "about.pageTitle":
             "About - Smart CRM",
@@ -911,6 +720,7 @@ const translations = {
 
         "admin.pageTitle":
             "Administration - Smart CRM",
+
 
         "nav.mainLabel":
             "Main navigation",
@@ -939,14 +749,16 @@ const translations = {
         "nav.administration":
             "Administration",
 
+
         "language.selectorLabel":
             "Language selection",
 
         "language.french":
-            "🇫🇷 Français",
+            "🇫🇷 French",
 
         "language.english":
             "🇬🇧 English",
+
 
         "home.heroLabel":
             "Have a project? Let's talk.",
@@ -955,7 +767,7 @@ const translations = {
             "Bring your project to life with a solution tailored to your needs.",
 
         "home.heroText":
-            "Tell us about your project, your needs, or your challenges. Our team will review your request and propose a suitable solution.",
+            "Tell us about your project, need or challenge. Our team will review your request and propose an appropriate solution.",
 
         "home.requestQuote":
             "Request a quote",
@@ -976,25 +788,85 @@ const translations = {
             "An approach designed around your project",
 
         "home.benefitsText":
-            "We start by understanding your needs before proposing a suitable solution.",
+            "We start by understanding your needs before proposing the right solution.",
 
         "home.quoteLabel":
             "Your project",
 
         "home.quoteTitle":
-            "Tell us about your needs",
+            "Tell us what you need",
 
         "home.quoteText":
-            "Tell us about your project and our team will contact you to review your request.",
+            "Describe your project and our team will contact you to review your request.",
+
+
+        "service.webTitle":
+            "Web development",
+
+        "service.webText":
+            "Websites and applications designed around your business needs.",
+
+        "service.automationTitle":
+            "Automation",
+
+        "service.automationText":
+            "Automate repetitive tasks and optimize your business processes.",
+
+        "service.digitalTitle":
+            "Digital solutions",
+
+        "service.digitalText":
+            "Digital solutions tailored to your goals and business activity.",
+
+        "service.businessTitle":
+            "Business applications",
+
+        "service.businessText":
+            "Custom applications designed to improve your daily operations.",
+
+        "service.consultingTitle":
+            "Digital consulting",
+
+        "service.consultingText":
+            "Identify the best digital solutions to support your business growth.",
+
+        "service.customTitle":
+            "Custom project",
+
+        "service.customText":
+            "Have a specific need? Tell us about your project and let's discuss it.",
+
+        "service.customButton":
+            "Describe my project",
+
+
+        "benefit.understandTitle":
+            "Understand your needs",
+
+        "benefit.understandText":
+            "We analyze your request, objectives and project constraints.",
+
+        "benefit.solutionTitle":
+            "Provide the right solution",
+
+        "benefit.solutionText":
+            "We propose a solution tailored to your situation and objectives.",
+
+        "benefit.supportTitle":
+            "Support you",
+
+        "benefit.supportText":
+            "Our team supports you from the initial request through project delivery.",
+
 
         "about.heroLabel":
             "About us",
 
         "about.heroTitle":
-            "We turn ideas into concrete solutions.",
+            "We turn ideas into practical solutions.",
 
         "about.heroText":
-            "Our team helps companies deliver their projects by providing solutions tailored to their needs.",
+            "Our team helps companies deliver their projects with solutions tailored to their needs.",
 
         "about.approachLabel":
             "Our approach",
@@ -1003,7 +875,8 @@ const translations = {
             "Understand before proposing",
 
         "about.approachText":
-            "Every project is different. We therefore begin by understanding our clients' objectives, constraints, and expectations before building a suitable solution.",
+            "Every project is different. We begin by understanding our clients' goals, constraints and expectations before building the right solution.",
+
 
         "services.heroLabel":
             "Our services",
@@ -1021,64 +894,8 @@ const translations = {
             "What we can build for you",
 
         "services.expertiseText":
-            "Each request is reviewed individually in order to propose a suitable solution.",
+            "Each request is reviewed individually in order to provide the right solution.",
 
-        "service.webTitle":
-            "Web development",
-
-        "service.webText":
-            "Creation of websites and applications tailored to your company's needs.",
-
-        "service.automationTitle":
-            "Automation",
-
-        "service.automationText":
-            "Automate repetitive tasks and optimize your business processes.",
-
-        "service.digitalTitle":
-            "Digital solutions",
-
-        "service.digitalText":
-            "Design digital solutions tailored to your goals and business needs.",
-
-        "service.businessTitle":
-            "Business applications",
-
-        "service.businessText":
-            "Develop custom applications to improve your daily operations.",
-
-        "service.consultingTitle":
-            "Digital consulting",
-
-        "service.consultingText":
-            "Identify the best digital solutions to help your business evolve.",
-
-        "service.customTitle":
-            "Custom project",
-
-        "service.customText":
-            "Have a specific need? Tell us about your project and let's discuss it.",
-
-        "service.customButton":
-            "Describe my project",
-
-        "benefit.understandTitle":
-            "Understand your needs",
-
-        "benefit.understandText":
-            "We analyze your request, your objectives, and your project's constraints.",
-
-        "benefit.solutionTitle":
-            "Propose the right solution",
-
-        "benefit.solutionText":
-            "We propose a solution tailored to your situation and objectives.",
-
-        "benefit.supportTitle":
-            "Support you",
-
-        "benefit.supportText":
-            "Our team supports you from your initial request through project completion.",
 
         "contact.heroLabel":
             "Your project",
@@ -1098,23 +915,9 @@ const translations = {
         "contact.formText":
             "The more precise your request is, the faster we can understand your needs.",
 
-        "contact.preferenceTitle":
-            "How would you like to be contacted?",
-
-        "contact.preferenceEmail":
-            "By email",
-
-        "contact.preferencePhone":
-            "By phone",
-
-        "contact.preferenceAny":
-            "No preference",
-
-        "contact.consent":
-            "I agree that my information may be used to process my request.",
-
         "contact.success":
-            "Your request has been recorded. Our team will contact you shortly.",
+            "Your request has been successfully submitted. Our team will contact you soon.",
+
 
         "form.firstName":
             "First name *",
@@ -1132,7 +935,7 @@ const translations = {
             "Company",
 
         "form.companyPlaceholder":
-            "Your company name",
+            "Company name",
 
         "form.email":
             "Email *",
@@ -1146,98 +949,48 @@ const translations = {
         "form.phonePlaceholder":
             "+212 6...",
 
-        "form.service":
-            "Service required *",
-
-        "form.servicePlaceholder":
-            "Select a service",
-
-        "form.other":
-            "Other",
-
-        "form.budget":
-            "Estimated budget",
-
-        "form.budgetPlaceholder":
-            "Select an estimate",
-
-        "form.budgetUnder10000":
-            "Less than 10,000 MAD",
-
-        "form.budget10000To30000":
-            "10,000 – 30,000 MAD",
-
-        "form.budget30000To50000":
-            "30,000 – 50,000 MAD",
-
-        "form.budgetOver50000":
-            "More than 50,000 MAD",
-
-        "form.budgetUnknown":
-            "I don't know yet",
-
-        "form.deadline":
-            "Desired timeframe",
-
-        "form.deadlinePlaceholder":
-            "Select a timeframe",
-
-        "form.deadlineUrgent":
-            "As soon as possible",
-
-        "form.deadlineOneMonth":
-            "Within one month",
-
-        "form.deadlineOneToThreeMonths":
-            "Within 1 to 3 months",
-
-        "form.deadlineThreeToSixMonths":
-            "Within 3 to 6 months",
-
-        "form.deadlineFlexible":
-            "I'm flexible",
-
         "form.message":
             "Describe your project *",
 
         "form.messagePlaceholder":
-            "Describe your needs, objectives, and desired features...",
+            "Describe your needs, objectives and desired features...",
 
         "form.submit":
             "Send my request",
 
-        "form.success":
-            "Your request has been sent successfully.",
 
-        "footer.description":
-            "Solutions tailored to your projects and your company's needs.",
+        "login.eyebrow":
+            "Smart CRM workspace",
 
-        "footer.crmDescription":
-            "Intelligent management of prospects and sales teams.",
-
-        "footer.internalSpace":
-            "Internal management area",
-
-        "footer.navigation":
-            "Navigation",
-
-        "footer.contact":
-            "Contact",
-
-        "footer.email":
-            "Email",
-
-        "footer.phone":
-            "Phone",
-
-        "footer.country":
-            "Morocco",
-
-        "footer.copyright":
-            "© 2026 Smart CRM. All rights reserved.",
+        "login.welcome":
+            "Welcome",
 
         "login.subtitle":
             "Sign in to access your workspace.",
+
+        "login.rememberMe":
+            "Remember me",
+
+        "login.forgotPassword":
+            "Forgot password?",
+
+        "login.visualLabel":
+            "Smart CRM presentation",
+
+        "login.visualEyebrow":
+            "Intelligent CRM",
+
+        "login.visualTitle":
+            "Turn every opportunity into the next best action.",
+
+        "login.visualText":
+            "Centralize your prospects, prioritize opportunities and give your team a clear view to move faster.",
+
+        "login.pipeline":
+            "Sales pipeline",
+
+        "login.trustNote":
+            "An interface designed for modern sales teams.",
 
         "login.email":
             "Email address",
@@ -1255,79 +1008,106 @@ const translations = {
             "Sign in",
 
         "login.authorizedUsers":
-            "Reserved for authorized users.",
+            "Authorized users only.",
 
-        "login.demoMessage":
-            "Backend authentication is not connected yet. Opening the dashboard in demo mode.",
 
-        "actions.view":
-            "View",
+        "dashboard.overview":
+            "Overview",
 
-        "actions.edit":
-            "Edit",
+        "dashboard.welcome":
+            "Welcome to your prospect management workspace.",
 
-        "actions.delete":
-            "Delete",
+        "dashboard.newProspect":
+            "+ New prospect",
 
-        "actions.save":
-            "Save prospect",
+        "dashboard.pipelineLabel":
+            "Sales pipeline",
 
-        "actions.saveChanges":
-            "Save changes",
+        "dashboard.pipelineTitle":
+            "Lead distribution by status",
 
-        "actions.cancel":
-            "Cancel",
+        "dashboard.pipelineDescription":
+            "See at a glance how your leads progress through the sales cycle.",
 
-        "actions.disable":
-            "Disable",
+        "dashboard.pipelineTotal":
+            "Total leads",
 
-        "status.new":
-            "New",
+        "dashboard.recentActivity":
+            "Recent activity",
 
-        "status.contacted":
-            "Contacted",
+        "dashboard.latestProspects":
+            "Latest prospects",
 
-        "status.qualified":
-            "Qualified",
+        "dashboard.recentlyAdded":
+            "Recently added prospects.",
 
-        "status.proposalSent":
-            "Proposal Sent",
+        "dashboard.viewAll":
+            "View all prospects",
 
-        "status.negotiation":
-            "Negotiation",
 
-        "status.won":
-            "Won",
+        "prospects.management":
+            "Sales management",
 
-        "status.lost":
-            "Lost",
+        "prospects.pageDescription":
+            "View, search and manage your prospects.",
 
-        "status.archived":
-            "Archived",
+        "prospects.newProspect":
+            "New prospect",
 
-        "status.active":
-            "Active",
+        "prospects.addProspect":
+            "Add prospect",
 
-        "status.inactive":
-            "Inactive",
+        "prospects.formDescription":
+            "Enter the new prospect's information.",
 
-        "roles.commercial":
-            "Salesperson",
+        "prospects.firstNamePlaceholder":
+            "Example: Ahmed",
 
-        "roles.manager":
-            "Manager",
+        "prospects.lastNamePlaceholder":
+            "Example: Benali",
 
-        "roles.administrator":
-            "Administrator",
+        "prospects.companyPlaceholder":
+            "Example: Atlas Solutions",
 
-        "common.all":
-            "All",
+        "prospects.emailPlaceholder":
+            "Example: ahmed@example.com",
 
-        "common.unassigned":
-            "Unassigned",
+        "prospects.phonePlaceholder":
+            "+212 6...",
 
-        "prospect.name":
-            "Prospect",
+        "prospects.cityPlaceholder":
+            "Example: Casablanca",
+
+        "prospects.comments":
+            "Comments",
+
+        "prospects.commentsPlaceholder":
+            "Add additional information...",
+
+        "prospects.database":
+            "Prospect database",
+
+        "prospects.listTitle":
+            "Prospect list",
+
+        "prospects.listDescription":
+            "Find all registered prospects here.",
+
+        "prospects.searchLabel":
+            "Search prospect",
+
+        "prospects.searchPlaceholder":
+            "Name, company or email...",
+
+        "prospects.actions":
+            "Actions",
+
+        "prospects.details":
+            "Prospect details",
+
+        "prospects.close":
+            "Close",
+
 
         "prospect.firstName":
             "First name",
@@ -1340,6 +1120,9 @@ const translations = {
 
         "prospect.lastNameRequired":
             "Last name *",
+
+        "prospect.name":
+            "Prospect",
 
         "prospect.company":
             "Company",
@@ -1362,140 +1145,60 @@ const translations = {
         "prospect.salesperson":
             "Salesperson",
 
-        "prospect.comments":
-            "Comments",
 
-        "prospects.management":
-            "Sales management",
+        "status.new":
+            "New",
 
-        "prospects.pageDescription":
-            "View, search and manage your prospects.",
+        "status.contacted":
+            "Contacted",
 
-        "prospects.newProspect":
-            "New prospect",
+        "status.qualified":
+            "Qualified",
 
-        "prospects.addProspect":
-            "Add a prospect",
+        "status.proposalSent":
+            "Proposal sent",
 
-        "prospects.formDescription":
-            "Enter the new prospect's information.",
+        "status.negotiation":
+            "Negotiation",
 
-        "prospects.firstNamePlaceholder":
-            "E.g. Ahmed",
+        "status.won":
+            "Won",
 
-        "prospects.lastNamePlaceholder":
-            "E.g. Benali",
+        "status.lost":
+            "Lost",
 
-        "prospects.companyPlaceholder":
-            "E.g. Atlas Solutions",
+        "status.archived":
+            "Archived",
 
-        "prospects.emailPlaceholder":
-            "E.g. ahmed@example.com",
+        "status.active":
+            "Active",
 
-        "prospects.phonePlaceholder":
-            "+212 6...",
+        "status.inactive":
+            "Inactive",
 
-        "prospects.cityPlaceholder":
-            "E.g. Casablanca",
 
-        "prospects.comments":
-            "Comments",
+        "common.all":
+            "All",
 
-        "prospects.commentsPlaceholder":
-            "Add additional information...",
+        "common.unassigned":
+            "Unassigned",
 
-        "prospects.database":
-            "Prospect database",
 
-        "prospects.listTitle":
-            "Prospect list",
+        "actions.save":
+            "Save prospect",
 
-        "prospects.listDescription":
-            "Find all registered prospects here.",
+        "actions.cancel":
+            "Cancel",
 
-        "prospects.searchLabel":
-            "Search for a prospect",
+        "actions.edit":
+            "Edit",
 
-        "prospects.searchPlaceholder":
-            "Name, company or email...",
+        "actions.delete":
+            "Delete",
 
-        "prospects.actions":
-            "Actions",
+        "actions.view":
+            "View",
 
-        "prospects.details":
-            "Prospect details",
-
-        "prospects.close":
-            "Close",
-
-        "confirm.delete":
-            "Do you really want to delete {name}?",
-
-        "dashboard.mainStatistics":
-            "Main statistics",
-
-        "dashboard.pipelineLabel":
-            "Sales pipeline",
-
-        "dashboard.pipelineTitle":
-            "Lead distribution by status",
-
-        "dashboard.pipelineDescription":
-            "See at a glance how your leads are progressing through the sales cycle.",
-
-        "dashboard.pipelineTotal":
-            "Total leads",
-
-        "dashboard.pipelineEmpty":
-            "No leads registered yet.",
-
-        "dashboard.overview":
-            "Overview",
-
-        "dashboard.welcome":
-            "Welcome to your prospect management space.",
-
-        "dashboard.newProspect":
-            "+ New prospect",
-
-        "dashboard.totalProspects":
-            "Total prospects",
-
-        "dashboard.registeredProspects":
-            "Registered prospects",
-
-        "dashboard.newProspects":
-            "New prospects",
-
-        "dashboard.thisWeek":
-            "This week",
-
-        "dashboard.inProgress":
-            "Active prospects",
-
-        "dashboard.toProcess":
-            "To process",
-
-        "dashboard.converted":
-            "Won opportunities",
-
-        "dashboard.thisMonth":
-            "This month",
-
-        "dashboard.recentActivity":
-            "Recent activity",
-
-        "dashboard.latestProspects":
-            "Latest prospects",
-
-        "dashboard.recentlyAdded":
-            "Prospects recently added to the CRM.",
-
-        "dashboard.viewAll":
-            "View all prospects",
-
-        "dashboard.noProspects":
-            "No prospects registered.",
 
         "salespeople.title":
             "Salespeople",
@@ -1507,28 +1210,28 @@ const translations = {
             "+ Add salesperson",
 
         "salespeople.addTitle":
-            "Add a salesperson",
+            "Add salesperson",
 
         "salespeople.addDescription":
-            "Enter the information for a new team member.",
+            "Register a new member of the sales team.",
 
         "salespeople.lastNameRequired":
             "Last name *",
 
-        "salespeople.firstNameRequired":
-            "First name *",
-
-        "salespeople.emailRequired":
-            "Business email *",
-
         "salespeople.lastNamePlaceholder":
             "Last name",
+
+        "salespeople.firstNameRequired":
+            "First name *",
 
         "salespeople.firstNamePlaceholder":
             "First name",
 
+        "salespeople.emailRequired":
+            "Professional email *",
+
         "salespeople.emailPlaceholder":
-            "firstname@company.com",
+            "name@company.com",
 
         "salespeople.phone":
             "Phone",
@@ -1548,14 +1251,11 @@ const translations = {
         "salespeople.addSubmit":
             "Add salesperson",
 
-        "salespeople.saveChanges":
-            "Save changes",
-
         "salespeople.teamTitle":
             "Sales team",
 
         "salespeople.teamDescription":
-            "View the members of your team.",
+            "View your team members.",
 
         "salespeople.lastName":
             "Name",
@@ -1563,14 +1263,16 @@ const translations = {
         "salespeople.role":
             "Role",
 
-        "salespeople.disable":
-            "Disable",
 
-        "salespeople.activate":
-            "Activate",
+        "roles.commercial":
+            "Salesperson",
 
-        "salespeople.confirmDelete":
-            "Do you really want to delete {name}?",
+        "roles.manager":
+            "Manager",
+
+        "roles.administrator":
+            "Administrator",
+
 
         "admin.title":
             "Administration",
@@ -1582,7 +1284,7 @@ const translations = {
             "General statistics",
 
         "admin.statistics.description":
-            "Global overview of CRM activity.",
+            "Global view of CRM activity.",
 
         "admin.stats.prospects":
             "Total prospects",
@@ -1620,32 +1322,11 @@ const translations = {
         "admin.users.actions":
             "Actions",
 
-        "admin.users.disable":
-            "Disable",
-
-        "admin.users.activate":
-            "Activate",
-
-        "admin.roles.salesperson":
-            "Salesperson",
-
-        "admin.roles.manager":
-            "Manager",
-
-        "admin.roles.administrator":
-            "Administrator",
-
-        "admin.status.active":
-            "Active",
-
-        "admin.status.inactive":
-            "Inactive",
-
         "admin.settings.title":
             "Settings",
 
         "admin.settings.description":
-            "Configure the general CRM settings.",
+            "Configure general CRM settings.",
 
         "admin.settings.companyName":
             "Company name",
@@ -1668,173 +1349,40 @@ const translations = {
         "admin.settings.save":
             "Save",
 
-        "admin.settings.saved":
-            "Settings saved."
+
+        "footer.description":
+            "Solutions tailored to your projects and business needs.",
+
+        "footer.crmDescription":
+            "Smart prospect and sales team management.",
+
+        "footer.navigation":
+            "Navigation",
+
+        "footer.contact":
+            "Contact",
+
+        "footer.email":
+            "Email",
+
+        "footer.phone":
+            "Phone",
+
+        "footer.country":
+            "Morocco",
+
+        "footer.internalSpace":
+            "Internal management workspace",
+
+        "footer.copyright":
+            "© 2026 Smart CRM. All rights reserved."
+
     }
+
 };
 
-const initialProspects = [
 
-    {
-        id: 1,
-        firstName: "Ahmed",
-        lastName: "Benali",
-        company: "Atlas Solutions",
-        email: "ahmed@example.com",
-        phone: "0612345678",
-        city: "Casablanca",
-        status: "new",
-        salespersonId: 3,
-        salesperson: "Youssef Amrani",
-        comments: "",
-        createdAt: "2026-08-10T09:00:00",
-        convertedAt: null
-    },
-
-    {
-        id: 2,
-        firstName: "Sarah",
-        lastName: "Alaoui",
-        company: "Digital Pro",
-        email: "sarah@example.com",
-        phone: "0677889900",
-        city: "Rabat",
-        status: "contacted",
-        salespersonId: null,
-        salesperson: "Amine",
-        comments: "",
-        createdAt: "2026-08-11T11:30:00",
-        convertedAt: null
-    },
-
-    {
-        id: 3,
-        firstName: "Omar",
-        lastName: "Idrissi",
-        company: "Tech Maroc",
-        email: "omar@example.com",
-        phone: "0666778899",
-        city: "Marrakech",
-        status: "won",
-        salespersonId: 3,
-        salesperson: "Youssef Amrani",
-        comments: "",
-        createdAt: "2026-08-12T14:15:00",
-        convertedAt: "2026-08-12T14:15:00"
-    }
-
-];
-
-const initialSalespeople = [
-
-    {
-        id: 1,
-        firstName: "Ahmed",
-        lastName: "Benali",
-        email: "ahmed@example.com",
-        phone: "0612345678",
-        role: "commercial",
-        status: "active"
-    },
-
-    {
-        id: 2,
-        firstName: "Fatima",
-        lastName: "Alaoui",
-        email: "fatima@example.com",
-        phone: "0677889900",
-        role: "manager",
-        status: "active"
-    },
-
-    {
-        id: 3,
-        firstName: "Youssef",
-        lastName: "Amrani",
-        email: "youssef@example.com",
-        phone: "0666112233",
-        role: "commercial",
-        status: "active"
-    }
-
-];
-
-function t(key) {
-
-    return (
-        translations[currentLanguage]?.[key] ??
-        translations.fr[key] ??
-        key
-    );
-}
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-function parseStoredArray(key, fallback) {
-
-    const stored =
-        localStorage.getItem(key);
-
-    if (!stored) {
-
-        const cloned =
-            fallback.map(
-                item => ({ ...item })
-            );
-
-        localStorage.setItem(
-            key,
-            JSON.stringify(cloned)
-        );
-
-        return cloned;
-    }
-
-    try {
-
-        const parsed =
-            JSON.parse(stored);
-
-        return Array.isArray(parsed)
-            ? parsed
-            : [];
-
-    } catch (error) {
-
-        console.error(
-            `Erreur LocalStorage (${key}) :`,
-            error
-        );
-
-        return [];
-    }
-}
-
-function generateId(items) {
-
-    if (!items.length) {
-        return 1;
-    }
-
-    return (
-        Math.max(
-            ...items.map(
-                item =>
-                    Number(item.id) || 0
-            )
-        ) + 1
-    );
-}
-
-const LEAD_STATUSES = Object.freeze([
+const statusOrder = [
     "new",
     "contacted",
     "qualified",
@@ -1843,490 +1391,463 @@ const LEAD_STATUSES = Object.freeze([
     "won",
     "lost",
     "archived"
-]);
+];
 
-const LEAD_WORKFLOW = Object.freeze({
-    new: ["contacted", "archived"],
-    contacted: ["qualified", "lost", "archived"],
-    qualified: ["proposal_sent", "lost", "archived"],
-    proposal_sent: ["negotiation", "won", "lost", "archived"],
-    negotiation: ["won", "lost", "archived"],
-    won: ["archived"],
-    lost: ["archived"],
-    archived: []
-});
 
-const LEGACY_LEAD_STATUS_MAP = Object.freeze({
-    progress: "contacted",
-    converted: "won"
-});
+const statusTranslationKeys = {
 
-function normalizeLeadStatus(status) {
+    new:
+        "status.new",
 
-    const normalizedStatus =
-        LEGACY_LEAD_STATUS_MAP[status] ||
-        status;
+    contacted:
+        "status.contacted",
 
-    return LEAD_STATUSES.includes(
-        normalizedStatus
-    )
-        ? normalizedStatus
-        : "new";
-}
+    qualified:
+        "status.qualified",
 
-function getProspects() {
+    proposal_sent:
+        "status.proposalSent",
 
-    const prospects =
-        parseStoredArray(
-            CRM_STORAGE_KEY,
-            initialProspects
-        );
+    negotiation:
+        "status.negotiation",
 
-    let requiresMigration =
-        false;
+    won:
+        "status.won",
 
-    const normalizedProspects =
-        prospects.map(
-            prospect => {
+    lost:
+        "status.lost",
 
-                const normalizedStatus =
-                    normalizeLeadStatus(
-                        prospect.status
-                    );
+    archived:
+        "status.archived"
 
-                if (
-                    normalizedStatus !==
-                    prospect.status
-                ) {
-                    requiresMigration =
-                        true;
-                }
+};
 
-                return {
-                    ...prospect,
-                    status:
-                        normalizedStatus
-                };
-            }
-        );
 
-    if (requiresMigration) {
+let currentLanguage =
+    localStorage.getItem(
+        "smartcrm-language"
+    ) || "fr";
 
-        saveProspects(
-            normalizedProspects
-        );
-    }
 
-    return normalizedProspects;
-}
+let prospects =
+    JSON.parse(
+        localStorage.getItem(
+            "smartcrm-prospects"
+        )
+    ) || [];
 
-function saveProspects(prospects) {
 
-    localStorage.setItem(
-        CRM_STORAGE_KEY,
-        JSON.stringify(prospects)
-    );
-}
+let salespeople =
+    JSON.parse(
+        localStorage.getItem(
+            "smartcrm-salespeople"
+        )
+    ) || [];
 
-function getSalespeople() {
 
-    return parseStoredArray(
-        SALESPEOPLE_STORAGE_KEY,
-        initialSalespeople
-    );
-}
+let editingProspectId =
+    null;
 
-function saveSalespeople(salespeople) {
 
-    localStorage.setItem(
-        SALESPEOPLE_STORAGE_KEY,
-        JSON.stringify(salespeople)
-    );
-}
+let editingSalespersonId =
+    null;
 
-function getSalespersonById(salespersonId) {
 
-    if (!salespersonId) {
-        return null;
-    }
+
+function translate(
+    key
+) {
 
     return (
-        getSalespeople()
-            .find(
-                person =>
-                    Number(person.id) ===
-                    Number(salespersonId)
-            ) || null
+        translations[
+            currentLanguage
+        ]?.[
+            key
+        ] ||
+        translations.fr?.[
+            key
+        ] ||
+        key
     );
+
 }
 
-function getSalespersonDisplayName(prospect) {
 
-    const salesperson =
-        getSalespersonById(
-            prospect?.salespersonId
-        );
 
-    if (salesperson) {
+function applyLanguage(
+    language
+) {
 
-        return (
-            `${salesperson.firstName} ${salesperson.lastName}`
-                .trim()
-        );
+    if (
+        !translations[
+            language
+        ]
+    ) {
+
+        language =
+            "fr";
+
     }
 
-    const storedName =
-        String(
-            prospect?.salesperson ||
-            ""
-        ).trim();
 
-    if (storedName) {
-        return storedName;
-    }
+    currentLanguage =
+        language;
 
-    return t(
-        "common.unassigned"
-    );
-}
-
-function getSettings() {
-
-    const defaults = {
-        companyName: "Smart CRM",
-        companyEmail: "contact@example.com",
-        defaultStatus: "new"
-    };
-
-    const stored =
-        localStorage.getItem(
-            SETTINGS_STORAGE_KEY
-        );
-
-    if (!stored) {
-
-        localStorage.setItem(
-            SETTINGS_STORAGE_KEY,
-            JSON.stringify(defaults)
-        );
-
-        return defaults;
-    }
-
-    try {
-
-        const settings = {
-            ...defaults,
-            ...JSON.parse(stored)
-        };
-
-        settings.defaultStatus =
-            normalizeLeadStatus(
-                settings.defaultStatus
-            );
-
-        return settings;
-
-    } catch (error) {
-
-        return defaults;
-    }
-}
-
-function saveSettings(settings) {
 
     localStorage.setItem(
-        SETTINGS_STORAGE_KEY,
-        JSON.stringify({
-            ...settings,
-            defaultStatus:
-                normalizeLeadStatus(
-                    settings.defaultStatus
-                )
-        })
+        "smartcrm-language",
+        language
     );
-}
 
-function getStatusInfo(status) {
 
-    const normalizedStatus =
-        normalizeLeadStatus(status);
+    document.documentElement.lang =
+        language;
 
-    const map = {
-
-        new: {
-            text: t("status.new"),
-            className: "status-new"
-        },
-
-        contacted: {
-            text: t("status.contacted"),
-            className: "status-contacted"
-        },
-
-        qualified: {
-            text: t("status.qualified"),
-            className: "status-qualified"
-        },
-
-        proposal_sent: {
-            text: t("status.proposalSent"),
-            className: "status-proposal-sent"
-        },
-
-        negotiation: {
-            text: t("status.negotiation"),
-            className: "status-negotiation"
-        },
-
-        won: {
-            text: t("status.won"),
-            className: "status-won"
-        },
-
-        lost: {
-            text: t("status.lost"),
-            className: "status-lost"
-        },
-
-        archived: {
-            text: t("status.archived"),
-            className: "status-archived"
-        }
-
-    };
-
-    return map[normalizedStatus] ||
-        map.new;
-}
-
-function getRoleLabel(role) {
-
-    const map = {
-
-        commercial:
-            t("roles.commercial"),
-
-        manager:
-            t("roles.manager"),
-
-        administrator:
-            t("roles.administrator")
-
-    };
-
-    return map[role] || role;
-}
-
-function getSalespersonStatusInfo(status) {
-
-    if (status === "inactive") {
-
-        return {
-            text: t("status.inactive"),
-            className: "status-inactive"
-        };
-    }
-
-    return {
-        text: t("status.active"),
-        className: "status-active"
-    };
-}
-
-function applyTranslations() {
 
     document
-        .querySelectorAll("[data-i18n]")
+        .querySelectorAll(
+            "[data-i18n]"
+        )
         .forEach(
-            element => {
+            (
+                element
+            ) => {
 
                 const key =
                     element.dataset.i18n;
 
-                const translation =
-                    t(key);
 
-                if (translation !== key) {
+                element.textContent =
+                    translate(
+                        key
+                    );
 
-                    element.textContent =
-                        translation;
-                }
             }
         );
+
 
     document
         .querySelectorAll(
             "[data-i18n-placeholder]"
         )
         .forEach(
-            element => {
+            (
+                element
+            ) => {
 
                 const key =
-                    element.dataset.i18nPlaceholder;
+                    element.dataset
+                        .i18nPlaceholder;
 
-                const translation =
-                    t(key);
 
-                if (translation !== key) {
+                element.placeholder =
+                    translate(
+                        key
+                    );
 
-                    element.placeholder =
-                        translation;
-                }
             }
         );
+
 
     document
         .querySelectorAll(
             "[data-i18n-aria-label]"
         )
         .forEach(
-            element => {
+            (
+                element
+            ) => {
 
                 const key =
-                    element.dataset.i18nAriaLabel;
+                    element.dataset
+                        .i18nAriaLabel;
 
-                const translation =
-                    t(key);
 
-                if (translation !== key) {
+                element.setAttribute(
+                    "aria-label",
+                    translate(
+                        key
+                    )
+                );
 
-                    element.setAttribute(
-                        "aria-label",
-                        translation
-                    );
-                }
             }
         );
 
-    document.documentElement.lang =
-        currentLanguage;
 
-    frenchLanguageButton
-        ?.classList.toggle(
-            "active",
-            currentLanguage === "fr"
+    const frenchButton =
+        document.getElementById(
+            "lang-fr"
         );
 
-    englishLanguageButton
-        ?.classList.toggle(
-            "active",
-            currentLanguage === "en"
+
+    const englishButton =
+        document.getElementById(
+            "lang-en"
         );
+
+
+    if (
+        frenchButton
+    ) {
+
+        frenchButton.classList.toggle(
+            "active",
+            language === "fr"
+        );
+
+    }
+
+
+    if (
+        englishButton
+    ) {
+
+        englishButton.classList.toggle(
+            "active",
+            language === "en"
+        );
+
+    }
+
+
+    renderProspects();
+    renderDashboard();
+    renderSalespeople();
+    renderAdmin();
+
 }
 
-function applyLanguage(language) {
 
-    currentLanguage =
-        translations[language]
-            ? language
-            : "fr";
+
+function saveProspects() {
 
     localStorage.setItem(
-        LANGUAGE_STORAGE_KEY,
-        currentLanguage
+        "smartcrm-prospects",
+        JSON.stringify(
+            prospects
+        )
     );
 
-    applyTranslations();
-
-    refreshAllViews();
 }
 
-async function sendProspectToAPI(prospect) {
 
-    if (
-        !API_URL ||
-        API_URL.includes("xxxxxxxx")
-    ) {
 
-        return {
-            skipped: true,
-            reason: "api-not-configured"
-        };
-    }
+function saveSalespeople() {
 
-    const response =
-        await fetch(
-            API_URL,
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    first_name:
-                        prospect.firstName,
-
-                    last_name:
-                        prospect.lastName,
-
-                    company:
-                        prospect.company,
-
-                    email:
-                        prospect.email,
-
-                    phone:
-                        prospect.phone,
-
-                    service:
-                        prospect.service,
-
-                    budget:
-                        prospect.budget,
-
-                    deadline:
-                        prospect.deadline,
-
-                    contact_preference:
-                        prospect.contactPreference,
-
-                    message:
-                        prospect.message
-                })
-            }
-        );
-
-    if (!response.ok) {
-
-        throw new Error(
-            `Erreur HTTP ${response.status}`
-        );
-    }
-
-    const contentType =
-        response.headers.get(
-            "content-type"
-        ) || "";
-
-    if (
-        contentType.includes(
-            "application/json"
+    localStorage.setItem(
+        "smartcrm-salespeople",
+        JSON.stringify(
+            salespeople
         )
-    ) {
+    );
 
-        return response.json();
-    }
-
-    return response.text();
 }
 
-function savePublicRequestLocally(request) {
 
-    const prospects =
-        getProspects();
 
-    const settings =
-        getSettings();
+function generateId() {
 
-    prospects.push({
+    return (
+        Date.now().toString(
+            36
+        ) +
+        Math.random()
+            .toString(
+                36
+            )
+            .substring(
+                2,
+                8
+            )
+    );
+
+}
+
+
+
+function normalizeStatus(
+    status
+) {
+
+    return statusOrder.includes(
+        status
+    )
+        ? status
+        : "new";
+
+}
+
+
+
+function getStatusLabel(
+    status
+) {
+
+    const normalizedStatus =
+        normalizeStatus(
+            status
+        );
+
+
+    return translate(
+        statusTranslationKeys[
+            normalizedStatus
+        ]
+    );
+
+}
+
+
+
+function getStatusClass(
+    status
+) {
+
+    return (
+        "status-" +
+        normalizeStatus(
+            status
+        ).replaceAll(
+            "_",
+            "-"
+        )
+    );
+
+}
+
+
+
+function getSalespersonName(
+    salespersonId
+) {
+
+    if (
+        !salespersonId
+    ) {
+
+        return translate(
+            "common.unassigned"
+        );
+
+    }
+
+
+    const salesperson =
+        salespeople.find(
+            (
+                item
+            ) =>
+                item.id ===
+                salespersonId
+        );
+
+
+    if (
+        !salesperson
+    ) {
+
+        return translate(
+            "common.unassigned"
+        );
+
+    }
+
+
+    return `${salesperson.firstName} ${salesperson.lastName}`;
+
+}
+
+
+
+async function sendProspectToAPI(
+    prospect
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            {
+
+                                first_name:
+                                    prospect.firstName,
+
+                                last_name:
+                                    prospect.lastName,
+
+                                company:
+                                    prospect.company,
+
+                                email:
+                                    prospect.email,
+
+                                phone:
+                                    prospect.phone,
+
+                                message:
+                                    prospect.message
+
+                            }
+                        )
+
+                }
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        return true;
+
+    } catch (
+        error
+    ) {
+
+        console.error(
+            "Erreur lors de l'envoi du prospect au Backend :",
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+
+function addPublicProspectLocally(
+    request
+) {
+
+    const prospect = {
 
         id:
-            generateId(prospects),
+            generateId(),
 
         firstName:
             request.firstName,
@@ -2347,1568 +1868,1594 @@ function savePublicRequestLocally(request) {
             "",
 
         status:
-            normalizeLeadStatus(
-                settings.defaultStatus ||
-                "new"
-            ),
+            "new",
 
-        salespersonId:
-            null,
-
-        salesperson:
+        commercial:
             "",
 
         comments:
             request.message,
 
-        service:
-            request.service,
-
-        budget:
-            request.budget,
-
-        deadline:
-            request.deadline,
-
-        contactPreference:
-            request.contactPreference,
+        message:
+            request.message,
 
         createdAt:
-            new Date().toISOString(),
+            new Date()
+                .toISOString()
 
-        convertedAt:
-            null
-    });
+    };
 
-    saveProspects(prospects);
+
+    prospects.unshift(
+        prospect
+    );
+
+
+    saveProspects();
+
 }
 
-if (quoteForm) {
 
-    quoteForm.addEventListener(
+
+function initializeQuoteForm() {
+
+    const form =
+        document.getElementById(
+            "quote-form"
+        );
+
+
+    if (
+        !form
+    ) {
+
+        return;
+
+    }
+
+
+    const successMessage =
+        document.getElementById(
+            "form-success"
+        );
+
+
+    form.addEventListener(
         "submit",
-        async function (event) {
+        async (
+            event
+        ) => {
 
             event.preventDefault();
 
+
             if (
-                !quoteForm.checkValidity()
+                !form.checkValidity()
             ) {
 
-                quoteForm.reportValidity();
+                form.reportValidity();
 
                 return;
+
             }
+
 
             const formData =
                 new FormData(
-                    quoteForm
+                    form
                 );
 
-            const prospect = {
+
+            const request = {
 
                 firstName:
-                    formData
-                        .get("first_name")
-                        ?.trim() || "",
+                    (
+                        formData.get(
+                            "first_name"
+                        ) || ""
+                    ).trim(),
 
                 lastName:
-                    formData
-                        .get("last_name")
-                        ?.trim() || "",
+                    (
+                        formData.get(
+                            "last_name"
+                        ) || ""
+                    ).trim(),
 
                 company:
-                    formData
-                        .get("company")
-                        ?.trim() || "",
+                    (
+                        formData.get(
+                            "company"
+                        ) || ""
+                    ).trim(),
 
                 email:
-                    formData
-                        .get("email")
-                        ?.trim() || "",
+                    (
+                        formData.get(
+                            "email"
+                        ) || ""
+                    ).trim(),
 
                 phone:
-                    formData
-                        .get("phone")
-                        ?.trim() || "",
-
-                service:
-                    formData.get(
-                        "service"
-                    ) || "",
-
-                budget:
-                    formData.get(
-                        "budget"
-                    ) || "",
-
-                deadline:
-                    formData.get(
-                        "deadline"
-                    ) || "",
-
-                contactPreference:
-                    formData.get(
-                        "contact_preference"
-                    ) || "email",
+                    (
+                        formData.get(
+                            "phone"
+                        ) || ""
+                    ).trim(),
 
                 message:
-                    formData
-                        .get("message")
-                        ?.trim() || ""
+                    (
+                        formData.get(
+                            "message"
+                        ) || ""
+                    ).trim()
+
             };
 
-            try {
 
-                const apiResult =
-                    await sendProspectToAPI(
-                        prospect
-                    );
-
-                if (
-                    apiResult?.skipped
-                ) {
-
-                    savePublicRequestLocally(
-                        prospect
-                    );
-                }
-
-                if (successMessage) {
-
-                    successMessage.hidden =
-                        false;
-
-                    successMessage.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-                }
-
-                quoteForm.reset();
-
-                renderLeadStatusChart();
-
-            } catch (error) {
-
-                console.error(
-                    "Erreur lors de l'envoi du prospect :",
-                    error
+            const sent =
+                await sendProspectToAPI(
+                    request
                 );
 
-                alert(
-                    currentLanguage === "en"
-                        ? "The request could not be sent. Please try again."
-                        : "La demande n'a pas pu être envoyée. Veuillez réessayer."
+
+            if (
+                !sent
+            ) {
+
+                addPublicProspectLocally(
+                    request
                 );
+
             }
+
+
+            form.reset();
+
+
+            if (
+                successMessage
+            ) {
+
+                successMessage.hidden =
+                    false;
+
+
+                setTimeout(
+                    () => {
+
+                        successMessage.hidden =
+                            true;
+
+                    },
+                    6000
+                );
+
+            }
+
         }
     );
+
 }
+
+
 
 function renderProspects() {
 
-    if (!prospectsTableBody) {
+    const tableBody =
+        document.getElementById(
+            "prospects-table-body"
+        );
+
+
+    if (
+        !tableBody
+    ) {
+
         return;
+
     }
 
-    const prospects =
-        getProspects();
 
-    prospectsTableBody.innerHTML =
+    const searchInput =
+        document.getElementById(
+            "prospect-search"
+        );
+
+
+    const statusFilter =
+        document.getElementById(
+            "status-filter"
+        );
+
+
+    const searchValue =
+        (
+            searchInput?.value ||
+            ""
+        )
+            .trim()
+            .toLowerCase();
+
+
+    const statusValue =
+        statusFilter?.value ||
+        "all";
+
+
+    const filteredProspects =
+        prospects.filter(
+            (
+                prospect
+            ) => {
+
+                const searchContent =
+                    [
+                        prospect.firstName,
+                        prospect.lastName,
+                        prospect.company,
+                        prospect.email
+                    ]
+                        .join(
+                            " "
+                        )
+                        .toLowerCase();
+
+
+                const matchesSearch =
+                    !searchValue ||
+                    searchContent.includes(
+                        searchValue
+                    );
+
+
+                const matchesStatus =
+                    statusValue ===
+                        "all" ||
+                    normalizeStatus(
+                        prospect.status
+                    ) ===
+                        statusValue;
+
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+
+            }
+        );
+
+
+    tableBody.innerHTML =
         "";
 
-    prospects.forEach(
-        prospect => {
 
-            const statusInfo =
-                getStatusInfo(
-                    prospect.status
-                );
+    filteredProspects.forEach(
+        (
+            prospect
+        ) => {
 
             const row =
                 document.createElement(
                     "tr"
                 );
 
-            row.dataset.prospectId =
-                prospect.id;
-
-            row.dataset.status =
-                normalizeLeadStatus(
-                    prospect.status
-                );
 
             row.innerHTML = `
 
                 <td>
                     <strong>
-                        ${escapeHTML(prospect.firstName)}
+                        ${escapeHTML(
+                            prospect.firstName
+                        )}
                     </strong>
-                </td>
-
-                <td>
-                    <strong>
-                        ${escapeHTML(prospect.lastName)}
-                    </strong>
-                </td>
-
-                <td>
-                    ${escapeHTML(prospect.company)}
-                </td>
-
-                <td>
-                    ${escapeHTML(prospect.email)}
-                </td>
-
-                <td>
-                    ${escapeHTML(prospect.phone)}
-                </td>
-
-                <td>
-                    ${escapeHTML(prospect.city)}
-                </td>
-
-                <td>
-                    <span class="status ${statusInfo.className}">
-                        ${escapeHTML(statusInfo.text)}
-                    </span>
                 </td>
 
                 <td>
                     ${escapeHTML(
-                        getSalespersonDisplayName(
-                            prospect
+                        prospect.lastName
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        prospect.company ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        prospect.email
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        prospect.phone ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        prospect.city ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${getStatusClass(
+                            prospect.status
+                        )}"
+                    >
+                        ${getStatusLabel(
+                            prospect.status
+                        )}
+                    </span>
+
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        getSalespersonName(
+                            prospect.commercial
                         )
                     )}
                 </td>
 
-                <td class="table-actions">
+                <td>
 
-                    <button
-                        type="button"
-                        class="view-prospect"
-                    >
-                        ${escapeHTML(t("actions.view"))}
-                    </button>
+                    <div class="table-actions">
 
-                    <button
-                        type="button"
-                        class="edit-prospect"
-                    >
-                        ${escapeHTML(t("actions.edit"))}
-                    </button>
+                        <button
+                            type="button"
+                            class="view-prospect"
+                            data-action="view"
+                            data-id="${prospect.id}"
+                        >
+                            ${translate(
+                                "actions.view"
+                            )}
+                        </button>
 
-                    <button
-                        type="button"
-                        class="delete-prospect"
-                    >
-                        ${escapeHTML(t("actions.delete"))}
-                    </button>
+                        <button
+                            type="button"
+                            data-action="edit"
+                            data-id="${prospect.id}"
+                        >
+                            ${translate(
+                                "actions.edit"
+                            )}
+                        </button>
+
+                        <button
+                            type="button"
+                            class="delete-prospect"
+                            data-action="delete"
+                            data-id="${prospect.id}"
+                        >
+                            ${translate(
+                                "actions.delete"
+                            )}
+                        </button>
+
+                    </div>
 
                 </td>
 
             `;
 
-            prospectsTableBody
-                .appendChild(row);
+
+            tableBody.appendChild(
+                row
+            );
+
         }
     );
 
-    filterProspects();
 }
 
-function getStatusFromRow(row) {
 
-    return normalizeLeadStatus(
-        row?.dataset.status ||
-        "new"
-    );
-}
 
-function filterProspects() {
+function initializeProspectForm() {
 
-    if (!prospectsTableBody) {
-        return;
-    }
-
-    const search =
-        prospectSearch
-            ?.value
-            .toLowerCase()
-            .trim() || "";
-
-    const selectedStatus =
-        statusFilter?.value ||
-        "all";
-
-    prospectsTableBody
-        .querySelectorAll("tr")
-        .forEach(
-            row => {
-
-                const matchesSearch =
-                    row.textContent
-                        .toLowerCase()
-                        .includes(search);
-
-                const matchesStatus =
-                    selectedStatus === "all" ||
-                    getStatusFromRow(row) ===
-                        selectedStatus;
-
-                row.hidden =
-                    !(
-                        matchesSearch &&
-                        matchesStatus
-                    );
-            }
-        );
-}
-
-prospectSearch
-    ?.addEventListener(
-        "input",
-        filterProspects
-    );
-
-statusFilter
-    ?.addEventListener(
-        "change",
-        filterProspects
-    );
-
-function populateProspectCommercialSelect() {
-
-    const select =
+    const form =
         document.getElementById(
-            "prospect-commercial"
+            "prospect-form"
         );
 
-    if (!select) {
+
+    if (
+        !form
+    ) {
+
         return;
+
     }
 
-    const currentValue =
-        select.value;
 
-    const salespeople =
-        getSalespeople()
-            .filter(
-                person =>
-                    person.status ===
-                    "active"
-            );
+    const showFormButton =
+        document.getElementById(
+            "show-prospect-form"
+        );
 
-    select.innerHTML = `
-        <option value="">
-            ${escapeHTML(
-                t("common.unassigned")
-            )}
-        </option>
-    `;
 
-    salespeople.forEach(
-        person => {
+    const formSection =
+        document.getElementById(
+            "prospect-form-section"
+        );
 
-            const option =
-                document.createElement(
-                    "option"
-                );
 
-            option.value =
-                String(person.id);
+    showFormButton?.addEventListener(
+        "click",
+        () => {
 
-            option.textContent =
-                `${person.firstName} ${person.lastName}`
-                    .trim();
+            formSection?.scrollIntoView(
+                {
 
-            select.appendChild(
-                option
-            );
-        }
-    );
+                    behavior:
+                        "smooth",
 
-    const exists =
-        Array.from(
-            select.options
-        )
-            .some(
-                option =>
-                    option.value ===
-                    currentValue
-            );
+                    block:
+                        "start"
 
-    if (exists) {
-
-        select.value =
-            currentValue;
-    }
-}
-
-function fillProspectForm(prospectId) {
-
-    const prospect =
-        getProspects()
-            .find(
-                item =>
-                    Number(item.id) ===
-                    Number(prospectId)
-            );
-
-    if (!prospect) {
-        return;
-    }
-
-    const values = {
-
-        "prospect-first-name":
-            prospect.firstName || "",
-
-        "prospect-last-name":
-            prospect.lastName || "",
-
-        "prospect-company":
-            prospect.company || "",
-
-        "prospect-email":
-            prospect.email || "",
-
-        "prospect-phone":
-            prospect.phone || "",
-
-        "prospect-city":
-            prospect.city || "",
-
-        "prospect-status":
-            prospect.status || "new",
-
-        "prospect-comments":
-            prospect.comments || ""
-    };
-
-    Object.entries(values)
-        .forEach(
-            ([id, value]) => {
-
-                const element =
-                    document.getElementById(
-                        id
-                    );
-
-                if (element) {
-
-                    element.value =
-                        value;
                 }
-            }
-        );
-
-    populateProspectCommercialSelect();
-
-    const commercialSelect =
-        document.getElementById(
-            "prospect-commercial"
-        );
-
-    if (commercialSelect) {
-
-        const salespersonId =
-            prospect.salespersonId
-                ? String(
-                    prospect.salespersonId
-                )
-                : "";
-
-        const idExists =
-            salespersonId &&
-            Array.from(
-                commercialSelect.options
-            )
-                .some(
-                    option =>
-                        option.value ===
-                        salespersonId
-                );
-
-        if (idExists) {
-
-            commercialSelect.value =
-                salespersonId;
-
-        } else {
-
-            const matchingOption =
-                Array.from(
-                    commercialSelect.options
-                )
-                    .find(
-                        option =>
-                            option.textContent
-                                .trim()
-                                .toLowerCase() ===
-                            String(
-                                prospect.salesperson ||
-                                ""
-                            )
-                                .trim()
-                                .toLowerCase()
-                    );
-
-            commercialSelect.value =
-                matchingOption?.value ||
-                "";
-        }
-    }
-}
-
-function updateProspectSubmitButton() {
-
-    if (!prospectSubmit) {
-        return;
-    }
-
-    prospectSubmit.textContent =
-        prospectBeingEditedId
-            ? t("actions.saveChanges")
-            : t("actions.save");
-}
-
-showProspectFormButton
-    ?.addEventListener(
-        "click",
-        function () {
-
-            prospectBeingEditedId =
-                null;
-
-            prospectForm?.reset();
-
-            populateProspectCommercialSelect();
-
-            updateProspectSubmitButton();
-
-            prospectFormSection
-                ?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            setTimeout(
-                function () {
-
-                    document
-                        .getElementById(
-                            "prospect-first-name"
-                        )
-                        ?.focus();
-                },
-                300
             );
+
         }
     );
 
-prospectsTableBody
-    ?.addEventListener(
-        "click",
-        function (event) {
 
-            const row =
-                event.target.closest(
-                    "tr"
-                );
-
-            if (!row) {
-                return;
-            }
-
-            const prospectId =
-                Number(
-                    row.dataset.prospectId
-                );
-
-            if (
-                event.target.closest(
-                    ".view-prospect"
-                )
-            ) {
-
-                showProspectDetails(
-                    prospectId
-                );
-
-                return;
-            }
-
-            if (
-                event.target.closest(
-                    ".edit-prospect"
-                )
-            ) {
-
-                prospectBeingEditedId =
-                    prospectId;
-
-                fillProspectForm(
-                    prospectId
-                );
-
-                updateProspectSubmitButton();
-
-                prospectFormSection
-                    ?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                return;
-            }
-
-            if (
-                event.target.closest(
-                    ".delete-prospect"
-                )
-            ) {
-
-                deleteProspect(
-                    prospectId
-                );
-            }
-        }
-    );
-
-prospectForm
-    ?.addEventListener(
+    form.addEventListener(
         "submit",
-        function (event) {
+        (
+            event
+        ) => {
 
             event.preventDefault();
 
+
             if (
-                !prospectForm.checkValidity()
+                !form.checkValidity()
             ) {
 
-                prospectForm.reportValidity();
+                form.reportValidity();
 
                 return;
+
             }
 
-            const commercialSelect =
-                document.getElementById(
-                    "prospect-commercial"
+
+            const formData =
+                new FormData(
+                    form
                 );
 
-            const salespersonId =
-                commercialSelect?.value
-                    ? Number(
-                        commercialSelect.value
-                    )
-                    : null;
 
-            const selectedSalesperson =
-                getSalespersonById(
-                    salespersonId
-                );
+            const prospect = {
 
-            const salesperson =
-                selectedSalesperson
-                    ? `${selectedSalesperson.firstName} ${selectedSalesperson.lastName}`
-                        .trim()
-                    : "";
-
-            const prospectData = {
+                id:
+                    editingProspectId ||
+                    generateId(),
 
                 firstName:
-                    document
-                        .getElementById(
-                            "prospect-first-name"
-                        )
-                        ?.value.trim() || "",
+                    (
+                        formData.get(
+                            "first_name"
+                        ) || ""
+                    ).trim(),
 
                 lastName:
-                    document
-                        .getElementById(
-                            "prospect-last-name"
-                        )
-                        ?.value.trim() || "",
+                    (
+                        formData.get(
+                            "last_name"
+                        ) || ""
+                    ).trim(),
 
                 company:
-                    document
-                        .getElementById(
-                            "prospect-company"
-                        )
-                        ?.value.trim() || "",
+                    (
+                        formData.get(
+                            "company"
+                        ) || ""
+                    ).trim(),
 
                 email:
-                    document
-                        .getElementById(
-                            "prospect-email"
-                        )
-                        ?.value.trim() || "",
+                    (
+                        formData.get(
+                            "email"
+                        ) || ""
+                    ).trim(),
 
                 phone:
-                    document
-                        .getElementById(
-                            "prospect-phone"
-                        )
-                        ?.value.trim() || "",
+                    (
+                        formData.get(
+                            "phone"
+                        ) || ""
+                    ).trim(),
 
                 city:
-                    document
-                        .getElementById(
-                            "prospect-city"
-                        )
-                        ?.value.trim() || "",
+                    (
+                        formData.get(
+                            "city"
+                        ) || ""
+                    ).trim(),
 
                 status:
-                    normalizeLeadStatus(
-                        document
-                            .getElementById(
-                                "prospect-status"
-                            )
-                            ?.value ||
-                        "new"
+                    normalizeStatus(
+                        formData.get(
+                            "status"
+                        )
                     ),
 
-                salespersonId,
-
-                salesperson,
+                commercial:
+                    formData.get(
+                        "commercial"
+                    ) || "",
 
                 comments:
-                    document
-                        .getElementById(
-                            "prospect-comments"
-                        )
-                        ?.value.trim() || ""
+                    (
+                        formData.get(
+                            "comments"
+                        ) || ""
+                    ).trim(),
+
+                createdAt:
+                    new Date()
+                        .toISOString()
+
             };
 
-            const prospects =
-                getProspects();
-
-            const now =
-                new Date()
-                    .toISOString();
 
             if (
-                prospectBeingEditedId
+                editingProspectId
             ) {
 
                 const index =
                     prospects.findIndex(
-                        item =>
-                            Number(item.id) ===
-                            Number(
-                                prospectBeingEditedId
-                            )
+                        (
+                            item
+                        ) =>
+                            item.id ===
+                            editingProspectId
                     );
 
-                if (index !== -1) {
 
-                    const previousProspect =
-                        prospects[index];
+                if (
+                    index !== -1
+                ) {
 
-                    const wonAt =
-                        prospectData.status ===
-                        "won"
-                            ? (
-                                previousProspect.status ===
-                                "won"
-                                    ? (
-                                        previousProspect.wonAt ||
-                                        previousProspect.convertedAt ||
-                                        previousProspect.createdAt ||
-                                        now
-                                    )
-                                    : now
-                            )
-                            : null;
+                    prospect.createdAt =
+                        prospects[
+                            index
+                        ].createdAt;
 
-                    prospects[index] = {
 
-                        ...previousProspect,
+                    prospects[
+                        index
+                    ] =
+                        prospect;
 
-                        ...prospectData,
-
-                        wonAt,
-
-                        convertedAt:
-                            wonAt,
-
-                        updatedAt:
-                            now
-                    };
                 }
 
             } else {
 
-                prospects.push({
+                prospects.unshift(
+                    prospect
+                );
 
-                    id:
-                        generateId(
-                            prospects
-                        ),
-
-                    ...prospectData,
-
-                    createdAt:
-                        now,
-
-                    wonAt:
-                        prospectData.status ===
-                        "won"
-                            ? now
-                            : null,
-
-                    convertedAt:
-                        prospectData.status ===
-                        "won"
-                            ? now
-                            : null
-                });
             }
 
-            saveProspects(
-                prospects
-            );
 
-            prospectBeingEditedId =
+            editingProspectId =
                 null;
 
-            prospectForm.reset();
 
-            populateProspectCommercialSelect();
+            saveProspects();
 
-            updateProspectSubmitButton();
+            form.reset();
 
-            refreshProspectViews();
+            renderProspects();
+            renderDashboard();
+
         }
     );
 
-function deleteProspect(prospectId) {
 
-    const prospects =
-        getProspects();
+    document
+        .getElementById(
+            "prospect-search"
+        )
+        ?.addEventListener(
+            "input",
+            renderProspects
+        );
+
+
+    document
+        .getElementById(
+            "status-filter"
+        )
+        ?.addEventListener(
+            "change",
+            renderProspects
+        );
+
+
+    document
+        .getElementById(
+            "prospects-table-body"
+        )
+        ?.addEventListener(
+            "click",
+            (
+                event
+            ) => {
+
+                const button =
+                    event.target.closest(
+                        "button[data-action]"
+                    );
+
+
+                if (
+                    !button
+                ) {
+
+                    return;
+
+                }
+
+
+                const id =
+                    button.dataset.id;
+
+
+                const action =
+                    button.dataset.action;
+
+
+                if (
+                    action === "view"
+                ) {
+
+                    openProspectModal(
+                        id
+                    );
+
+                }
+
+
+                if (
+                    action === "edit"
+                ) {
+
+                    editProspect(
+                        id
+                    );
+
+                }
+
+
+                if (
+                    action === "delete"
+                ) {
+
+                    deleteProspect(
+                        id
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+
+function editProspect(
+    id
+) {
 
     const prospect =
         prospects.find(
-            item =>
-                Number(item.id) ===
-                Number(prospectId)
+            (
+                item
+            ) =>
+                item.id ===
+                id
         );
 
-    if (!prospect) {
-        return;
-    }
-
-    const name =
-        `${prospect.firstName} ${prospect.lastName}`
-            .trim();
-
-    const confirmation =
-        t("confirm.delete")
-            .replace(
-                "{name}",
-                name
-            );
 
     if (
-        !window.confirm(
-            confirmation
-        )
+        !prospect
     ) {
+
         return;
+
     }
 
-    const updatedProspects =
-        prospects.filter(
-            item =>
-                Number(item.id) !==
-                Number(prospectId)
-        );
 
-    saveProspects(
-        updatedProspects
+    editingProspectId =
+        id;
+
+
+    setValue(
+        "prospect-first-name",
+        prospect.firstName
     );
 
-    if (
-        Number(
-            prospectBeingEditedId
-        ) ===
-        Number(prospectId)
-    ) {
 
-        prospectBeingEditedId =
-            null;
+    setValue(
+        "prospect-last-name",
+        prospect.lastName
+    );
 
-        prospectForm?.reset();
 
-        updateProspectSubmitButton();
-    }
+    setValue(
+        "prospect-company",
+        prospect.company
+    );
 
-    refreshProspectViews();
-}
 
-function showProspectDetails(prospectId) {
+    setValue(
+        "prospect-email",
+        prospect.email
+    );
 
-    if (
-        !prospectModal ||
-        !prospectDetails
-    ) {
-        return;
-    }
 
-    const prospect =
-        getProspects()
-            .find(
-                item =>
-                    Number(item.id) ===
-                    Number(prospectId)
-            );
+    setValue(
+        "prospect-phone",
+        prospect.phone
+    );
 
-    if (!prospect) {
-        return;
-    }
 
-    const statusInfo =
-        getStatusInfo(
+    setValue(
+        "prospect-city",
+        prospect.city
+    );
+
+
+    setValue(
+        "prospect-status",
+        normalizeStatus(
             prospect.status
+        )
+    );
+
+
+    setValue(
+        "prospect-commercial",
+        prospect.commercial
+    );
+
+
+    setValue(
+        "prospect-comments",
+        prospect.comments
+    );
+
+
+    document
+        .getElementById(
+            "prospect-form-section"
+        )
+        ?.scrollIntoView(
+            {
+
+                behavior:
+                    "smooth",
+
+                block:
+                    "start"
+
+            }
         );
 
-    prospectDetails.innerHTML = `
+}
+
+
+
+function deleteProspect(
+    id
+) {
+
+    prospects =
+        prospects.filter(
+            (
+                prospect
+            ) =>
+                prospect.id !==
+                id
+        );
+
+
+    saveProspects();
+
+    renderProspects();
+    renderDashboard();
+
+}
+
+
+
+function openProspectModal(
+    id
+) {
+
+    const prospect =
+        prospects.find(
+            (
+                item
+            ) =>
+                item.id ===
+                id
+        );
+
+
+    const modal =
+        document.getElementById(
+            "prospect-modal"
+        );
+
+
+    const details =
+        document.getElementById(
+            "prospect-details"
+        );
+
+
+    if (
+        !prospect ||
+        !modal ||
+        !details
+    ) {
+
+        return;
+
+    }
+
+
+    details.innerHTML = `
 
         <div class="prospect-detail">
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.firstName"))}
-                </span>
-                <span class="prospect-detail-value">
-                    ${escapeHTML(prospect.firstName)}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospect.firstName"
+                ),
+                prospect.firstName
+            )}
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.lastName"))}
-                </span>
-                <span class="prospect-detail-value">
-                    ${escapeHTML(prospect.lastName)}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospect.lastName"
+                ),
+                prospect.lastName
+            )}
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.company"))}
-                </span>
-                <span class="prospect-detail-value">
-                    ${escapeHTML(prospect.company || "-")}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospect.company"
+                ),
+                prospect.company ||
+                "-"
+            )}
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.email"))}
-                </span>
-                <span class="prospect-detail-value">
-                    ${escapeHTML(prospect.email)}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospect.email"
+                ),
+                prospect.email
+            )}
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.phone"))}
-                </span>
-                <span class="prospect-detail-value">
-                    ${escapeHTML(prospect.phone || "-")}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospect.phone"
+                ),
+                prospect.phone ||
+                "-"
+            )}
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.city"))}
-                </span>
-                <span class="prospect-detail-value">
-                    ${escapeHTML(prospect.city || "-")}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospect.city"
+                ),
+                prospect.city ||
+                "-"
+            )}
 
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.status"))}
-                </span>
+            ${createDetailItem(
+                translate(
+                    "prospect.status"
+                ),
+                getStatusLabel(
+                    prospect.status
+                )
+            )}
 
-                <span class="prospect-detail-value">
+            ${createDetailItem(
+                translate(
+                    "prospect.salesperson"
+                ),
+                getSalespersonName(
+                    prospect.commercial
+                )
+            )}
 
-                    <span class="status ${statusInfo.className}">
-                        ${escapeHTML(statusInfo.text)}
-                    </span>
-
-                </span>
-
-            </div>
-
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.salesperson"))}
-                </span>
-
-                <span class="prospect-detail-value">
-                    ${escapeHTML(
-                        getSalespersonDisplayName(
-                            prospect
-                        )
-                    )}
-                </span>
-            </div>
-
-            <div class="prospect-detail-item">
-                <span class="prospect-detail-label">
-                    ${escapeHTML(t("prospect.comments"))}
-                </span>
-
-                <span class="prospect-detail-value">
-                    ${escapeHTML(
-                        prospect.comments ||
-                        "-"
-                    )}
-                </span>
-            </div>
+            ${createDetailItem(
+                translate(
+                    "prospects.comments"
+                ),
+                prospect.comments ||
+                "-",
+                true
+            )}
 
         </div>
+
     `;
 
-    prospectModal
-        .classList.add(
-            "active"
-        );
 
-    prospectModal
-        .setAttribute(
-            "aria-hidden",
-            "false"
-        );
+    modal.classList.add(
+        "active"
+    );
 
-    modalClose?.focus();
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
 }
+
+
 
 function closeProspectModal() {
 
-    if (!prospectModal) {
+    const modal =
+        document.getElementById(
+            "prospect-modal"
+        );
+
+
+    if (
+        !modal
+    ) {
+
         return;
+
     }
 
-    prospectModal
-        .classList.remove(
-            "active"
-        );
 
-    prospectModal
-        .setAttribute(
-            "aria-hidden",
-            "true"
-        );
-}
-
-modalClose
-    ?.addEventListener(
-        "click",
-        closeProspectModal
+    modal.classList.remove(
+        "active"
     );
 
-prospectModal
-    ?.addEventListener(
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+}
+
+
+
+function initializeProspectModal() {
+
+    const modal =
+        document.getElementById(
+            "prospect-modal"
+        );
+
+
+    if (
+        !modal
+    ) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "modal-close"
+        )
+        ?.addEventListener(
+            "click",
+            closeProspectModal
+        );
+
+
+    modal.addEventListener(
         "click",
-        function (event) {
+        (
+            event
+        ) => {
 
             if (
                 event.target ===
-                prospectModal
+                modal
             ) {
 
                 closeProspectModal();
+
             }
+
         }
     );
 
-document.addEventListener(
-    "keydown",
-    function (event) {
 
-        if (
-            event.key === "Escape" &&
-            prospectModal
-                ?.classList.contains(
+    document.addEventListener(
+        "keydown",
+        (
+            event
+        ) => {
+
+            if (
+                event.key ===
+                    "Escape" &&
+                modal.classList.contains(
                     "active"
                 )
-        ) {
+            ) {
 
-            closeProspectModal();
-        }
-    }
-);
+                closeProspectModal();
 
-function isDateInCurrentWeek(value) {
+            }
 
-    if (!value) {
-        return false;
-    }
-
-    const date =
-        new Date(value);
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-        return false;
-    }
-
-    const now =
-        new Date();
-
-    const startOfWeek =
-        new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate()
-        );
-
-    const day =
-        startOfWeek.getDay();
-
-    const daysSinceMonday =
-        (day + 6) % 7;
-
-    startOfWeek.setDate(
-        startOfWeek.getDate() -
-        daysSinceMonday
-    );
-
-    const startOfNextWeek =
-        new Date(
-            startOfWeek
-        );
-
-    startOfNextWeek.setDate(
-        startOfNextWeek.getDate() + 7
-    );
-
-    return (
-        date >= startOfWeek &&
-        date < startOfNextWeek
-    );
-}
-
-function isDateInCurrentMonth(value) {
-
-    if (!value) {
-        return false;
-    }
-
-    const date =
-        new Date(value);
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-        return false;
-    }
-
-    const now =
-        new Date();
-
-    return (
-        date.getFullYear() ===
-            now.getFullYear() &&
-        date.getMonth() ===
-            now.getMonth()
-    );
-}
-
-function calculateLeadStatusDistribution(prospects) {
-
-    const counts =
-        Object.fromEntries(
-            LEAD_STATUSES.map(
-                status => [
-                    status,
-                    0
-                ]
-            )
-        );
-
-    prospects.forEach(
-        prospect => {
-
-            const status =
-                normalizeLeadStatus(
-                    prospect.status
-                );
-
-            counts[status] += 1;
         }
     );
 
-    return {
-        total: prospects.length,
-        counts
-    };
 }
 
-function getStatusPercentage(count, total) {
 
-    if (!total) {
-        return 0;
-    }
-
-    return Math.round(
-        (count / total) * 100
-    );
-}
-
-function renderLeadStatusChart() {
-
-    if (!leadStatusChart) {
-        return;
-    }
-
-    const prospects =
-        getProspects();
-
-    const distribution =
-        calculateLeadStatusDistribution(
-            prospects
-        );
-
-    if (pipelineTotalLeads) {
-
-        pipelineTotalLeads.textContent =
-            distribution.total;
-    }
-
-    if (!distribution.total) {
-
-        leadStatusChart.innerHTML = `
-            <p class="lead-status-empty">
-                ${escapeHTML(
-                    t("dashboard.pipelineEmpty")
-                )}
-            </p>
-        `;
-
-        return;
-    }
-
-    leadStatusChart.innerHTML =
-        LEAD_STATUSES
-            .map(
-                status => {
-
-                    const count =
-                        distribution.counts[
-                            status
-                        ];
-
-                    const percentage =
-                        getStatusPercentage(
-                            count,
-                            distribution.total
-                        );
-
-                    const statusInfo =
-                        getStatusInfo(
-                            status
-                        );
-
-                    return `
-                        <article
-                            class="lead-status-row"
-                            data-status="${escapeHTML(status)}"
-                        >
-
-                            <div class="lead-status-meta">
-
-                                <div class="lead-status-name">
-
-                                    <span
-                                        class="lead-status-dot ${statusInfo.className}"
-                                        aria-hidden="true"
-                                    ></span>
-
-                                    <span>
-                                        ${escapeHTML(statusInfo.text)}
-                                    </span>
-
-                                </div>
-
-                                <div class="lead-status-values">
-
-                                    <strong>
-                                        ${count}
-                                    </strong>
-
-                                    <span>
-                                        ${percentage}%
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="lead-status-track"
-                                role="progressbar"
-                                aria-valuemin="0"
-                                aria-valuemax="${distribution.total}"
-                                aria-valuenow="${count}"
-                                aria-label="${escapeHTML(statusInfo.text)}"
-                            >
-
-                                <span
-                                    class="lead-status-fill ${statusInfo.className}"
-                                    style="--status-width: ${percentage}%"
-                                ></span>
-
-                            </div>
-
-                        </article>
-                    `;
-                }
-            )
-            .join("");
-}
-
-function renderDashboardRecentProspects() {
-
-    if (
-        !dashboardRecentProspects
-    ) {
-        return;
-    }
-
-    const prospects =
-        getProspects()
-            .slice()
-            .sort(
-                function (a, b) {
-
-                    const aDate =
-                        new Date(
-                            a.createdAt || 0
-                        ).getTime();
-
-                    const bDate =
-                        new Date(
-                            b.createdAt || 0
-                        ).getTime();
-
-                    return (
-                        bDate -
-                        aDate ||
-                        Number(b.id) -
-                        Number(a.id)
-                    );
-                }
-            )
-            .slice(0, 5);
-
-    if (!prospects.length) {
-
-        dashboardRecentProspects
-            .innerHTML = `
-
-                <tr>
-                    <td colspan="5">
-                        ${escapeHTML(
-                            t("dashboard.noProspects")
-                        )}
-                    </td>
-                </tr>
-            `;
-
-        return;
-    }
-
-    dashboardRecentProspects.innerHTML =
-        prospects
-            .map(
-                prospect => {
-
-                    const statusInfo =
-                        getStatusInfo(
-                            prospect.status
-                        );
-
-                    return `
-
-                        <tr>
-
-                            <td>
-
-                                <strong>
-                                    ${escapeHTML(
-                                        `${prospect.firstName} ${prospect.lastName}`
-                                            .trim()
-                                    )}
-                                </strong>
-
-                                <span class="table-secondary">
-                                    ${escapeHTML(
-                                        prospect.email
-                                    )}
-                                </span>
-
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    prospect.company ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    prospect.city ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-
-                                <span class="status ${statusInfo.className}">
-                                    ${escapeHTML(
-                                        statusInfo.text
-                                    )}
-                                </span>
-
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    prospect.salesperson ||
-                                    t("common.unassigned")
-                                )}
-                            </td>
-
-                        </tr>
-                    `;
-                }
-            )
-            .join("");
-}
 
 function renderDashboard() {
 
-    renderLeadStatusChart();
+    const recentTable =
+        document.getElementById(
+            "dashboard-recent-prospects"
+        );
 
-    renderDashboardRecentProspects();
+
+    const chart =
+        document.getElementById(
+            "lead-status-chart"
+        );
+
+
+    const totalElement =
+        document.getElementById(
+            "pipeline-total-leads"
+        );
+
+
+    if (
+        totalElement
+    ) {
+
+        totalElement.textContent =
+            prospects.length;
+
+    }
+
+
+    if (
+        chart
+    ) {
+
+        chart.innerHTML =
+            "";
+
+
+        if (
+            prospects.length ===
+            0
+        ) {
+
+            chart.innerHTML = `
+
+                <p class="lead-status-empty">
+
+                    ${
+                        currentLanguage ===
+                        "fr"
+                            ? "Aucun lead enregistré."
+                            : "No leads registered."
+                    }
+
+                </p>
+
+            `;
+
+        } else {
+
+            statusOrder.forEach(
+                (
+                    status
+                ) => {
+
+                    const count =
+                        prospects.filter(
+                            (
+                                prospect
+                            ) =>
+                                normalizeStatus(
+                                    prospect.status
+                                ) ===
+                                status
+                        ).length;
+
+
+                    const percentage =
+                        prospects.length
+                            ? Math.round(
+                                  (
+                                      count /
+                                      prospects.length
+                                  ) *
+                                      100
+                              )
+                            : 0;
+
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "lead-status-row";
+
+
+                    const cssStatus =
+                        status.replaceAll(
+                            "_",
+                            "-"
+                        );
+
+
+                    row.innerHTML = `
+
+                        <div class="lead-status-meta">
+
+                            <div class="lead-status-name">
+
+                                <span
+                                    class="lead-status-dot status-${cssStatus}"
+                                ></span>
+
+                                <span>
+                                    ${getStatusLabel(
+                                        status
+                                    )}
+                                </span>
+
+                            </div>
+
+                            <div class="lead-status-values">
+
+                                <strong>
+                                    ${count}
+                                </strong>
+
+                                <span>
+                                    ${percentage}%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="lead-status-track">
+
+                            <span
+                                class="lead-status-fill status-${cssStatus}"
+                                style="--status-width: ${percentage}%"
+                            ></span>
+
+                        </div>
+
+                    `;
+
+
+                    chart.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+    }
+
+
+    if (
+        !recentTable
+    ) {
+
+        return;
+
+    }
+
+
+    recentTable.innerHTML =
+        "";
+
+
+    prospects
+        .slice(
+            0,
+            5
+        )
+        .forEach(
+            (
+                prospect
+            ) => {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        <strong>
+                            ${escapeHTML(
+                                prospect.firstName
+                            )}
+                            ${escapeHTML(
+                                prospect.lastName
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            prospect.company ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            prospect.city ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="status ${getStatusClass(
+                                prospect.status
+                            )}"
+                        >
+                            ${getStatusLabel(
+                                prospect.status
+                            )}
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            getSalespersonName(
+                                prospect.commercial
+                            )
+                        )}
+                    </td>
+
+                `;
+
+
+                recentTable.appendChild(
+                    row
+                );
+
+            }
+        );
+
 }
 
-function refreshProspectViews() {
 
-    populateProspectCommercialSelect();
 
-    renderProspects();
+function initializeSalespersonForm() {
 
-    renderDashboard();
+    const form =
+        document.getElementById(
+            "salesperson-form"
+        );
 
-    renderAdmin();
+
+    if (
+        !form
+    ) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "show-salesperson-form"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "salesperson-form-section"
+                    )
+                    ?.scrollIntoView(
+                        {
+
+                            behavior:
+                                "smooth",
+
+                            block:
+                                "start"
+
+                        }
+                    );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "salesperson-cancel"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                editingSalespersonId =
+                    null;
+
+
+                form.reset();
+
+            }
+        );
+
+
+    form.addEventListener(
+        "submit",
+        (
+            event
+        ) => {
+
+            event.preventDefault();
+
+
+            if (
+                !form.checkValidity()
+            ) {
+
+                form.reportValidity();
+
+                return;
+
+            }
+
+
+            const formData =
+                new FormData(
+                    form
+                );
+
+
+            const salesperson = {
+
+                id:
+                    editingSalespersonId ||
+                    generateId(),
+
+                lastName:
+                    (
+                        formData.get(
+                            "lastname"
+                        ) || ""
+                    ).trim(),
+
+                firstName:
+                    (
+                        formData.get(
+                            "firstname"
+                        ) || ""
+                    ).trim(),
+
+                email:
+                    (
+                        formData.get(
+                            "email"
+                        ) || ""
+                    ).trim(),
+
+                phone:
+                    (
+                        formData.get(
+                            "phone"
+                        ) || ""
+                    ).trim(),
+
+                role:
+                    formData.get(
+                        "role"
+                    ) || "commercial",
+
+                status:
+                    formData.get(
+                        "status"
+                    ) || "active"
+
+            };
+
+
+            if (
+                editingSalespersonId
+            ) {
+
+                const index =
+                    salespeople.findIndex(
+                        (
+                            item
+                        ) =>
+                            item.id ===
+                            editingSalespersonId
+                    );
+
+
+                if (
+                    index !== -1
+                ) {
+
+                    salespeople[
+                        index
+                    ] =
+                        salesperson;
+
+                }
+
+            } else {
+
+                salespeople.push(
+                    salesperson
+                );
+
+            }
+
+
+            editingSalespersonId =
+                null;
+
+
+            saveSalespeople();
+
+            form.reset();
+
+            renderSalespeople();
+            populateSalespeopleSelect();
+            renderProspects();
+            renderDashboard();
+            renderAdmin();
+
+        }
+    );
+
 }
 
-function refreshSalespeopleViews() {
 
-    renderSalespeople();
-
-    populateProspectCommercialSelect();
-
-    renderAdmin();
-}
-
-function refreshAllViews() {
-
-    populateProspectCommercialSelect();
-
-    updateProspectSubmitButton();
-
-    updateSalespersonSubmitButton();
-
-    renderProspects();
-
-    renderDashboard();
-
-    renderSalespeople();
-
-    renderAdmin();
-}
 
 function renderSalespeople() {
 
-    if (!salespeopleTableBody) {
+    const tableBody =
+        document.getElementById(
+            "salespeople-table-body"
+        );
+
+
+    if (
+        !tableBody
+    ) {
+
         return;
+
     }
 
-    const salespeople =
-        getSalespeople();
 
-    salespeopleTableBody.innerHTML =
+    tableBody.innerHTML =
         "";
 
-    salespeople.forEach(
-        person => {
 
-            const statusInfo =
-                getSalespersonStatusInfo(
-                    person.status
-                );
+    salespeople.forEach(
+        (
+            salesperson
+        ) => {
 
             const row =
                 document.createElement(
                     "tr"
                 );
 
-            row.dataset.salespersonId =
-                person.id;
+
+            const statusLabel =
+                salesperson.status ===
+                "inactive"
+                    ? translate(
+                          "status.inactive"
+                      )
+                    : translate(
+                          "status.active"
+                      );
+
+
+            const statusClass =
+                salesperson.status ===
+                "inactive"
+                    ? "status-inactive"
+                    : "status-active";
+
+
+            const roleLabel =
+                translate(
+                    `roles.${salesperson.role}`
+                );
+
 
             row.innerHTML = `
 
                 <td>
                     <strong>
                         ${escapeHTML(
-                            `${person.firstName} ${person.lastName}`
-                                .trim()
+                            salesperson.firstName
+                        )}
+                        ${escapeHTML(
+                            salesperson.lastName
                         )}
                     </strong>
                 </td>
 
                 <td>
-                    ${escapeHTML(person.email)}
+                    ${escapeHTML(
+                        salesperson.email
+                    )}
                 </td>
 
                 <td>
                     ${escapeHTML(
-                        person.phone ||
+                        salesperson.phone ||
                         "-"
                     )}
                 </td>
 
                 <td>
                     ${escapeHTML(
-                        getRoleLabel(
-                            person.role
-                        )
+                        roleLabel
                     )}
                 </td>
 
                 <td>
 
-                    <span class="status ${statusInfo.className}">
-                        ${escapeHTML(
-                            statusInfo.text
-                        )}
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ${statusLabel}
                     </span>
 
                 </td>
@@ -3919,765 +3466,828 @@ function renderSalespeople() {
 
                         <button
                             type="button"
-                            class="action-view"
-                            data-action="view"
+                            data-salesperson-action="edit"
+                            data-id="${salesperson.id}"
                         >
-                            ${escapeHTML(
-                                t("actions.view")
-                            )}
-                        </button>
-
-                        <button
-                            type="button"
-                            class="action-edit"
-                            data-action="edit"
-                        >
-                            ${escapeHTML(
-                                t("actions.edit")
+                            ${translate(
+                                "actions.edit"
                             )}
                         </button>
 
                         <button
                             type="button"
                             class="action-delete"
-                            data-action="toggle"
+                            data-salesperson-action="delete"
+                            data-id="${salesperson.id}"
                         >
-                            ${escapeHTML(
-                                person.status ===
-                                "active"
-                                    ? t("salespeople.disable")
-                                    : t("salespeople.activate")
+                            ${translate(
+                                "actions.delete"
                             )}
                         </button>
 
                     </div>
 
                 </td>
+
             `;
 
-            salespeopleTableBody
-                .appendChild(row);
+
+            tableBody.appendChild(
+                row
+            );
+
         }
     );
 
-    populateProspectCommercialSelect();
 }
 
-function updateSalespersonSubmitButton() {
 
-    if (!salespersonSubmit) {
-        return;
-    }
 
-    salespersonSubmit.textContent =
-        salespersonBeingEditedId
-            ? t(
-                "salespeople.saveChanges"
-            )
-            : t(
-                "salespeople.addSubmit"
-            );
-}
+function initializeSalespeopleActions() {
 
-function resetSalespersonForm() {
+    document
+        .getElementById(
+            "salespeople-table-body"
+        )
+        ?.addEventListener(
+            "click",
+            (
+                event
+            ) => {
 
-    salespersonBeingEditedId =
-        null;
+                const button =
+                    event.target.closest(
+                        "button[data-salesperson-action]"
+                    );
 
-    salespersonForm?.reset();
 
-    updateSalespersonSubmitButton();
-}
+                if (
+                    !button
+                ) {
 
-showSalespersonFormButton
-    ?.addEventListener(
-        "click",
-        function () {
+                    return;
 
-            resetSalespersonForm();
-
-            salespersonFormSection
-                ?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            setTimeout(
-                function () {
-
-                    document
-                        .getElementById(
-                            "salesperson-lastname"
-                        )
-                        ?.focus();
-                },
-                300
-            );
-        }
-    );
-
-salespersonCancel
-    ?.addEventListener(
-        "click",
-        function () {
-
-            setTimeout(
-                resetSalespersonForm,
-                0
-            );
-        }
-    );
-
-salespersonForm
-    ?.addEventListener(
-        "submit",
-        function (event) {
-
-            event.preventDefault();
-
-            if (
-                !salespersonForm
-                    .checkValidity()
-            ) {
-
-                salespersonForm
-                    .reportValidity();
-
-                return;
-            }
-
-            const data = {
-
-                lastName:
-                    document
-                        .getElementById(
-                            "salesperson-lastname"
-                        )
-                        ?.value.trim() || "",
-
-                firstName:
-                    document
-                        .getElementById(
-                            "salesperson-firstname"
-                        )
-                        ?.value.trim() || "",
-
-                email:
-                    document
-                        .getElementById(
-                            "salesperson-email"
-                        )
-                        ?.value.trim() || "",
-
-                phone:
-                    document
-                        .getElementById(
-                            "salesperson-phone"
-                        )
-                        ?.value.trim() || "",
-
-                role:
-                    document
-                        .getElementById(
-                            "salesperson-role"
-                        )
-                        ?.value ||
-                    "commercial",
-
-                status:
-                    document
-                        .getElementById(
-                            "salesperson-status"
-                        )
-                        ?.value ||
-                    "active"
-            };
-
-            const salespeople =
-                getSalespeople();
-
-            if (
-                salespersonBeingEditedId
-            ) {
-
-                const index =
-                    salespeople
-                        .findIndex(
-                            person =>
-                                Number(person.id) ===
-                                Number(
-                                    salespersonBeingEditedId
-                                )
-                        );
-
-                if (index !== -1) {
-
-                    salespeople[index] = {
-
-                        ...salespeople[index],
-
-                        ...data
-                    };
                 }
 
-            } else {
 
-                salespeople.push({
+                const id =
+                    button.dataset.id;
 
-                    id:
-                        generateId(
-                            salespeople
-                        ),
 
-                    ...data
-                });
-            }
+                const action =
+                    button.dataset
+                        .salespersonAction;
 
-            saveSalespeople(
-                salespeople
-            );
 
-            resetSalespersonForm();
+                if (
+                    action === "edit"
+                ) {
 
-            refreshSalespeopleViews();
-        }
-    );
+                    const salesperson =
+                        salespeople.find(
+                            (
+                                item
+                            ) =>
+                                item.id ===
+                                id
+                        );
 
-salespeopleTableBody
-    ?.addEventListener(
-        "click",
-        function (event) {
 
-            const button =
-                event.target.closest(
-                    "button[data-action]"
-                );
+                    if (
+                        !salesperson
+                    ) {
 
-            const row =
-                event.target.closest(
-                    "tr"
-                );
+                        return;
 
-            if (
-                !button ||
-                !row
-            ) {
-                return;
-            }
+                    }
 
-            const salespersonId =
-                Number(
-                    row.dataset.salespersonId
-                );
 
-            const salespeople =
-                getSalespeople();
+                    editingSalespersonId =
+                        id;
 
-            const person =
-                salespeople.find(
-                    item =>
-                        Number(item.id) ===
-                        salespersonId
-                );
 
-            if (!person) {
-                return;
-            }
+                    setValue(
+                        "salesperson-lastname",
+                        salesperson.lastName
+                    );
 
-            if (
-                button.dataset.action ===
-                "view"
-            ) {
 
-                alert(
-                    `${person.firstName} ${person.lastName}\n` +
-                    `${person.email}\n` +
-                    `${person.phone || "-"}\n` +
-                    `${getRoleLabel(person.role)}\n` +
-                    `${getSalespersonStatusInfo(person.status).text}`
-                );
+                    setValue(
+                        "salesperson-firstname",
+                        salesperson.firstName
+                    );
 
-                return;
-            }
 
-            if (
-                button.dataset.action ===
-                "edit"
-            ) {
+                    setValue(
+                        "salesperson-email",
+                        salesperson.email
+                    );
 
-                salespersonBeingEditedId =
-                    salespersonId;
 
-                const values = {
+                    setValue(
+                        "salesperson-phone",
+                        salesperson.phone
+                    );
 
-                    "salesperson-lastname":
-                        person.lastName,
 
-                    "salesperson-firstname":
-                        person.firstName,
+                    setValue(
+                        "salesperson-role",
+                        salesperson.role
+                    );
 
-                    "salesperson-email":
-                        person.email,
 
-                    "salesperson-phone":
-                        person.phone,
+                    setValue(
+                        "salesperson-status",
+                        salesperson.status
+                    );
 
-                    "salesperson-role":
-                        person.role,
 
-                    "salesperson-status":
-                        person.status
-                };
+                    document
+                        .getElementById(
+                            "salesperson-form-section"
+                        )
+                        ?.scrollIntoView(
+                            {
 
-                Object.entries(values)
-                    .forEach(
-                        ([id, value]) => {
+                                behavior:
+                                    "smooth",
 
-                            const element =
-                                document
-                                    .getElementById(
-                                        id
-                                    );
+                                block:
+                                    "start"
 
-                            if (element) {
-
-                                element.value =
-                                    value ||
-                                    "";
                             }
-                        }
-                    );
-
-                updateSalespersonSubmitButton();
-
-                salespersonFormSection
-                    ?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                return;
-            }
-
-            if (
-                button.dataset.action ===
-                "toggle"
-            ) {
-
-                person.status =
-                    person.status ===
-                    "active"
-                        ? "inactive"
-                        : "active";
-
-                saveSalespeople(
-                    salespeople
-                );
-
-                refreshSalespeopleViews();
-            }
-        }
-    );
-
-function renderAdminStats() {
-
-    const prospects =
-        getProspects();
-
-    const salespeople =
-        getSalespeople();
-
-    const converted =
-        prospects.filter(
-            prospect =>
-                normalizeLeadStatus(
-                    prospect.status
-                ) === "won"
-        ).length;
-
-    const values = {
-
-        "admin-total-prospects":
-            prospects.length,
-
-        "admin-total-salespeople":
-            salespeople.filter(
-                person =>
-                    person.status ===
-                    "active"
-            ).length,
-
-        "admin-total-clients":
-            converted,
-
-        "admin-total-contracts":
-            converted
-    };
-
-    Object.entries(values)
-        .forEach(
-            ([id, value]) => {
-
-                const element =
-                    document.getElementById(
-                        id
-                    );
-
-                if (element) {
-
-                    element.textContent =
-                        value;
-                }
-            }
-        );
-}
-
-function renderAdminUsers() {
-
-    if (!adminUsersTableBody) {
-        return;
-    }
-
-    const salespeople =
-        getSalespeople();
-
-    adminUsersTableBody.innerHTML =
-        salespeople
-            .map(
-                person => {
-
-                    const statusInfo =
-                        getSalespersonStatusInfo(
-                            person.status
                         );
 
-                    return `
-
-                        <tr data-user-id="${Number(person.id)}">
-
-                            <td>
-                                <strong>
-                                    ${escapeHTML(
-                                        `${person.firstName} ${person.lastName}`
-                                            .trim()
-                                    )}
-                                </strong>
-                            </td>
-
-                            <td>
-                                ${escapeHTML(person.email)}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    getRoleLabel(
-                                        person.role
-                                    )
-                                )}
-                            </td>
-
-                            <td>
-
-                                <span class="status ${statusInfo.className}">
-                                    ${escapeHTML(
-                                        statusInfo.text
-                                    )}
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                <div class="table-actions">
-
-                                    <button
-                                        type="button"
-                                        class="action-edit"
-                                        data-admin-action="edit"
-                                    >
-                                        ${escapeHTML(
-                                            t("actions.edit")
-                                        )}
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        class="action-delete"
-                                        data-admin-action="toggle"
-                                    >
-                                        ${escapeHTML(
-                                            person.status ===
-                                            "active"
-                                                ? t("admin.users.disable")
-                                                : t("admin.users.activate")
-                                        )}
-                                    </button>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-                    `;
                 }
-            )
-            .join("");
+
+
+                if (
+                    action === "delete"
+                ) {
+
+                    salespeople =
+                        salespeople.filter(
+                            (
+                                item
+                            ) =>
+                                item.id !==
+                                id
+                        );
+
+
+                    prospects =
+                        prospects.map(
+                            (
+                                prospect
+                            ) => {
+
+                                if (
+                                    prospect.commercial ===
+                                    id
+                                ) {
+
+                                    return {
+
+                                        ...prospect,
+
+                                        commercial:
+                                            ""
+
+                                    };
+
+                                }
+
+
+                                return prospect;
+
+                            }
+                        );
+
+
+                    saveSalespeople();
+                    saveProspects();
+
+                    renderSalespeople();
+                    populateSalespeopleSelect();
+                    renderProspects();
+                    renderDashboard();
+                    renderAdmin();
+
+                }
+
+            }
+        );
+
 }
 
-function loadSettingsIntoForm() {
 
-    if (!settingsForm) {
+
+function populateSalespeopleSelect() {
+
+    const select =
+        document.getElementById(
+            "prospect-commercial"
+        );
+
+
+    if (
+        !select
+    ) {
+
         return;
+
     }
 
-    const settings =
-        getSettings();
 
-    const companyName =
-        document.getElementById(
-            "company-name"
-        );
+    const currentValue =
+        select.value;
 
-    const companyEmail =
-        document.getElementById(
-            "company-email"
-        );
 
-    const defaultStatus =
-        document.getElementById(
-            "default-status"
-        );
+    select.innerHTML = `
 
-    if (companyName) {
+        <option value="">
+            ${translate(
+                "common.unassigned"
+            )}
+        </option>
 
-        companyName.value =
-            settings.companyName ||
-            "";
-    }
+    `;
 
-    if (companyEmail) {
 
-        companyEmail.value =
-            settings.companyEmail ||
-            "";
-    }
+    salespeople
+        .filter(
+            (
+                salesperson
+            ) =>
+                salesperson.status !==
+                "inactive"
+        )
+        .forEach(
+            (
+                salesperson
+            ) => {
 
-    if (defaultStatus) {
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-        defaultStatus.value =
-            settings.defaultStatus ||
-            "new";
-    }
-}
 
-settingsForm
-    ?.addEventListener(
-        "submit",
-        function (event) {
+                option.value =
+                    salesperson.id;
 
-            event.preventDefault();
 
-            const settings = {
+                option.textContent =
+                    `${salesperson.firstName} ${salesperson.lastName}`;
 
-                companyName:
-                    document
-                        .getElementById(
-                            "company-name"
-                        )
-                        ?.value.trim() ||
-                    "",
 
-                companyEmail:
-                    document
-                        .getElementById(
-                            "company-email"
-                        )
-                        ?.value.trim() ||
-                    "",
-
-                defaultStatus:
-                    document
-                        .getElementById(
-                            "default-status"
-                        )
-                        ?.value ||
-                    "new"
-            };
-
-            saveSettings(
-                settings
-            );
-
-            alert(
-                t(
-                    "admin.settings.saved"
-                )
-            );
-        }
-    );
-
-settingsForm
-    ?.addEventListener(
-        "reset",
-        function () {
-
-            setTimeout(
-                loadSettingsIntoForm,
-                0
-            );
-        }
-    );
-
-adminUsersTableBody
-    ?.addEventListener(
-        "click",
-        function (event) {
-
-            const button =
-                event.target.closest(
-                    "button[data-admin-action]"
+                select.appendChild(
+                    option
                 );
 
+            }
+        );
+
+
+    if (
+        [
+            ...select.options
+        ].some(
+            (
+                option
+            ) =>
+                option.value ===
+                currentValue
+        )
+    ) {
+
+        select.value =
+            currentValue;
+
+    }
+
+}
+
+
+
+function renderAdmin() {
+
+    const totalProspects =
+        document.getElementById(
+            "admin-total-prospects"
+        );
+
+
+    const totalSalespeople =
+        document.getElementById(
+            "admin-total-salespeople"
+        );
+
+
+    const totalClients =
+        document.getElementById(
+            "admin-total-clients"
+        );
+
+
+    const totalContracts =
+        document.getElementById(
+            "admin-total-contracts"
+        );
+
+
+    if (
+        totalProspects
+    ) {
+
+        totalProspects.textContent =
+            prospects.length;
+
+    }
+
+
+    if (
+        totalSalespeople
+    ) {
+
+        totalSalespeople.textContent =
+            salespeople.length;
+
+    }
+
+
+    if (
+        totalClients
+    ) {
+
+        totalClients.textContent =
+            prospects.filter(
+                (
+                    prospect
+                ) =>
+                    normalizeStatus(
+                        prospect.status
+                    ) ===
+                    "won"
+            ).length;
+
+    }
+
+
+    if (
+        totalContracts
+    ) {
+
+        totalContracts.textContent =
+            prospects.filter(
+                (
+                    prospect
+                ) =>
+                    normalizeStatus(
+                        prospect.status
+                    ) ===
+                    "won"
+            ).length;
+
+    }
+
+
+    const usersTable =
+        document.getElementById(
+            "admin-users-table-body"
+        );
+
+
+    if (
+        !usersTable
+    ) {
+
+        return;
+
+    }
+
+
+    usersTable.innerHTML =
+        "";
+
+
+    salespeople.forEach(
+        (
+            salesperson
+        ) => {
+
             const row =
-                event.target.closest(
+                document.createElement(
                     "tr"
                 );
 
-            if (
-                !button ||
-                !row
-            ) {
-                return;
-            }
 
-            const id =
-                Number(
-                    row.dataset.userId
-                );
+            const statusLabel =
+                salesperson.status ===
+                "inactive"
+                    ? translate(
+                          "status.inactive"
+                      )
+                    : translate(
+                          "status.active"
+                      );
 
-            const salespeople =
-                getSalespeople();
 
-            const person =
-                salespeople.find(
-                    item =>
-                        Number(item.id) ===
-                        id
-                );
+            const statusClass =
+                salesperson.status ===
+                "inactive"
+                    ? "status-inactive"
+                    : "status-active";
 
-            if (!person) {
-                return;
-            }
 
-            if (
-                button.dataset.adminAction ===
-                "edit"
-            ) {
+            row.innerHTML = `
+
+                <td>
+
+                    <strong>
+                        ${escapeHTML(
+                            salesperson.firstName
+                        )}
+                        ${escapeHTML(
+                            salesperson.lastName
+                        )}
+                    </strong>
+
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        salesperson.email
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        translate(
+                            `roles.${salesperson.role}`
+                        )
+                    )}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ${statusLabel}
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <div class="table-actions">
+
+                        <button
+                            type="button"
+                            data-admin-user-action="edit"
+                            data-id="${salesperson.id}"
+                        >
+                            ${translate(
+                                "actions.edit"
+                            )}
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            usersTable.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+
+function initializeAdmin() {
+
+    document
+        .getElementById(
+            "add-user-button"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
 
                 window.location.href =
                     "commerciaux.html";
 
-                return;
             }
+        );
 
-            if (
-                button.dataset.adminAction ===
-                "toggle"
-            ) {
 
-                person.status =
-                    person.status ===
-                    "active"
-                        ? "inactive"
-                        : "active";
+    document
+        .getElementById(
+            "admin-users-table-body"
+        )
+        ?.addEventListener(
+            "click",
+            (
+                event
+            ) => {
 
-                saveSalespeople(
-                    salespeople
-                );
+                const button =
+                    event.target.closest(
+                        "button[data-admin-user-action]"
+                    );
 
-                refreshSalespeopleViews();
+
+                if (
+                    !button
+                ) {
+
+                    return;
+
+                }
+
+
+                window.location.href =
+                    "commerciaux.html";
+
             }
-        }
-    );
+        );
 
-function renderAdmin() {
 
-    renderAdminStats();
+    document
+        .getElementById(
+            "settings-form"
+        )
+        ?.addEventListener(
+            "submit",
+            (
+                event
+            ) => {
 
-    renderAdminUsers();
+                event.preventDefault();
 
-    loadSettingsIntoForm();
+            }
+        );
+
 }
 
-loginForm
-    ?.addEventListener(
+
+
+function initializeLogin() {
+
+    const form =
+        document.getElementById(
+            "login-form"
+        );
+
+
+    if (
+        !form
+    ) {
+
+        return;
+
+    }
+
+
+    const errorElement =
+        document.getElementById(
+            "login-error"
+        );
+
+
+    form.addEventListener(
         "submit",
-        function (event) {
+        (
+            event
+        ) => {
 
             event.preventDefault();
 
+
+            const email =
+                document
+                    .getElementById(
+                        "email"
+                    )
+                    ?.value.trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    ?.value;
+
+
             if (
-                !loginForm.checkValidity()
+                !email ||
+                !password
             ) {
 
-                loginForm.reportValidity();
+                if (
+                    errorElement
+                ) {
+
+                    errorElement.textContent =
+                        currentLanguage ===
+                        "fr"
+                            ? "Veuillez renseigner votre e-mail et votre mot de passe."
+                            : "Please enter your email and password.";
+
+
+                    errorElement.hidden =
+                        false;
+
+                }
+
 
                 return;
+
             }
 
-            if (loginError) {
 
-                loginError.hidden =
-                    false;
+            if (
+                errorElement
+            ) {
 
-                loginError.textContent =
-                    t(
-                        "login.demoMessage"
-                    );
+                errorElement.hidden =
+                    true;
+
             }
 
-            setTimeout(
-                function () {
 
-                    window.location.href =
-                        "dashboard.html";
-                },
-                500
-            );
+            window.location.href =
+                "dashboard.html";
+
         }
     );
 
-frenchLanguageButton
-    ?.addEventListener(
-        "click",
-        function () {
-
-            applyLanguage(
-                "fr"
-            );
-        }
-    );
-
-englishLanguageButton
-    ?.addEventListener(
-        "click",
-        function () {
-
-            applyLanguage(
-                "en"
-            );
-        }
-    );
-
-function initializeApp() {
-
-    applyTranslations();
-
-    refreshAllViews();
-
-    console.log(
-        "Smart CRM — JavaScript chargé correctement."
-    );
 }
 
-initializeApp();
+
+
+function initializeLanguageButtons() {
+
+    document
+        .getElementById(
+            "lang-fr"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                applyLanguage(
+                    "fr"
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "lang-en"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                applyLanguage(
+                    "en"
+                );
+
+            }
+        );
+
+}
+
+
+
+function createDetailItem(
+    label,
+    value,
+    fullWidth = false
+) {
+
+    return `
+
+        <div
+            class="prospect-detail-item ${
+                fullWidth
+                    ? "prospect-detail-full"
+                    : ""
+            }"
+        >
+
+            <span class="prospect-detail-label">
+                ${escapeHTML(
+                    label
+                )}
+            </span>
+
+            <span class="prospect-detail-value">
+                ${escapeHTML(
+                    value
+                )}
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+
+function setValue(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (
+        element
+    ) {
+
+        element.value =
+            value || "";
+
+    }
+
+}
+
+
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initializeLanguageButtons();
+
+        initializeQuoteForm();
+
+        initializeProspectForm();
+
+        initializeProspectModal();
+
+        initializeSalespersonForm();
+
+        initializeSalespeopleActions();
+
+        initializeAdmin();
+
+        initializeLogin();
+
+        populateSalespeopleSelect();
+
+        applyLanguage(
+            currentLanguage
+        );
+
+    }
+);
