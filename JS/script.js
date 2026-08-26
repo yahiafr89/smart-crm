@@ -1429,6 +1429,35 @@ let currentLanguage =
     ) || "fr";
 
 
+const DEMO_ROLE_STORAGE_KEY =
+    "smartcrm-demo-role";
+
+
+const DEMO_ROLES = [
+    "commercial",
+    "manager",
+    "administrator"
+];
+
+
+let currentDemoRole =
+    localStorage.getItem(
+        DEMO_ROLE_STORAGE_KEY
+    ) || "administrator";
+
+
+if (
+    !DEMO_ROLES.includes(
+        currentDemoRole
+    )
+) {
+
+    currentDemoRole =
+        "administrator";
+
+}
+
+
 let prospects =
     JSON.parse(
         localStorage.getItem(
@@ -1469,6 +1498,466 @@ function translate(
         ] ||
         key
     );
+
+}
+
+
+
+function getDemoRoleLabel(
+    role
+) {
+
+    const roleKey = {
+
+        commercial:
+            "roles.commercial",
+
+        manager:
+            "roles.manager",
+
+        administrator:
+            "roles.administrator"
+
+    }[role];
+
+
+    return roleKey
+        ? translate(
+            roleKey
+        )
+        : role;
+
+}
+
+
+
+function getDemoProfile(
+    role
+) {
+
+    const profiles = {
+
+        commercial: {
+            name:
+                currentLanguage === "fr"
+                    ? "Démo Commercial"
+                    : "Sales Demo",
+            initials:
+                "DC"
+        },
+
+        manager: {
+            name:
+                currentLanguage === "fr"
+                    ? "Démo Manager"
+                    : "Manager Demo",
+            initials:
+                "DM"
+        },
+
+        administrator: {
+            name:
+                currentLanguage === "fr"
+                    ? "Démo Administrateur"
+                    : "Administrator Demo",
+            initials:
+                "DA"
+        }
+
+    };
+
+
+    return (
+        profiles[role] ||
+        profiles.administrator
+    );
+
+}
+
+
+
+function canDemoRoleSeePage(
+    role,
+    page
+) {
+
+    const navigation = {
+
+        commercial: [
+            "dashboard.html",
+            "prospects.html"
+        ],
+
+        manager: [
+            "dashboard.html",
+            "prospects.html",
+            "commerciaux.html"
+        ],
+
+        administrator: [
+            "dashboard.html",
+            "prospects.html",
+            "commerciaux.html",
+            "administration.html"
+        ]
+
+    };
+
+
+    return (
+        navigation[role] ||
+        navigation.administrator
+    ).includes(
+        page
+    );
+
+}
+
+
+
+function updateDemoNavigation() {
+
+    const links =
+        document.querySelectorAll(
+            ".crm-sidebar-nav a"
+        );
+
+
+    links.forEach(
+        (
+            link
+        ) => {
+
+            const href =
+                link.getAttribute(
+                    "href"
+                );
+
+
+            if (
+                !href
+            ) {
+
+                return;
+
+            }
+
+
+            const isVisible =
+                canDemoRoleSeePage(
+                    currentDemoRole,
+                    href
+                );
+
+
+            link.hidden =
+                !isVisible;
+
+
+            link.style.display =
+                isVisible
+                    ? ""
+                    : "none";
+
+        }
+    );
+
+}
+
+
+
+function updateDemoUserCard() {
+
+    const userCard =
+        document.querySelector(
+            ".crm-user-card"
+        );
+
+
+    if (
+        !userCard
+    ) {
+
+        return;
+
+    }
+
+
+    const profile =
+        getDemoProfile(
+            currentDemoRole
+        );
+
+
+    const avatar =
+        userCard.querySelector(
+            ".crm-user-avatar"
+        );
+
+
+    const name =
+        userCard.querySelector(
+            ".crm-user-meta strong"
+        );
+
+
+    const role =
+        userCard.querySelector(
+            ".crm-user-meta span"
+        );
+
+
+    if (
+        avatar
+    ) {
+
+        avatar.textContent =
+            profile.initials;
+
+    }
+
+
+    if (
+        name
+    ) {
+
+        name.textContent =
+            profile.name;
+
+    }
+
+
+    if (
+        role
+    ) {
+
+        role.textContent =
+            getDemoRoleLabel(
+                currentDemoRole
+            );
+
+    }
+
+}
+
+
+
+function createDemoRoleSelector() {
+
+    const userCard =
+        document.querySelector(
+            ".crm-user-card"
+        );
+
+
+    if (
+        !userCard ||
+        document.getElementById(
+            "demo-role-select"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const oldMenuButton =
+        userCard.querySelector(
+            ".crm-user-menu-button"
+        );
+
+
+    if (
+        oldMenuButton
+    ) {
+
+        oldMenuButton.remove();
+
+    }
+
+
+    const select =
+        document.createElement(
+            "select"
+        );
+
+
+    select.id =
+        "demo-role-select";
+
+
+    select.setAttribute(
+        "aria-label",
+        currentLanguage === "fr"
+            ? "Rôle de démonstration"
+            : "Demo role"
+    );
+
+
+    Object.assign(
+        select.style,
+        {
+            width: "100%",
+            gridColumn: "1 / -1",
+            marginTop: "8px",
+            padding: "7px 9px",
+            border: "1px solid rgba(255,255,255,0.12)",
+            borderRadius: "9px",
+            background: "rgba(255,255,255,0.07)",
+            color: "#ffffff",
+            fontSize: "10px",
+            cursor: "pointer",
+            outline: "none"
+        }
+    );
+
+
+    DEMO_ROLES.forEach(
+        (
+            demoRole
+        ) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                demoRole;
+
+
+            option.textContent =
+                getDemoRoleLabel(
+                    demoRole
+                );
+
+
+            option.style.color =
+                "#111827";
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    select.value =
+        currentDemoRole;
+
+
+    select.addEventListener(
+        "change",
+        () => {
+
+            currentDemoRole =
+                DEMO_ROLES.includes(
+                    select.value
+                )
+                    ? select.value
+                    : "administrator";
+
+
+            localStorage.setItem(
+                DEMO_ROLE_STORAGE_KEY,
+                currentDemoRole
+            );
+
+
+            applyDemoRoleUI();
+
+        }
+    );
+
+
+    userCard.appendChild(
+        select
+    );
+
+}
+
+
+
+function refreshDemoRoleSelector() {
+
+    const select =
+        document.getElementById(
+            "demo-role-select"
+        );
+
+
+    if (
+        !select
+    ) {
+
+        return;
+
+    }
+
+
+    select.setAttribute(
+        "aria-label",
+        currentLanguage === "fr"
+            ? "Rôle de démonstration"
+            : "Demo role"
+    );
+
+
+    Array.from(
+        select.options
+    ).forEach(
+        (
+            option
+        ) => {
+
+            option.textContent =
+                getDemoRoleLabel(
+                    option.value
+                );
+
+        }
+    );
+
+
+    select.value =
+        currentDemoRole;
+
+}
+
+
+
+function applyDemoRoleUI() {
+
+    updateDemoNavigation();
+
+    updateDemoUserCard();
+
+    refreshDemoRoleSelector();
+
+}
+
+
+
+function initializeDemoRoles() {
+
+    if (
+        !document.querySelector(
+            ".crm-app-shell"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    createDemoRoleSelector();
+
+    applyDemoRoleUI();
 
 }
 
@@ -1609,6 +2098,8 @@ function applyLanguage(
 
     }
 
+
+    applyDemoRoleUI();
 
     renderProspects();
     renderDashboard();
@@ -4282,6 +4773,8 @@ document.addEventListener(
         initializeAdmin();
 
         initializeLogin();
+
+        initializeDemoRoles();
 
         populateSalespeopleSelect();
 
