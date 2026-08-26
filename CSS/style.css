@@ -4039,3 +4039,399 @@ td strong {
     width: 100%;
     margin: 0;
 }
+
+
+/* ============================================================
+   PROSPECT CRM PROFILE
+============================================================ */
+
+.prospect-profile-modal {
+    max-width: 980px;
+
+    padding: 0;
+
+    overflow: hidden;
+}
+
+
+.prospect-profile-header {
+    margin: 0;
+
+    padding: 24px 28px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(249, 250, 253, 0.94)
+        );
+}
+
+
+.prospect-profile-header .section-label {
+    margin-bottom: 4px;
+}
+
+
+.prospect-profile {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.25fr)
+        minmax(280px, 0.75fr);
+
+    gap: 22px;
+
+    padding: 28px;
+}
+
+
+.prospect-profile-main,
+.prospect-profile-side {
+    display: grid;
+
+    align-content: start;
+
+    gap: 18px;
+}
+
+
+.prospect-profile-identity {
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 22px;
+
+    border: 1px solid var(--color-border);
+
+    border-radius: var(--radius-lg);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(244, 247, 255, 0.9)
+        );
+}
+
+
+.prospect-profile-avatar {
+    width: 58px;
+    height: 58px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 58px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--color-primary),
+            var(--color-purple)
+        );
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 26px rgba(37, 99, 235, 0.22);
+}
+
+
+.prospect-profile-identity-copy {
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.prospect-profile-identity-copy h3 {
+    margin: 0 0 3px;
+
+    color: var(--color-navy);
+
+    font-size: 22px;
+    font-weight: 700;
+
+    letter-spacing: -0.035em;
+}
+
+
+.prospect-profile-identity-copy p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+}
+
+
+.prospect-profile-status {
+    margin-left: auto;
+}
+
+
+.prospect-profile-card {
+    padding: 20px;
+
+    border: 1px solid var(--color-border);
+
+    border-radius: var(--radius-lg);
+
+    background: rgba(255, 255, 255, 0.88);
+
+    box-shadow: var(--shadow-xs);
+}
+
+
+.prospect-profile-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 16px;
+}
+
+
+.prospect-profile-card-header h4 {
+    margin: 0;
+
+    color: var(--color-navy);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.prospect-profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+.prospect-profile-field {
+    min-width: 0;
+
+    padding: 13px 14px;
+
+    border-radius: 12px;
+
+    background: rgba(118, 118, 128, 0.055);
+}
+
+
+.prospect-profile-field.full {
+    grid-column: 1 / -1;
+}
+
+
+.prospect-profile-field span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--color-text-light);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.055em;
+}
+
+
+.prospect-profile-field strong,
+.prospect-profile-field a {
+    display: block;
+
+    color: var(--color-text);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+
+.prospect-profile-field a {
+    color: var(--color-primary);
+}
+
+
+.prospect-profile-note {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+}
+
+
+.prospect-profile-ai {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(37, 99, 235, 0.07),
+            rgba(124, 58, 237, 0.06)
+        );
+}
+
+
+.prospect-profile-ai::before {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -54px;
+    right: -42px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.18),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.prospect-profile-placeholder {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+.prospect-profile-placeholder strong {
+    color: var(--color-navy);
+}
+
+
+.prospect-profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding-top: 2px;
+}
+
+
+.prospect-profile-actions button {
+    flex: 1 1 140px;
+}
+
+
+.qualification-badge {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 5px 10px;
+
+    border-radius: var(--radius-pill);
+
+    background: rgba(245, 158, 11, 0.11);
+
+    color: #a16207;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+@media (max-width: 760px) {
+
+    .prospect-profile-modal {
+        max-width: 100%;
+    }
+
+
+    .prospect-profile {
+        grid-template-columns: 1fr;
+
+        padding: 20px;
+    }
+
+
+    .prospect-profile-identity {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+
+    .prospect-profile-status {
+        width: 100%;
+
+        margin-left: 74px;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .prospect-profile-header {
+        padding: 20px;
+    }
+
+
+    .prospect-profile {
+        padding: 16px;
+    }
+
+
+    .prospect-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .prospect-profile-field.full {
+        grid-column: auto;
+    }
+
+
+    .prospect-profile-status {
+        width: auto;
+
+        margin-left: 0;
+    }
+
+}

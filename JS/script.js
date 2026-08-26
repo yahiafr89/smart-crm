@@ -420,6 +420,45 @@ const translations = {
         "prospects.close":
             "Fermer",
 
+        "prospects.profileLabel":
+            "Fiche CRM",
+
+        "prospects.contactInfo":
+            "Coordonnées",
+
+        "prospects.commercialInfo":
+            "Suivi commercial",
+
+        "prospects.qualification":
+            "Qualification",
+
+        "prospects.qualificationPending":
+            "À définir",
+
+        "prospects.createdAt":
+            "Créé le",
+
+        "prospects.updatedAt":
+            "Dernière mise à jour",
+
+        "prospects.aiSection":
+            "Assistant IA",
+
+        "prospects.aiSummary":
+            "Résumé IA",
+
+        "prospects.aiSummaryPending":
+            "Le résumé généré par IA sera affiché ici lorsque CRM-06 sera connecté.",
+
+        "prospects.nextAction":
+            "Prochaine action",
+
+        "prospects.nextActionPending":
+            "La prochaine action recommandée sera affichée ici lorsque CRM-06 sera connecté.",
+
+        "prospects.editProfile":
+            "Modifier le prospect",
+
 
         "prospect.firstName":
             "Prénom",
@@ -1107,6 +1146,45 @@ const translations = {
 
         "prospects.close":
             "Close",
+
+        "prospects.profileLabel":
+            "CRM profile",
+
+        "prospects.contactInfo":
+            "Contact information",
+
+        "prospects.commercialInfo":
+            "Sales follow-up",
+
+        "prospects.qualification":
+            "Qualification",
+
+        "prospects.qualificationPending":
+            "To be defined",
+
+        "prospects.createdAt":
+            "Created on",
+
+        "prospects.updatedAt":
+            "Last updated",
+
+        "prospects.aiSection":
+            "AI Assistant",
+
+        "prospects.aiSummary":
+            "AI summary",
+
+        "prospects.aiSummaryPending":
+            "The AI-generated summary will appear here when CRM-06 is connected.",
+
+        "prospects.nextAction":
+            "Next action",
+
+        "prospects.nextActionPending":
+            "The recommended next action will appear here when CRM-06 is connected.",
+
+        "prospects.editProfile":
+            "Edit prospect",
 
 
         "prospect.firstName":
@@ -3211,85 +3289,465 @@ function openProspectModal(
     }
 
 
+    const fullName =
+        `${prospect.firstName || ""} ${prospect.lastName || ""}`
+            .trim() ||
+        "-";
+
+
+    const initials =
+        [
+            prospect.firstName,
+            prospect.lastName
+        ]
+            .filter(Boolean)
+            .map(
+                value =>
+                    String(value)
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase()
+            )
+            .join("")
+            .slice(0, 2) ||
+        "PR";
+
+
+    const company =
+        prospect.company ||
+        "-";
+
+
+    const email =
+        prospect.email ||
+        "-";
+
+
+    const phone =
+        prospect.phone ||
+        "-";
+
+
+    const city =
+        prospect.city ||
+        "-";
+
+
+    const salesperson =
+        getSalespersonName(
+            prospect.commercial
+        ) ||
+        translate(
+            "common.unassigned"
+        );
+
+
+    const comments =
+        prospect.comments ||
+        "-";
+
+
+    const status =
+        normalizeStatus(
+            prospect.status
+        );
+
+
+    const qualification =
+        prospect.qualification
+            ? String(
+                prospect.qualification
+            )
+            : translate(
+                "prospects.qualificationPending"
+            );
+
+
+    const createdAt =
+        formatProspectDate(
+            prospect.createdAt
+        );
+
+
+    const updatedAt =
+        formatProspectDate(
+            prospect.updatedAt ||
+            prospect.createdAt
+        );
+
+
     details.innerHTML = `
 
-        <div class="prospect-detail">
+        <div class="prospect-profile">
 
-            ${createDetailItem(
-                translate(
-                    "prospect.firstName"
-                ),
-                prospect.firstName
-            )}
+            <div class="prospect-profile-main">
 
-            ${createDetailItem(
-                translate(
-                    "prospect.lastName"
-                ),
-                prospect.lastName
-            )}
+                <section class="prospect-profile-identity">
 
-            ${createDetailItem(
-                translate(
-                    "prospect.company"
-                ),
-                prospect.company ||
-                "-"
-            )}
+                    <span
+                        class="prospect-profile-avatar"
+                        aria-hidden="true"
+                    >
+                        ${escapeHTML(
+                            initials
+                        )}
+                    </span>
 
-            ${createDetailItem(
-                translate(
-                    "prospect.email"
-                ),
-                prospect.email
-            )}
+                    <div class="prospect-profile-identity-copy">
 
-            ${createDetailItem(
-                translate(
-                    "prospect.phone"
-                ),
-                prospect.phone ||
-                "-"
-            )}
+                        <h3>
+                            ${escapeHTML(
+                                fullName
+                            )}
+                        </h3>
 
-            ${createDetailItem(
-                translate(
-                    "prospect.city"
-                ),
-                prospect.city ||
-                "-"
-            )}
+                        <p>
+                            ${escapeHTML(
+                                company
+                            )}
+                        </p>
 
-            ${createDetailItem(
-                translate(
-                    "prospect.status"
-                ),
-                getStatusLabel(
-                    prospect.status
-                )
-            )}
+                    </div>
 
-            ${createDetailItem(
-                translate(
-                    "prospect.salesperson"
-                ),
-                getSalespersonName(
-                    prospect.commercial
-                )
-            )}
+                    <div class="prospect-profile-status">
 
-            ${createDetailItem(
-                translate(
-                    "prospects.comments"
-                ),
-                prospect.comments ||
-                "-",
-                true
-            )}
+                        <span
+                            class="status ${getStatusClass(
+                                status
+                            )}"
+                        >
+                            ${escapeHTML(
+                                getStatusLabel(
+                                    status
+                                )
+                            )}
+                        </span>
+
+                    </div>
+
+                </section>
+
+                <section class="prospect-profile-card">
+
+                    <div class="prospect-profile-card-header">
+
+                        <h4>
+                            ${escapeHTML(
+                                translate(
+                                    "prospects.contactInfo"
+                                )
+                            )}
+                        </h4>
+
+                    </div>
+
+                    <div class="prospect-profile-grid">
+
+                        <div class="prospect-profile-field">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospect.email"
+                                    )
+                                )}
+                            </span>
+
+                            <a
+                                href="mailto:${escapeHTML(
+                                    prospect.email || ""
+                                )}"
+                            >
+                                ${escapeHTML(
+                                    email
+                                )}
+                            </a>
+
+                        </div>
+
+                        <div class="prospect-profile-field">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospect.phone"
+                                    )
+                                )}
+                            </span>
+
+                            <a
+                                href="${
+                                    prospect.phone
+                                        ? `tel:${escapeHTML(
+                                            prospect.phone
+                                        )}`
+                                        : "#"
+                                }"
+                            >
+                                ${escapeHTML(
+                                    phone
+                                )}
+                            </a>
+
+                        </div>
+
+                        <div class="prospect-profile-field">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospect.company"
+                                    )
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    company
+                                )}
+                            </strong>
+
+                        </div>
+
+                        <div class="prospect-profile-field">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospect.city"
+                                    )
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    city
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="prospect-profile-card">
+
+                    <div class="prospect-profile-card-header">
+
+                        <h4>
+                            ${escapeHTML(
+                                translate(
+                                    "prospects.comments"
+                                )
+                            )}
+                        </h4>
+
+                    </div>
+
+                    <p class="prospect-profile-note">
+                        ${escapeHTML(
+                            comments
+                        )}
+                    </p>
+
+                </section>
+
+            </div>
+
+            <aside class="prospect-profile-side">
+
+                <section class="prospect-profile-card">
+
+                    <div class="prospect-profile-card-header">
+
+                        <h4>
+                            ${escapeHTML(
+                                translate(
+                                    "prospects.commercialInfo"
+                                )
+                            )}
+                        </h4>
+
+                    </div>
+
+                    <div class="prospect-profile-grid">
+
+                        <div class="prospect-profile-field full">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospect.salesperson"
+                                    )
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    salesperson
+                                )}
+                            </strong>
+
+                        </div>
+
+                        <div class="prospect-profile-field full">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospects.qualification"
+                                    )
+                                )}
+                            </span>
+
+                            <span class="qualification-badge">
+                                ${escapeHTML(
+                                    qualification
+                                )}
+                            </span>
+
+                        </div>
+
+                        <div class="prospect-profile-field">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospects.createdAt"
+                                    )
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    createdAt
+                                )}
+                            </strong>
+
+                        </div>
+
+                        <div class="prospect-profile-field">
+
+                            <span>
+                                ${escapeHTML(
+                                    translate(
+                                        "prospects.updatedAt"
+                                    )
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    updatedAt
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="prospect-profile-card prospect-profile-ai">
+
+                    <div class="prospect-profile-card-header">
+
+                        <h4>
+                            ${escapeHTML(
+                                translate(
+                                    "prospects.aiSection"
+                                )
+                            )}
+                        </h4>
+
+                    </div>
+
+                    <p class="prospect-profile-placeholder">
+
+                        <strong>
+                            ${escapeHTML(
+                                translate(
+                                    "prospects.aiSummary"
+                                )
+                            )}
+                        </strong>
+
+                        <br>
+
+                        ${escapeHTML(
+                            prospect.aiSummary ||
+                            translate(
+                                "prospects.aiSummaryPending"
+                            )
+                        )}
+
+                    </p>
+
+                    <br>
+
+                    <p class="prospect-profile-placeholder">
+
+                        <strong>
+                            ${escapeHTML(
+                                translate(
+                                    "prospects.nextAction"
+                                )
+                            )}
+                        </strong>
+
+                        <br>
+
+                        ${escapeHTML(
+                            prospect.nextAction ||
+                            translate(
+                                "prospects.nextActionPending"
+                            )
+                        )}
+
+                    </p>
+
+                </section>
+
+                <div class="prospect-profile-actions">
+
+                    <button
+                        type="button"
+                        class="btn-primary"
+                        id="prospect-profile-edit"
+                    >
+                        ${escapeHTML(
+                            translate(
+                                "prospects.editProfile"
+                            )
+                        )}
+                    </button>
+
+                </div>
+
+            </aside>
 
         </div>
 
     `;
+
+
+    document
+        .getElementById(
+            "prospect-profile-edit"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                closeProspectModal();
+
+                editProspect(
+                    id
+                );
+
+            }
+        );
 
 
     modal.classList.add(
@@ -4657,6 +5115,52 @@ function initializeLanguageButtons() {
 
             }
         );
+
+}
+
+
+
+function formatProspectDate(
+    value
+) {
+
+    if (
+        !value
+    ) {
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "-";
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+        currentLanguage === "en"
+            ? "en-GB"
+            : "fr-FR",
+        {
+            dateStyle:
+                "medium"
+        }
+    ).format(
+        date
+    );
 
 }
 
