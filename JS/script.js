@@ -1,5 +1,5 @@
 const API_URL =
-    "https://subway-goliath-reversing.ngrok-free.dev/webhook-test/crm/lead-intake";
+    "https://sxxxxxxxxxxxxxx";
 
 
 const translations = {
@@ -2328,85 +2328,37 @@ function getSalespersonName(
 
 
 
-async function sendProspectToAPI(
-    prospect
-) {
-
+async function sendProspectToAPI(prospect) {
+    // CRM-01A : endpoint de TEST existant. À remplacer uniquement après validation de Mohcine.
+    // Une erreur HTTP, réseau ou un délai dépassé ne vaut jamais confirmation serveur.
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-
-        const response =
-            await fetch(
-                API_URL,
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            {
-
-                                first_name:
-                                    prospect.firstName,
-
-                                last_name:
-                                    prospect.lastName,
-
-                                company:
-                                    prospect.company,
-
-                                email:
-                                    prospect.email,
-
-                                phone:
-                                    prospect.phone,
-
-                                message:
-                                    prospect.message
-
-                            }
-                        )
-
-                }
-            );
-
-
-        if (
-            !response.ok
-        ) {
-
-            throw new Error(
-                `HTTP ${response.status}`
-            );
-
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: controller.signal,
+            body: JSON.stringify({
+                first_name: prospect.firstName,
+                last_name: prospect.lastName,
+                company: prospect.company,
+                email: prospect.email,
+                phone: prospect.phone,
+                message: prospect.message
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
-
-
+        // Contrat de réponse non encore confirmé : HTTP 2xx est provisoirement le critère.
         return true;
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            "Erreur lors de l'envoi du prospect au Backend :",
-            error
-        );
-
-
+    } catch (error) {
+        console.error("CRM-01 : envoi non confirmé par le serveur", error);
         return false;
-
+    } finally {
+        clearTimeout(timeout);
     }
-
 }
-
 
 
 function addPublicProspectLocally(
@@ -2467,146 +2419,72 @@ function addPublicProspectLocally(
 
 
 function initializeQuoteForm() {
+    const form = document.getElementById("quote-form");
+    if (!form) return;
 
-    const form =
-        document.getElementById(
-            "quote-form"
-        );
-
-
-    if (
-        !form
-    ) {
-
-        return;
-
+    const successMessage = document.getElementById("form-success");
+    const submitButton = form.querySelector('button[type="submit"]');
+    const errorMessage = document.createElement("p");
+    errorMessage.id = "form-error";
+    errorMessage.setAttribute("role", "alert");
+    errorMessage.setAttribute("aria-live", "assertive");
+    errorMessage.hidden = true;
+    errorMessage.style.color = "#b42318";
+    errorMessage.style.marginTop = "12px";
+    if (successMessage) {
+        successMessage.insertAdjacentElement("afterend", errorMessage);
+    } else {
+        form.appendChild(errorMessage);
     }
 
-
-    const successMessage =
-        document.getElementById(
-            "form-success"
-        );
-
-
-    form.addEventListener(
-        "submit",
-        async (
-            event
-        ) => {
-
-            event.preventDefault();
-
-
-            if (
-                !form.checkValidity()
-            ) {
-
-                form.reportValidity();
-
-                return;
-
-            }
-
-
-            const formData =
-                new FormData(
-                    form
-                );
-
-
-            const request = {
-
-                firstName:
-                    (
-                        formData.get(
-                            "first_name"
-                        ) || ""
-                    ).trim(),
-
-                lastName:
-                    (
-                        formData.get(
-                            "last_name"
-                        ) || ""
-                    ).trim(),
-
-                company:
-                    (
-                        formData.get(
-                            "company"
-                        ) || ""
-                    ).trim(),
-
-                email:
-                    (
-                        formData.get(
-                            "email"
-                        ) || ""
-                    ).trim(),
-
-                phone:
-                    (
-                        formData.get(
-                            "phone"
-                        ) || ""
-                    ).trim(),
-
-                message:
-                    (
-                        formData.get(
-                            "message"
-                        ) || ""
-                    ).trim()
-
-            };
-
-
-            const sent =
-                await sendProspectToAPI(
-                    request
-                );
-
-
-            if (
-                !sent
-            ) {
-
-                addPublicProspectLocally(
-                    request
-                );
-
-            }
-
-
-            form.reset();
-
-
-            if (
-                successMessage
-            ) {
-
-                successMessage.hidden =
-                    false;
-
-
-                setTimeout(
-                    () => {
-
-                        successMessage.hidden =
-                            true;
-
-                    },
-                    6000
-                );
-
-            }
-
+    let submitting = false;
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (submitting) return;
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
         }
-    );
 
+        const formData = new FormData(form);
+        const field = (name) => String(formData.get(name) || "").trim();
+        const request = {
+            firstName: field("first_name"),
+            lastName: field("last_name"),
+            company: field("company"),
+            email: field("email"),
+            phone: field("phone"),
+            message: field("message")
+        };
+
+        submitting = true;
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.setAttribute("aria-busy", "true");
+        }
+        errorMessage.hidden = true;
+        if (successMessage) successMessage.hidden = true;
+
+        try {
+            const sent = await sendProspectToAPI(request);
+            if (!sent) {
+                errorMessage.textContent = currentLanguage === "en"
+                    ? "Your request could not be confirmed by the server. Please try again. Your entries have been kept."
+                    : "Votre demande n'a pas été confirmée par le serveur. Veuillez réessayer. Vos saisies ont été conservées.";
+                errorMessage.hidden = false;
+                return;
+            }
+            form.reset();
+            if (successMessage) successMessage.hidden = false;
+        } finally {
+            submitting = false;
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.removeAttribute("aria-busy");
+            }
+        }
+    });
 }
-
 
 
 function renderProspects() {
