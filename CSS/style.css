@@ -4471,3 +4471,9 @@ td strong {
 .crm-commercial-table{min-width:790px}.crm-commercial-table th:not(:first-child),.crm-commercial-table td:not(:first-child){text-align:right}
 .crm-commercial-table .crm-report-empty{text-align:center;padding:32px 16px}
 @media(max-width:650px){.crm-report-card{padding:20px}.crm-daily-chart{min-height:190px}.crm-report-empty{padding:48px 14px}}
+
+/* CRM-02 6D-2 — États de présentation, sans appel backend */
+.crm-dashboard-state{margin:0;padding:13px 16px;border:1px solid #dbe4f2;border-radius:12px;background:#f7faff;color:#425676;font-size:.875rem}
+.crm-dashboard-state[data-state="error"],.crm-dashboard-state[data-state="expired"],.crm-dashboard-state[data-state="denied"]{border-color:#f0d5d5;background:#fff8f8;color:#8b3030}
+.crm-dashboard-state[data-state="loading"]{border-color:#d9e3fa;background:#f3f7ff}
+.crm-daily-chart[aria-busy="true"],.crm-commercial-table[aria-busy="true"]{opacity:.7}

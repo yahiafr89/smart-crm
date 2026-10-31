@@ -7,10 +7,10 @@ const translations = {
     fr: {
 
         "page.homeTitle":
-            "Smart CRM - GÃ©rez vos prospects intelligemment",
+            "Smart CRM - Gérez vos prospects intelligemment",
 
         "about.pageTitle":
-            "Ã€ propos - Smart CRM",
+            "À propos - Smart CRM",
 
         "services.pageTitle":
             "Services - Smart CRM",
@@ -41,7 +41,7 @@ const translations = {
             "Accueil",
 
         "nav.about":
-            "Ã€ propos",
+            "À propos",
 
         "nav.services":
             "Services",
@@ -66,7 +66,7 @@ const translations = {
             "Choix de la langue",
 
         "language.french":
-            "ðŸ‡«ðŸ‡· FranÃ§ais",
+            "🇫🇷 Français",
 
         "language.english":
             "ðŸ‡¬ðŸ‡§ English",
@@ -76,10 +76,10 @@ const translations = {
             "Un projet ? Parlons-en.",
 
         "home.heroTitle":
-            "Donnez vie Ã  votre projet avec une solution adaptÃ©e Ã  vos besoins.",
+            "Donnez vie à votre projet avec une solution adaptée à vos besoins.",
 
         "home.heroText":
-            "DÃ©crivez-nous votre projet, votre besoin ou votre problÃ©matique. Notre Ã©quipe Ã©tudiera votre demande et vous proposera une solution adaptÃ©e.",
+            "Décrivez-nous votre projet, votre besoin ou votre problématique. Notre équipe étudiera votre demande et vous proposera une solution adaptée.",
 
         "home.requestQuote":
             "Demander un devis",
@@ -88,68 +88,68 @@ const translations = {
             "Nos services",
 
         "home.servicesTitle":
-            "Des solutions adaptÃ©es Ã  vos besoins",
+            "Des solutions adaptées à vos besoins",
 
         "home.servicesText":
-            "DÃ©couvrez nos services et dÃ©crivez-nous votre projet pour recevoir une proposition adaptÃ©e.",
+            "Découvrez nos services et décrivez-nous votre projet pour recevoir une proposition adaptée.",
 
         "home.benefitsLabel":
             "Pourquoi nous choisir ?",
 
         "home.benefitsTitle":
-            "Une approche pensÃ©e pour votre projet",
+            "Une approche pensée pour votre projet",
 
         "home.benefitsText":
-            "Nous commenÃ§ons par comprendre votre besoin avant de proposer une solution adaptÃ©e.",
+            "Nous commençons par comprendre votre besoin avant de proposer une solution adaptée.",
 
         "home.quoteLabel":
             "Votre projet",
 
         "home.quoteTitle":
-            "DÃ©crivez-nous votre besoin",
+            "Décrivez-nous votre besoin",
 
         "home.quoteText":
-            "Expliquez-nous votre projet et notre Ã©quipe vous contactera pour Ã©tudier votre demande.",
+            "Expliquez-nous votre projet et notre équipe vous contactera pour étudier votre demande.",
 
 
         "service.webTitle":
-            "DÃ©veloppement web",
+            "Développement web",
 
         "service.webText":
-            "CrÃ©ation de sites web et d'applications adaptÃ©s aux besoins de votre entreprise.",
+            "Création de sites web et d'applications adaptés aux besoins de votre entreprise.",
 
         "service.automationTitle":
             "Automatisation",
 
         "service.automationText":
-            "Automatisez vos tÃ¢ches rÃ©pÃ©titives et optimisez vos processus mÃ©tier.",
+            "Automatisez vos tâches répétitives et optimisez vos processus métier.",
 
         "service.digitalTitle":
             "Solutions digitales",
 
         "service.digitalText":
-            "Conception de solutions numÃ©riques adaptÃ©es Ã  vos objectifs et Ã  votre activitÃ©.",
+            "Conception de solutions numériques adaptées à vos objectifs et à votre activité.",
 
         "service.businessTitle":
-            "Applications mÃ©tier",
+            "Applications métier",
 
         "service.businessText":
-            "DÃ©veloppez des applications personnalisÃ©es pour amÃ©liorer vos opÃ©rations quotidiennes.",
+            "Développez des applications personnalisées pour améliorer vos opérations quotidiennes.",
 
         "service.consultingTitle":
             "Conseil digital",
 
         "service.consultingText":
-            "Identifiez les meilleures solutions numÃ©riques pour faire Ã©voluer votre activitÃ©.",
+            "Identifiez les meilleures solutions numériques pour faire évoluer votre activité.",
 
         "service.customTitle":
-            "Projet personnalisÃ©",
+            "Projet personnalisé",
 
         "service.customText":
-            "Vous avez un besoin spÃ©cifique ? DÃ©crivez-nous votre projet et discutons-en.",
+            "Vous avez un besoin spécifique ? Décrivez-nous votre projet et discutons-en.",
 
         "service.customButton":
-            "DÃ©crire mon projet",
+            "Décrire mon projet",
 
 
         "benefit.understandTitle":
@@ -162,23 +162,23 @@ const translations = {
             "Proposer la bonne solution",
 
         "benefit.solutionText":
-            "Nous vous proposons une solution adaptÃ©e Ã  votre situation et Ã  vos objectifs.",
+            "Nous vous proposons une solution adaptée à votre situation et à vos objectifs.",
 
         "benefit.supportTitle":
             "Vous accompagner",
 
         "benefit.supportText":
-            "Notre Ã©quipe vous accompagne de la premiÃ¨re demande jusqu'Ã  la rÃ©alisation du projet.",
+            "Notre équipe vous accompagne de la première demande jusqu'à la réalisation du projet.",
 
 
         "about.heroLabel":
-            "Ã€ propos de nous",
+            "À propos de nous",
 
         "about.heroTitle":
-            "Nous transformons les idÃ©es en solutions concrÃ¨tes.",
+            "Nous transformons les idées en solutions concrètes.",
 
         "about.heroText":
-            "Notre Ã©quipe accompagne les entreprises dans la rÃ©alisation de leurs projets en proposant des solutions adaptÃ©es Ã  leurs besoins.",
+            "Notre équipe accompagne les entreprises dans la réalisation de leurs projets en proposant des solutions adaptées à leurs besoins.",
 
         "about.approachLabel":
             "Notre approche",
@@ -187,26 +187,26 @@ const translations = {
             "Comprendre avant de proposer",
 
         "about.approachText":
-            "Chaque projet est diffÃ©rent. Nous commenÃ§ons donc par comprendre les objectifs, les contraintes et les attentes de nos clients avant de construire une solution adaptÃ©e.",
+            "Chaque projet est différent. Nous commençons donc par comprendre les objectifs, les contraintes et les attentes de nos clients avant de construire une solution adaptée.",
 
 
         "services.heroLabel":
             "Nos services",
 
         "services.heroTitle":
-            "Des solutions adaptÃ©es Ã  vos projets.",
+            "Des solutions adaptées à vos projets.",
 
         "services.heroText":
-            "DÃ©couvrez nos diffÃ©rentes prestations et choisissez celle qui correspond le mieux Ã  votre besoin.",
+            "Découvrez nos différentes prestations et choisissez celle qui correspond le mieux à votre besoin.",
 
         "services.expertiseLabel":
             "Nos expertises",
 
         "services.expertiseTitle":
-            "Ce que nous pouvons rÃ©aliser pour vous",
+            "Ce que nous pouvons réaliser pour vous",
 
         "services.expertiseText":
-            "Chaque demande est Ã©tudiÃ©e individuellement afin de proposer une solution adaptÃ©e.",
+            "Chaque demande est étudiée individuellement afin de proposer une solution adaptée.",
 
 
         "contact.heroLabel":
@@ -216,26 +216,26 @@ const translations = {
             "Parlons de votre projet.",
 
         "contact.heroText":
-            "DÃ©crivez-nous votre besoin et notre Ã©quipe vous contactera pour Ã©tudier votre demande.",
+            "Décrivez-nous votre besoin et notre équipe vous contactera pour étudier votre demande.",
 
         "contact.formLabel":
             "Demande de devis",
 
         "contact.formTitle":
-            "DÃ©crivez-nous votre projet",
+            "Décrivez-nous votre projet",
 
         "contact.formText":
-            "Plus votre demande est prÃ©cise, plus nous pourrons comprendre rapidement votre besoin.",
+            "Plus votre demande est précise, plus nous pourrons comprendre rapidement votre besoin.",
 
         "contact.success":
-            "Votre demande a bien Ã©tÃ© enregistrÃ©e. Notre Ã©quipe vous contactera prochainement.",
+            "Votre demande a bien été enregistrée. Notre équipe vous contactera prochainement.",
 
 
         "form.firstName":
-            "PrÃ©nom *",
+            "Prénom *",
 
         "form.firstNamePlaceholder":
-            "Votre prÃ©nom",
+            "Votre prénom",
 
         "form.lastName":
             "Nom *",
@@ -256,16 +256,16 @@ const translations = {
             "vous@entreprise.com",
 
         "form.phone":
-            "TÃ©lÃ©phone",
+            "Téléphone",
 
         "form.phonePlaceholder":
             "+212 6...",
 
         "form.message":
-            "DÃ©crivez votre projet *",
+            "Décrivez votre projet *",
 
         "form.messagePlaceholder":
-            "DÃ©crivez votre besoin, vos objectifs et les fonctionnalitÃ©s souhaitÃ©es...",
+            "Décrivez votre besoin, vos objectifs et les fonctionnalités souhaitées...",
 
         "form.submit":
             "Envoyer ma demande",
@@ -278,31 +278,31 @@ const translations = {
             "Bienvenue",
 
         "login.subtitle":
-            "Connectez-vous pour accÃ©der Ã  votre espace.",
+            "Connectez-vous pour accéder à votre espace.",
 
         "login.rememberMe":
             "Se souvenir de moi",
 
         "login.forgotPassword":
-            "Mot de passe oubliÃ© ?",
+            "Mot de passe oublié ?",
 
         "login.visualLabel":
-            "PrÃ©sentation Smart CRM",
+            "Présentation Smart CRM",
 
         "login.visualEyebrow":
             "CRM intelligent",
 
         "login.visualTitle":
-            "Transformez chaque opportunitÃ© en prochaine action.",
+            "Transformez chaque opportunité en prochaine action.",
 
         "login.visualText":
-            "Centralisez vos prospects, priorisez les opportunitÃ©s et donnez Ã  votre Ã©quipe une vue claire pour avancer plus vite.",
+            "Centralisez vos prospects, priorisez les opportunités et donnez à votre équipe une vue claire pour avancer plus vite.",
 
         "login.pipeline":
             "Pipeline commercial",
 
         "login.trustNote":
-            "Une interface pensÃ©e pour les Ã©quipes commerciales modernes.",
+            "Une interface pensée pour les équipes commerciales modernes.",
 
         "login.email":
             "Adresse e-mail",
@@ -320,7 +320,7 @@ const translations = {
             "Se connecter",
 
         "login.authorizedUsers":
-            "Espace rÃ©servÃ© aux utilisateurs autorisÃ©s.",
+            "Espace réservé aux utilisateurs autorisés.",
 
 
         "dashboard.overview":
@@ -336,7 +336,7 @@ const translations = {
             "Pipeline commercial",
 
         "dashboard.pipelineTitle":
-            "RÃ©partition des leads par statut",
+            "Répartition des leads par statut",
 
         "dashboard.pipelineDescription":
             "Visualisez en un coup d'Å“il la progression de vos leads dans le cycle commercial.",
@@ -345,13 +345,13 @@ const translations = {
             "Total leads",
 
         "dashboard.recentActivity":
-            "ActivitÃ© rÃ©cente",
+            "Activité récente",
 
         "dashboard.latestProspects":
             "Derniers prospects",
 
         "dashboard.recentlyAdded":
-            "Les prospects rÃ©cemment ajoutÃ©s au CRM.",
+            "Les prospects récemment ajoutés au CRM.",
 
         "dashboard.viewAll":
             "Voir tous les prospects",
@@ -361,7 +361,7 @@ const translations = {
             "Gestion commerciale",
 
         "prospects.pageDescription":
-            "Consultez, recherchez et gÃ©rez vos prospects.",
+            "Consultez, recherchez et gérez vos prospects.",
 
         "prospects.newProspect":
             "Nouveau prospect",
@@ -394,7 +394,7 @@ const translations = {
             "Commentaires",
 
         "prospects.commentsPlaceholder":
-            "Ajoutez des informations complÃ©mentaires...",
+            "Ajoutez des informations complémentaires...",
 
         "prospects.database":
             "Base prospects",
@@ -403,7 +403,7 @@ const translations = {
             "Liste des prospects",
 
         "prospects.listDescription":
-            "Retrouvez ici l'ensemble des prospects enregistrÃ©s.",
+            "Retrouvez ici l'ensemble des prospects enregistrés.",
 
         "prospects.searchLabel":
             "Rechercher un prospect",
@@ -415,7 +415,7 @@ const translations = {
             "Actions",
 
         "prospects.details":
-            "DÃ©tails du prospect",
+            "Détails du prospect",
 
         "prospects.close":
             "Fermer",
@@ -424,7 +424,7 @@ const translations = {
             "Fiche CRM",
 
         "prospects.contactInfo":
-            "CoordonnÃ©es",
+            "Coordonnées",
 
         "prospects.commercialInfo":
             "Suivi commercial",
@@ -433,38 +433,38 @@ const translations = {
             "Qualification",
 
         "prospects.qualificationPending":
-            "Ã€ dÃ©finir",
+            "À définir",
 
         "prospects.createdAt":
-            "CrÃ©Ã© le",
+            "Créé le",
 
         "prospects.updatedAt":
-            "DerniÃ¨re mise Ã  jour",
+            "Dernière mise à jour",
 
         "prospects.aiSection":
             "Assistant IA",
 
         "prospects.aiSummary":
-            "RÃ©sumÃ© IA",
+            "Résumé IA",
 
         "prospects.aiSummaryPending":
-            "Le rÃ©sumÃ© gÃ©nÃ©rÃ© par IA sera affichÃ© ici lorsque CRM-06 sera connectÃ©.",
+            "Le résumé généré par IA sera affiché ici lorsque CRM-06 sera connecté.",
 
         "prospects.nextAction":
             "Prochaine action",
 
         "prospects.nextActionPending":
-            "La prochaine action recommandÃ©e sera affichÃ©e ici lorsque CRM-06 sera connectÃ©.",
+            "La prochaine action recommandée sera affichée ici lorsque CRM-06 sera connecté.",
 
         "prospects.editProfile":
             "Modifier le prospect",
 
 
         "prospect.firstName":
-            "PrÃ©nom",
+            "Prénom",
 
         "prospect.firstNameRequired":
-            "PrÃ©nom *",
+            "Prénom *",
 
         "prospect.lastName":
             "Nom",
@@ -485,7 +485,7 @@ const translations = {
             "E-mail *",
 
         "prospect.phone":
-            "TÃ©lÃ©phone",
+            "Téléphone",
 
         "prospect.city":
             "Ville",
@@ -501,25 +501,25 @@ const translations = {
             "Nouveau",
 
         "status.contacted":
-            "ContactÃ©",
+            "Contacté",
 
         "status.qualified":
-            "QualifiÃ©",
+            "Qualifié",
 
         "status.proposalSent":
-            "Proposition envoyÃ©e",
+            "Proposition envoyée",
 
         "status.negotiation":
-            "NÃ©gociation",
+            "Négociation",
 
         "status.won":
-            "GagnÃ©",
+            "Gagné",
 
         "status.lost":
             "Perdu",
 
         "status.archived":
-            "ArchivÃ©",
+            "Archivé",
 
         "status.active":
             "Actif",
@@ -532,7 +532,7 @@ const translations = {
             "Tous",
 
         "common.unassigned":
-            "Non assignÃ©",
+            "Non assigné",
 
 
         "actions.save":
@@ -555,7 +555,7 @@ const translations = {
             "Commerciaux",
 
         "salespeople.pageDescription":
-            "GÃ©rez les membres de votre Ã©quipe commerciale.",
+            "Gérez les membres de votre équipe commerciale.",
 
         "salespeople.addButton":
             "+ Ajouter un commercial",
@@ -564,7 +564,7 @@ const translations = {
             "Ajouter un commercial",
 
         "salespeople.addDescription":
-            "Enregistrez les informations d'un nouveau membre de l'Ã©quipe.",
+            "Enregistrez les informations d'un nouveau membre de l'équipe.",
 
         "salespeople.lastNameRequired":
             "Nom *",
@@ -573,10 +573,10 @@ const translations = {
             "Nom",
 
         "salespeople.firstNameRequired":
-            "PrÃ©nom *",
+            "Prénom *",
 
         "salespeople.firstNamePlaceholder":
-            "PrÃ©nom",
+            "Prénom",
 
         "salespeople.emailRequired":
             "E-mail professionnel *",
@@ -585,16 +585,16 @@ const translations = {
             "prenom@entreprise.com",
 
         "salespeople.phone":
-            "TÃ©lÃ©phone",
+            "Téléphone",
 
         "salespeople.phonePlaceholder":
             "+212 6...",
 
         "salespeople.roleRequired":
-            "RÃ´le *",
+            "Rôle *",
 
         "salespeople.rolePlaceholder":
-            "Choisissez un rÃ´le",
+            "Choisissez un rôle",
 
         "salespeople.status":
             "Statut",
@@ -603,16 +603,16 @@ const translations = {
             "Ajouter le commercial",
 
         "salespeople.teamTitle":
-            "Ã‰quipe commerciale",
+            "Équipe commerciale",
 
         "salespeople.teamDescription":
-            "Consultez les membres de votre Ã©quipe.",
+            "Consultez les membres de votre équipe.",
 
         "salespeople.lastName":
             "Nom",
 
         "salespeople.role":
-            "RÃ´le",
+            "Rôle",
 
 
         "roles.commercial":
@@ -629,13 +629,13 @@ const translations = {
             "Administration",
 
         "admin.description":
-            "GÃ©rez les utilisateurs, les statistiques et les paramÃ¨tres du CRM.",
+            "Gérez les utilisateurs, les statistiques et les paramètres du CRM.",
 
         "admin.statistics.title":
-            "Statistiques gÃ©nÃ©rales",
+            "Statistiques générales",
 
         "admin.statistics.description":
-            "Vue globale de l'activitÃ© du CRM.",
+            "Vue globale de l'activité du CRM.",
 
         "admin.stats.prospects":
             "Total prospects",
@@ -647,13 +647,13 @@ const translations = {
             "Clients",
 
         "admin.stats.contracts":
-            "Contrats signÃ©s",
+            "Contrats signés",
 
         "admin.users.title":
             "Gestion des utilisateurs",
 
         "admin.users.description":
-            "GÃ©rez les utilisateurs ayant accÃ¨s au CRM.",
+            "Gérez les utilisateurs ayant accès au CRM.",
 
         "admin.users.add":
             "+ Ajouter un utilisateur",
@@ -665,7 +665,7 @@ const translations = {
             "E-mail",
 
         "admin.users.role":
-            "RÃ´le",
+            "Rôle",
 
         "admin.users.status":
             "Statut",
@@ -674,10 +674,10 @@ const translations = {
             "Actions",
 
         "admin.settings.title":
-            "ParamÃ¨tres",
+            "Paramètres",
 
         "admin.settings.description":
-            "Configurez les paramÃ¨tres gÃ©nÃ©raux du CRM.",
+            "Configurez les paramètres généraux du CRM.",
 
         "admin.settings.companyName":
             "Nom de l'entreprise",
@@ -692,20 +692,20 @@ const translations = {
             "contact@entreprise.com",
 
         "admin.settings.defaultStatus":
-            "Statut par dÃ©faut d'un nouveau prospect",
+            "Statut par défaut d'un nouveau prospect",
 
         "admin.settings.reset":
-            "RÃ©initialiser",
+            "Réinitialiser",
 
         "admin.settings.save":
             "Sauvegarder",
 
 
         "footer.description":
-            "Des solutions adaptÃ©es Ã  vos projets et aux besoins de votre entreprise.",
+            "Des solutions adaptées à vos projets et aux besoins de votre entreprise.",
 
         "footer.crmDescription":
-            "Gestion intelligente des prospects et des Ã©quipes commerciales.",
+            "Gestion intelligente des prospects et des équipes commerciales.",
 
         "footer.navigation":
             "Navigation",
@@ -717,7 +717,7 @@ const translations = {
             "Email",
 
         "footer.phone":
-            "TÃ©lÃ©phone",
+            "Téléphone",
 
         "footer.country":
             "Maroc",
@@ -726,7 +726,7 @@ const translations = {
             "Espace de gestion interne",
 
         "footer.copyright":
-            "Â© 2026 Smart CRM. Tous droits rÃ©servÃ©s."
+            "© 2026 Smart CRM. Tous droits réservés."
 
     },
 
@@ -1650,7 +1650,7 @@ function getDemoProfile(
         commercial: {
             name:
                 currentLanguage === "fr"
-                    ? "DÃ©mo Commercial"
+                    ? "Démo Commercial"
                     : "Sales Demo",
             initials:
                 "DC"
@@ -1659,7 +1659,7 @@ function getDemoProfile(
         manager: {
             name:
                 currentLanguage === "fr"
-                    ? "DÃ©mo Manager"
+                    ? "Démo Manager"
                     : "Manager Demo",
             initials:
                 "DM"
@@ -1668,7 +1668,7 @@ function getDemoProfile(
         administrator: {
             name:
                 currentLanguage === "fr"
-                    ? "DÃ©mo Administrateur"
+                    ? "Démo Administrateur"
                     : "Administrator Demo",
             initials:
                 "DA"
@@ -1900,7 +1900,7 @@ function createDemoRoleSelector() {
     select.setAttribute(
         "aria-label",
         currentLanguage === "fr"
-            ? "RÃ´le de dÃ©monstration"
+            ? "Rôle de démonstration"
             : "Demo role"
     );
 
@@ -1987,8 +1987,8 @@ function createDemoRoleSelector() {
                 return;
             }
             applyDemoRoleUI();
-            // Synchronise les composants du Dashboard avec le rÃ´le de dÃ©monstration.
-            // Ceci reste un contrÃ´le visuel : les permissions rÃ©elles relÃ¨vent du backend.
+            // Synchronise les composants du Dashboard avec le rôle de démonstration.
+            // Ceci reste un contrôle visuel : les permissions réelles relèvent du backend.
             document.dispatchEvent(new CustomEvent("crm:demo-role-change", {
                 detail: { role: currentDemoRole }
             }));
@@ -2035,7 +2035,7 @@ function refreshDemoRoleSelector() {
     select.setAttribute(
         "aria-label",
         currentLanguage === "fr"
-            ? "RÃ´le de dÃ©monstration"
+            ? "Rôle de démonstration"
             : "Demo role"
     );
 
@@ -2060,7 +2060,7 @@ function refreshDemoRoleSelector() {
         currentDemoRole;
     const logoutButton = document.getElementById("demo-logout");
     if (logoutButton) logoutButton.textContent = currentLanguage === "fr"
-        ? "Se dÃ©connecter (dÃ©mo)" : "Sign out (demo)";
+        ? "Se déconnecter (démo)" : "Sign out (demo)";
 
 }
 
@@ -2389,8 +2389,8 @@ function getSalespersonName(
 
 
 async function sendProspectToAPI(prospect) {
-    // CRM-01A : endpoint de TEST existant. Ã€ remplacer uniquement aprÃ¨s validation de Mohcine.
-    // Une erreur HTTP, rÃ©seau ou un dÃ©lai dÃ©passÃ© ne vaut jamais confirmation serveur.
+    // CRM-01A : endpoint de TEST existant. À remplacer uniquement après validation de Mohcine.
+    // Une erreur HTTP, réseau ou un délai dépassé ne vaut jamais confirmation serveur.
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
@@ -2410,10 +2410,10 @@ async function sendProspectToAPI(prospect) {
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
         }
-        // Contrat de rÃ©ponse non encore confirmÃ© : HTTP 2xx est provisoirement le critÃ¨re.
+        // Contrat de réponse non encore confirmé : HTTP 2xx est provisoirement le critère.
         return true;
     } catch (error) {
-        console.error("CRM-01 : envoi non confirmÃ© par le serveur", error);
+        console.error("CRM-01 : envoi non confirmé par le serveur", error);
         return false;
     } finally {
         clearTimeout(timeout);
@@ -2530,7 +2530,7 @@ function initializeQuoteForm() {
             if (!sent) {
                 errorMessage.textContent = currentLanguage === "en"
                     ? "Your request could not be confirmed by the server. Please try again. Your entries have been kept."
-                    : "Votre demande n'a pas Ã©tÃ© confirmÃ©e par le serveur. Veuillez rÃ©essayer. Vos saisies ont Ã©tÃ© conservÃ©es.";
+                    : "Votre demande n'a pas été confirmée par le serveur. Veuillez réessayer. Vos saisies ont été conservées.";
                 errorMessage.hidden = false;
                 return;
             }
@@ -2619,7 +2619,7 @@ function configureProspectDemoPermissions() {
         hint.textContent = session?.role === "commercial" && !salespersonId
             ? (currentLanguage === "en"
                 ? "Demo account not linked: add a salesperson with email commercial@smartcrm.demo as an administrator."
-                : "Compte dÃ©mo non associÃ© : crÃ©ez un commercial avec lâ€™adresse commercial@smartcrm.demo depuis un compte administrateur.")
+                : "Compte démo non associé : créez un commercial avec l’adresse commercial@smartcrm.demo depuis un compte administrateur.")
             : "";
     }
 }
@@ -2635,17 +2635,17 @@ function initializeDemoTeamField() {
     group.className = "form-group";
     const label = document.createElement("label");
     label.htmlFor = "salesperson-manager-email";
-    label.textContent = currentLanguage === "fr" ? "Manager responsable (dÃ©mo)" : "Team manager (demo)";
+    label.textContent = currentLanguage === "fr" ? "Manager responsable (démo)" : "Team manager (demo)";
     const select = document.createElement("select");
     select.id = "salesperson-manager-email";
     select.name = "manager_email";
     const option = document.createElement("option");
     option.value = "";
-    option.textContent = currentLanguage === "fr" ? "Sans Ã©quipe" : "No team";
+    option.textContent = currentLanguage === "fr" ? "Sans équipe" : "No team";
     select.append(option);
     const managerOption = document.createElement("option");
     managerOption.value = "manager@smartcrm.demo";
-    managerOption.textContent = "DÃ©mo Manager (manager@smartcrm.demo)";
+    managerOption.textContent = "Démo Manager (manager@smartcrm.demo)";
     select.append(managerOption);
     group.append(label, select);
     const roleInput = document.getElementById("salesperson-role");
@@ -2660,7 +2660,7 @@ function configureDemoTeamField() {
     if (select) {
         select.disabled = session?.role !== "administrator";
         const label = document.querySelector('label[for="salesperson-manager-email"]');
-        if (label) label.textContent = currentLanguage === "fr" ? "Manager responsable (dÃ©mo)" : "Team manager (demo)";
+        if (label) label.textContent = currentLanguage === "fr" ? "Manager responsable (démo)" : "Team manager (demo)";
     }
     if (form) {
         form.querySelectorAll("input, select, button").forEach(control => {
@@ -4007,7 +4007,7 @@ function renderDashboard() {
                     ${
                         currentLanguage ===
                         "fr"
-                            ? "Aucun lead enregistrÃ©."
+                            ? "Aucun lead enregistré."
                             : "No leads registered."
                     }
 
@@ -5145,7 +5145,7 @@ function initializeLogin() {
             if (!role || password !== DEMO_PASSWORD) {
                 if (errorElement) {
                     errorElement.textContent = currentLanguage === "fr"
-                        ? "Identifiants de dÃ©monstration incorrects."
+                        ? "Identifiants de démonstration incorrects."
                         : "Invalid demo credentials.";
                     errorElement.hidden = false;
                 }
@@ -5343,38 +5343,75 @@ function escapeHTML(
 
 
 
-// CRM-02 6C â€” PrÃ©pare les composants sans simuler de statistiques.
+// CRM-02 6C — Prépare les composants sans simuler de statistiques.
 function initializeCrmDashboardReports() {
     const daily = document.getElementById("crm-daily-chart");
-    if (!daily) return;
     const teamSection = document.getElementById("crm-commercial-section");
+    const teamBody = document.getElementById("crm-commercial-body");
+    const stateNotice = document.getElementById("crm-dashboard-state");
+    if (!daily || !teamSection || !teamBody || !stateNotice) return;
     const strings = {
-        fr: {activity:"ActivitÃ© commerciale",dailyTitle:"Ã‰volution quotidienne",dailyDescription:"Nouveaux prospects et nouveaux clients sur la pÃ©riode sÃ©lectionnÃ©e.",prospects:"Nouveaux prospects",clients:"Nouveaux clients",pending:"En attente des donnÃ©es Supabase.",dailyAria:"Graphique d'Ã©volution quotidienne en attente de donnÃ©es",team:"Ã‰quipe commerciale",commercialTitle:"Performances par commercial",commercialDescription:"Vue d'Ã©quipe disponible pour les Managers et Administrateurs.",commercial:"Commercial",totalProspects:"Total prospects",openProspects:"Prospects ouverts",totalClients:"Total clients",newProspects:"Nouveaux prospects",newClients:"Nouveaux clients"},
-        en: {activity:"Sales activity",dailyTitle:"Daily activity",dailyDescription:"New prospects and clients during the selected period.",prospects:"New prospects",clients:"New clients",pending:"Waiting for Supabase data.",dailyAria:"Daily activity chart awaiting data",team:"Sales team",commercialTitle:"Performance by salesperson",commercialDescription:"Team view for Managers and Administrators.",commercial:"Salesperson",totalProspects:"Total prospects",openProspects:"Open prospects",totalClients:"Total clients",newProspects:"New prospects",newClients:"New clients"}
+        fr: {
+            activity:"Activité commerciale",dailyTitle:"Évolution quotidienne",dailyDescription:"Nouveaux prospects et nouveaux clients sur la période sélectionnée.",prospects:"Nouveaux prospects",clients:"Nouveaux clients",dailyAria:"Graphique d'évolution quotidienne",team:"Équipe commerciale",commercialTitle:"Performances par commercial",commercialDescription:"Vue d'équipe disponible pour les Managers et Administrateurs.",commercial:"Commercial",totalProspects:"Total prospects",openProspects:"Prospects ouverts",totalClients:"Total clients",newProspects:"Nouveaux prospects",newClients:"Nouveaux clients",
+            states:{pending:"Connexion aux données prévue lors de l’étape 6F.",loading:"Chargement des données…",empty:"Aucune donnée pour cette sélection.",error:"Impossible de charger les données. Réessayez ultérieurement.",expired:"Session expirée. Reconnectez-vous.",denied:"Accès refusé à ces données.",ready:"Données disponibles."}
+        },
+        en: {
+            activity:"Sales activity",dailyTitle:"Daily activity",dailyDescription:"New prospects and clients during the selected period.",prospects:"New prospects",clients:"New clients",dailyAria:"Daily activity chart",team:"Sales team",commercialTitle:"Performance by salesperson",commercialDescription:"Team view for Managers and Administrators.",commercial:"Salesperson",totalProspects:"Total prospects",openProspects:"Open prospects",totalClients:"Total clients",newProspects:"New prospects",newClients:"New clients",
+            states:{pending:"Data connection planned for step 6F.",loading:"Loading data…",empty:"No data for this selection.",error:"Unable to load data. Please try again later.",expired:"Session expired. Please sign in again.",denied:"Access to this data was denied.",ready:"Data available."}
+        }
     };
-    function translateReports() {
-        const lang = document.documentElement.lang === "en" ? "en" : "fr";
-        document.querySelectorAll("[data-report-text]").forEach(el => {
-            const value = strings[lang][el.dataset.reportText];
-            if (value) el.textContent = value;
-        });
-        document.querySelectorAll("[data-report-aria]").forEach(el => {
-            const value = strings[lang][el.dataset.reportAria];
-            if (value) el.setAttribute("aria-label",value);
-        });
+    const allowedStates = new Set(["pending","loading","empty","error","expired","denied","ready"]);
+    let state = "pending";
+    const lang = () => document.documentElement.lang === "en" ? "en" : "fr";
+    const metrics = ["crm-new-prospects","crm-new-clients","crm-total-prospects","crm-total-clients","crm-open-prospects","crm-no-first-contact","crm-overdue-followups","crm-unassigned"];
+    function renderState() {
+        const s = strings[lang()];
+        const message = s.states[state];
+        stateNotice.dataset.state = state;
+        stateNotice.textContent = message;
+        stateNotice.setAttribute("aria-busy",state === "loading" ? "true" : "false");
+        daily.setAttribute("aria-busy",state === "loading" ? "true" : "false");
+        daily.setAttribute("aria-label",s.dailyAria + ". " + message);
+        const dailyPlaceholder = daily.querySelector("[data-report-state]");
+        // Never overwrite real charts/tables in the future; only update placeholders.
+        if (dailyPlaceholder) dailyPlaceholder.textContent = message;
+        const teamPlaceholder = teamBody.querySelector("[data-report-state]");
+        if (teamPlaceholder) teamPlaceholder.textContent = message;
+        const table = teamBody.closest("table");
+        if (table) table.setAttribute("aria-busy",state === "loading" ? "true" : "false");
+        if (state !== "ready") {
+            metrics.forEach(id => { const node = document.getElementById(id); if (node) node.textContent = "—"; });
+            const generated = document.getElementById("crm-generated-at");
+            if (generated) { generated.textContent = "—"; generated.removeAttribute("datetime"); }
+        }
     }
-    // Masquage visuel uniquement. La sÃ©curitÃ© rÃ©elle sera imposÃ©e par Supabase RLS/RPC.
+    function translateReports() {
+        const s = strings[lang()];
+        document.querySelectorAll("[data-report-text]").forEach(el => {
+            if (s[el.dataset.reportText]) el.textContent = s[el.dataset.reportText];
+        });
+        renderState();
+    }
+    // Display-only role simulation; real access control belongs to Supabase RLS/RPC.
     function updateRoleVisibility() {
         const role = String(currentDemoRole || "").toLowerCase();
         teamSection.hidden = role !== "manager" && role !== "administrator" && role !== "admin";
     }
+    // 6F integration point. Dispatch with {detail:{state:"loading"|"empty"|"error"|"expired"|"denied"|"ready"}}.
+    // This step deliberately does not issue requests or simulate successful data.
+    document.addEventListener("crm:dashboard-state",event => {
+        const next = event.detail && event.detail.state;
+        if (!allowedStates.has(next)) return;
+        state = next;
+        renderState();
+    });
     translateReports();
     updateRoleVisibility();
     new MutationObserver(translateReports).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
     document.addEventListener("crm:demo-role-change",updateRoleVisibility);
 }
 
-// CRM-02 6B â€” SÃ©lecteur de pÃ©riode, sans calcul local des indicateurs.
+// CRM-02 6B — Sélecteur de période, sans calcul local des indicateurs.
 function initializeCrmDashboardPeriod() {
     const period = document.getElementById("crm-period");
     if (!period) return;
@@ -5384,12 +5421,12 @@ function initializeCrmDashboardPeriod() {
     const apply = document.getElementById("crm-apply-period");
     const feedback = document.getElementById("crm-period-feedback");
     const labels = {
-        fr: {activityLabel:"Analyse commerciale",title:"Indicateurs du CRM",periodLabel:"PÃ©riode",refresh:"Actualiser",startDate:"Date de dÃ©but",endDate:"Date de fin",apply:"Appliquer",periodTitle:"ActivitÃ© sur la pÃ©riode sÃ©lectionnÃ©e",currentTitle:"Situation actuelle",newProspects:"Nouveaux prospects",newClients:"Nouveaux clients",totalProspects:"Total prospects",totalClients:"Total clients",openProspects:"Prospects ouverts",noFirstContact:"Sans premier contact",overdueFollowups:"Relances en retard",unassigned:"Non affectÃ©s",lastUpdated:"DerniÃ¨re actualisation :",pending:"Les indicateurs seront connectÃ©s Ã  l'API Supabase lors des Ã©tapes suivantes.",invalid:"Choisissez une pÃ©riode valide de 366 jours maximum.",ready:"PÃ©riode sÃ©lectionnÃ©e : "},
+        fr: {activityLabel:"Analyse commerciale",title:"Indicateurs du CRM",periodLabel:"Période",refresh:"Actualiser",startDate:"Date de début",endDate:"Date de fin",apply:"Appliquer",periodTitle:"Activité sur la période sélectionnée",currentTitle:"Situation actuelle",newProspects:"Nouveaux prospects",newClients:"Nouveaux clients",totalProspects:"Total prospects",totalClients:"Total clients",openProspects:"Prospects ouverts",noFirstContact:"Sans premier contact",overdueFollowups:"Relances en retard",unassigned:"Non affectés",lastUpdated:"Dernière actualisation :",pending:"Les indicateurs seront connectés à l'API Supabase lors des étapes suivantes.",invalid:"Choisissez une période valide de 366 jours maximum.",ready:"Période sélectionnée : "},
         en: {activityLabel:"Sales analytics",title:"CRM indicators",periodLabel:"Period",refresh:"Refresh",startDate:"Start date",endDate:"End date",apply:"Apply",periodTitle:"Activity during selected period",currentTitle:"Current snapshot",newProspects:"New prospects",newClients:"New clients",totalProspects:"Total prospects",totalClients:"Total clients",openProspects:"Open prospects",noFirstContact:"No first contact",overdueFollowups:"Overdue follow-ups",unassigned:"Unassigned",lastUpdated:"Last updated:",pending:"Indicators will be connected to the Supabase API in the next steps.",invalid:"Choose a valid period of at most 366 days.",ready:"Selected period: "}
     };
-    const options = {fr:["Aujourd'hui","Hier","7 derniers jours","30 derniers jours","Dates personnalisÃ©es"],en:["Today","Yesterday","Last 7 days","Last 30 days","Custom dates"]};
+    const options = {fr:["Aujourd'hui","Hier","7 derniers jours","30 derniers jours","Dates personnalisées"],en:["Today","Yesterday","Last 7 days","Last 30 days","Custom dates"]};
     const isoDate = date => date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
-    // Date civile au Maroc, indÃ©pendante du fuseau horaire du navigateur.
+    // Date civile au Maroc, indépendante du fuseau horaire du navigateur.
     const todayMorocco = () => new Intl.DateTimeFormat("en-CA",{timeZone:"Africa/Casablanca",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
     const shift = (iso, days) => { const d = new Date(iso+"T12:00:00Z"); d.setUTCDate(d.getUTCDate()+days); return d.toISOString().slice(0,10); };
     function translate() {
@@ -5409,8 +5446,8 @@ function initializeCrmDashboardPeriod() {
         if(period.value==="custom") {from=start.value;to=end.value;}
         const days=from&&to ? Math.round((Date.parse(to)-Date.parse(from))/86400000)+1 : 0;
         const valid=days>=1&&days<=366;
-        feedback.textContent=valid ? labels[lang].ready+from+" â†’ "+to : labels[lang].invalid;
-        // La prochaine Ã©tape branchera la requÃªte RPC sur cet Ã©vÃ©nement.
+        feedback.textContent=valid ? labels[lang].ready+from+" → "+to : labels[lang].invalid;
+        // La prochaine étape branchera la requête RPC sur cet événement.
         if(valid) document.dispatchEvent(new CustomEvent("crm:period-change",{detail:{startDate:from,endDate:to}}));
     }
     period.addEventListener("change",update);
