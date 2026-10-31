@@ -69,7 +69,7 @@ const translations = {
             "🇫🇷 Français",
 
         "language.english":
-            "ðŸ‡¬ðŸ‡§ English",
+            "🇬🇧 English",
 
 
         "home.heroLabel":
@@ -793,10 +793,10 @@ const translations = {
             "Language selection",
 
         "language.french":
-            "ðŸ‡«ðŸ‡· French",
+            "🇫🇷 French",
 
         "language.english":
-            "ðŸ‡¬ðŸ‡§ English",
+            "🇬🇧 English",
 
 
         "home.heroLabel":
@@ -1453,7 +1453,7 @@ const translations = {
             "Internal management workspace",
 
         "footer.copyright":
-            "Â© 2026 Smart CRM. All rights reserved."
+            "© 2026 Smart CRM. All rights reserved."
 
     }
 
