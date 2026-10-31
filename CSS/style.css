@@ -4435,3 +4435,39 @@ td strong {
     }
 
 }
+
+/* CRM-02 6B — Dashboard analytics layout */
+.crm-analytics{display:grid;gap:22px;margin:0 0 30px}
+.crm-analytics-toolbar{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.crm-analytics-toolbar h2{margin:4px 0 0}
+.crm-analytics-actions,.crm-custom-period{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.crm-analytics-actions label,.crm-custom-period label{font-size:.875rem;font-weight:600}
+.crm-analytics-actions select,.crm-custom-period input{min-height:42px;padding:8px 12px;border:1px solid #dce3ed;border-radius:11px;background:#fff;color:#182c4c;font:inherit}
+.crm-analytics-refresh,.crm-custom-period button{min-height:42px;padding:8px 16px;border:0;border-radius:11px;background:#214caa;color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.crm-analytics-refresh:disabled{opacity:.55;cursor:not-allowed}
+.crm-custom-period[hidden]{display:none}
+.crm-analytics-feedback{font-size:.875rem;color:#586a83;margin:0}
+.crm-analytics-feedback:empty{display:none}
+.crm-analytics-section{display:grid;gap:14px}
+.crm-analytics-section h3{font-size:1.1rem;margin:0}
+.crm-metrics-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.crm-metrics-grid--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.crm-metric{background:#fff;border:1px solid #e2e8f2;border-radius:18px;padding:20px;box-shadow:0 7px 22px rgba(22,44,85,.04)}
+.crm-metric p{margin:0 0 12px;color:#596c86;font-size:.9rem}
+.crm-metric strong{font-size:1.9rem;color:#172b50;line-height:1.1}
+.crm-analytics-footer{margin:0;color:#64748b;font-size:.82rem}
+@media(max-width:900px){.crm-metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.crm-metrics-grid,.crm-metrics-grid--two{grid-template-columns:1fr}.crm-analytics-actions{width:100%}.crm-analytics-actions select{flex:1;min-width:0}.crm-custom-period input{width:100%}.crm-analytics-toolbar{align-items:stretch}}
+
+/* CRM-02 6C — Graphique et tableau des performances */
+.crm-report-card{margin-bottom:28px;padding:28px;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:rgba(255,255,255,.88);box-shadow:var(--shadow-sm)}
+.crm-report-card[hidden]{display:none}
+.crm-report-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;color:var(--color-text-secondary);font-size:13px}
+.crm-report-legend>span{display:inline-flex;align-items:center;gap:8px}
+.crm-report-dot{display:inline-block;width:10px;height:10px;border-radius:50%}
+.crm-report-dot--prospects{background:#2563eb}.crm-report-dot--clients{background:#7c3aed}
+.crm-daily-chart{min-height:230px;overflow-x:auto;border:1px dashed var(--color-border-strong);border-radius:14px;background:linear-gradient(180deg,#fafcff,#f5f8fd)}
+.crm-report-empty{margin:0;padding:65px 18px;text-align:center;color:var(--color-text-secondary);font-size:14px}
+.crm-commercial-table{min-width:790px}.crm-commercial-table th:not(:first-child),.crm-commercial-table td:not(:first-child){text-align:right}
+.crm-commercial-table .crm-report-empty{text-align:center;padding:32px 16px}
+@media(max-width:650px){.crm-report-card{padding:20px}.crm-daily-chart{min-height:190px}.crm-report-empty{padding:48px 14px}}

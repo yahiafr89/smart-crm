@@ -1507,6 +1507,38 @@ let currentLanguage =
     ) || "fr";
 
 
+// Demonstration only: sessionStorage is not authentication or authorization.
+const DEMO_SESSION_KEY = "smartcrm-demo-session";
+const DEMO_ACCOUNTS = Object.freeze({
+    "admin@smartcrm.demo": "administrator",
+    "manager@smartcrm.demo": "manager",
+    "commercial@smartcrm.demo": "commercial"
+});
+const DEMO_PASSWORD = "SmartCRM2026!";
+
+function getDemoSession() {
+    try {
+        const session = JSON.parse(sessionStorage.getItem(DEMO_SESSION_KEY) || "null");
+        return session && DEMO_ACCOUNTS[session.email] === session.role ? session : null;
+    } catch { return null; }
+}
+function guardDemoPage() {
+    const page = location.pathname.split("/").pop();
+    if (!["dashboard.html", "prospects.html", "commerciaux.html", "administration.html"].includes(page)) return true;
+    const session = getDemoSession();
+    if (!session) { location.replace("login.html"); return false; }
+    currentDemoRole = session.role;
+    localStorage.setItem(DEMO_ROLE_STORAGE_KEY, currentDemoRole);
+    if (!canDemoRoleSeePage(currentDemoRole, page)) {
+        location.replace("dashboard.html"); return false;
+    }
+    return true;
+}
+function logoutDemo() {
+    sessionStorage.removeItem(DEMO_SESSION_KEY);
+    location.replace("login.html");
+}
+
 const DEMO_ROLE_STORAGE_KEY =
     "smartcrm-demo-role";
 
@@ -1946,7 +1978,19 @@ function createDemoRoleSelector() {
             );
 
 
+            const accountEmail = Object.keys(DEMO_ACCOUNTS)
+                .find(email => DEMO_ACCOUNTS[email] === currentDemoRole);
+            sessionStorage.setItem(DEMO_SESSION_KEY, JSON.stringify({ email: accountEmail, role: currentDemoRole }));
+            const page = location.pathname.split("/").pop();
+            if (!canDemoRoleSeePage(currentDemoRole, page)) {
+                location.replace("dashboard.html");
+                return;
+            }
             applyDemoRoleUI();
+            populateSalespeopleSelect();
+            renderProspects();
+            renderDashboard();
+            renderSalespeople();
 
         }
     );
@@ -1955,6 +1999,12 @@ function createDemoRoleSelector() {
     userCard.appendChild(
         select
     );
+    const logoutButton = document.createElement("button");
+    logoutButton.type = "button";
+    logoutButton.id = "demo-logout";
+    logoutButton.style.cssText = "grid-column:1/-1;margin-top:6px;padding:8px;border:1px solid rgba(255,255,255,.18);border-radius:9px;background:transparent;color:white;cursor:pointer;font-size:11px";
+    logoutButton.addEventListener("click", logoutDemo);
+    userCard.appendChild(logoutButton);
 
 }
 
@@ -2003,6 +2053,9 @@ function refreshDemoRoleSelector() {
 
     select.value =
         currentDemoRole;
+    const logoutButton = document.getElementById("demo-logout");
+    if (logoutButton) logoutButton.textContent = currentLanguage === "fr"
+        ? "Se déconnecter (démo)" : "Sign out (demo)";
 
 }
 
@@ -2013,6 +2066,7 @@ function applyDemoRoleUI() {
     updateDemoNavigation();
 
     updateDemoUserCard();
+    configureDemoTeamField();
 
     refreshDemoRoleSelector();
 
@@ -2180,6 +2234,7 @@ function applyLanguage(
     applyDemoRoleUI();
 
     renderProspects();
+    configureProspectDemoPermissions();
     renderDashboard();
     renderSalespeople();
     renderAdmin();
@@ -2487,6 +2542,128 @@ function initializeQuoteForm() {
 }
 
 
+// CRM-02 demo only: team ownership is modeled with managerEmail on each salesperson.
+// Existing salespeople remain unassigned until an administrator assigns them.
+// Assign a salesperson in the CRM with email commercial@smartcrm.demo.
+// Managers can review all demo leads until team membership is modeled.
+function getDemoSalespersonId() {
+    const session = getDemoSession();
+    if (!session || session.role !== "commercial") return null;
+    const match = salespeople.find(person =>
+        String(person.email || "").trim().toLowerCase() === session.email
+    );
+    return match && match.status !== "inactive" && match.role === "commercial"
+        ? String(match.id) : null;
+}
+
+function getDemoTeamSalespeople() {
+    const session = getDemoSession();
+    if (!session) return [];
+    if (session.role === "administrator") return salespeople;
+    if (session.role === "manager") return salespeople.filter(person =>
+        person.role === "commercial" && person.status !== "inactive" &&
+        String(person.managerEmail || "").trim().toLowerCase() === session.email
+    );
+    return salespeople.filter(person => String(person.id) === getDemoSalespersonId());
+}
+
+function canAssignDemoSalesperson(id) {
+    if (!id) return true;
+    const session = getDemoSession();
+    if (session?.role === "administrator") return salespeople.some(person =>
+        String(person.id) === String(id) && person.status !== "inactive" && person.role === "commercial");
+    return session?.role === "manager" && getDemoTeamSalespeople().some(person => String(person.id) === String(id));
+}
+
+function canAccessDemoProspect(prospect) {
+    const session = getDemoSession();
+    if (!session || !prospect) return false;
+    if (session.role === "administrator") return true;
+    if (session.role === "manager") return getDemoTeamSalespeople().some(person =>
+        String(person.id) === String(prospect.commercial || "")
+    );
+    const salespersonId = getDemoSalespersonId();
+    return Boolean(salespersonId) && String(prospect.commercial || "") === salespersonId;
+}
+
+function canDeleteDemoProspect(prospect) {
+    return Boolean(prospect && canAccessDemoProspect(prospect) &&
+        getDemoSession()?.role === "administrator");
+}
+
+function configureProspectDemoPermissions() {
+    if (!document.getElementById("prospect-form")) return;
+    const session = getDemoSession();
+    const select = document.getElementById("prospect-commercial");
+    const salespersonId = getDemoSalespersonId();
+    if (select && session?.role === "commercial") {
+        select.disabled = true;
+        if (salespersonId) select.value = salespersonId;
+    } else if (select) {
+        select.disabled = false;
+    }
+    const hintId = "demo-salesperson-hint";
+    let hint = document.getElementById(hintId);
+    if (!hint && select) {
+        hint = document.createElement("p");
+        hint.id = hintId;
+        hint.setAttribute("role", "status");
+        select.insertAdjacentElement("afterend", hint);
+    }
+    if (hint) {
+        hint.textContent = session?.role === "commercial" && !salespersonId
+            ? (currentLanguage === "en"
+                ? "Demo account not linked: add a salesperson with email commercial@smartcrm.demo as an administrator."
+                : "Compte démo non associé : créez un commercial avec l’adresse commercial@smartcrm.demo depuis un compte administrateur.")
+            : "";
+    }
+}
+
+function getVisibleDemoProspects() {
+    return prospects.filter(canAccessDemoProspect);
+}
+
+function initializeDemoTeamField() {
+    const form = document.getElementById("salesperson-form");
+    if (!form || document.getElementById("salesperson-manager-email")) return;
+    const group = document.createElement("div");
+    group.className = "form-group";
+    const label = document.createElement("label");
+    label.htmlFor = "salesperson-manager-email";
+    label.textContent = currentLanguage === "fr" ? "Manager responsable (démo)" : "Team manager (demo)";
+    const select = document.createElement("select");
+    select.id = "salesperson-manager-email";
+    select.name = "manager_email";
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = currentLanguage === "fr" ? "Sans équipe" : "No team";
+    select.append(option);
+    const managerOption = document.createElement("option");
+    managerOption.value = "manager@smartcrm.demo";
+    managerOption.textContent = "Démo Manager (manager@smartcrm.demo)";
+    select.append(managerOption);
+    group.append(label, select);
+    const roleInput = document.getElementById("salesperson-role");
+    (roleInput?.closest(".form-group") || form.lastElementChild)?.insertAdjacentElement("afterend", group);
+    configureDemoTeamField();
+}
+
+function configureDemoTeamField() {
+    const session = getDemoSession();
+    const form = document.getElementById("salesperson-form");
+    const select = document.getElementById("salesperson-manager-email");
+    if (select) {
+        select.disabled = session?.role !== "administrator";
+        const label = document.querySelector('label[for="salesperson-manager-email"]');
+        if (label) label.textContent = currentLanguage === "fr" ? "Manager responsable (démo)" : "Team manager (demo)";
+    }
+    if (form) {
+        form.querySelectorAll("input, select, button").forEach(control => {
+            if (control.id !== "salesperson-manager-email") control.disabled = session?.role !== "administrator";
+        });
+    }
+}
+
 function renderProspects() {
 
     const tableBody =
@@ -2535,6 +2712,7 @@ function renderProspects() {
             (
                 prospect
             ) => {
+                if (!canAccessDemoProspect(prospect)) return false;
 
                 const searchContent =
                     [
@@ -2679,7 +2857,7 @@ function renderProspects() {
                             )}
                         </button>
 
-                        <button
+                        ${canDeleteDemoProspect(prospect) ? `<button
                             type="button"
                             class="delete-prospect"
                             data-action="delete"
@@ -2688,7 +2866,7 @@ function renderProspects() {
                             ${translate(
                                 "actions.delete"
                             )}
-                        </button>
+                        </button>` : ""}
 
                     </div>
 
@@ -2737,6 +2915,7 @@ function initializeProspectForm() {
         );
 
 
+    configureProspectDemoPermissions();
     showFormButton?.addEventListener(
         "click",
         () => {
@@ -2783,6 +2962,23 @@ function initializeProspectForm() {
                 );
 
 
+            const existingProspect = editingProspectId
+                ? prospects.find(item => item.id === editingProspectId) : null;
+            if (editingProspectId && !canAccessDemoProspect(existingProspect)) return;
+            if (!getDemoSession()) return;
+            const demoSession = getDemoSession();
+            const ownSalespersonId = getDemoSalespersonId();
+            if (demoSession?.role === "commercial" && !ownSalespersonId) {
+                configureProspectDemoPermissions();
+                return;
+            }
+            const requestedSalesperson = demoSession?.role === "commercial"
+                ? ownSalespersonId : (formData.get("commercial") || "");
+            if (demoSession?.role === "manager" && !requestedSalesperson) return;
+            if (demoSession?.role !== "commercial" && !canAssignDemoSalesperson(requestedSalesperson)) return;
+            // A commercial may update a lead, but cannot transfer ownership.
+            if (existingProspect && demoSession?.role === "commercial" &&
+                String(existingProspect.commercial || "") !== String(ownSalespersonId)) return;
             const prospect = {
 
                 id:
@@ -2839,9 +3035,9 @@ function initializeProspectForm() {
                     ),
 
                 commercial:
-                    formData.get(
-                        "commercial"
-                    ) || "",
+                    demoSession?.role === "commercial"
+                        ? ownSalespersonId
+                        : requestedSalesperson,
 
                 comments:
                     (
@@ -2850,11 +3046,15 @@ function initializeProspectForm() {
                         ) || ""
                     ).trim(),
 
-                createdAt:
-                    new Date()
-                        .toISOString()
+                createdAt: existingProspect?.createdAt || new Date().toISOString(),
+                updatedAt: new Date().toISOString()
 
             };
+            // Preserve backend/AI fields that the edit form does not expose.
+            if (existingProspect) Object.assign(prospect, {
+                ...existingProspect,
+                ...prospect
+            });
 
 
             if (
@@ -2904,6 +3104,7 @@ function initializeProspectForm() {
             saveProspects();
 
             form.reset();
+            configureProspectDemoPermissions();
 
             renderProspects();
             renderDashboard();
@@ -3018,6 +3219,8 @@ function editProspect(
         );
 
 
+    if (!canAccessDemoProspect(prospect)) return;
+
     if (
         !prospect
     ) {
@@ -3110,6 +3313,9 @@ function editProspect(
 function deleteProspect(
     id
 ) {
+
+    const target = prospects.find(item => item.id === id);
+    if (!canDeleteDemoProspect(target)) return;
 
     prospects =
         prospects.filter(
@@ -3764,12 +3970,14 @@ function renderDashboard() {
         );
 
 
+    const visibleProspects = getVisibleDemoProspects();
+
     if (
         totalElement
     ) {
 
         totalElement.textContent =
-            prospects.length;
+            visibleProspects.length;
 
     }
 
@@ -3783,7 +3991,7 @@ function renderDashboard() {
 
 
         if (
-            prospects.length ===
+            visibleProspects.length ===
             0
         ) {
 
@@ -3810,7 +4018,7 @@ function renderDashboard() {
                 ) => {
 
                     const count =
-                        prospects.filter(
+                        visibleProspects.filter(
                             (
                                 prospect
                             ) =>
@@ -3822,11 +4030,11 @@ function renderDashboard() {
 
 
                     const percentage =
-                        prospects.length
+                        visibleProspects.length
                             ? Math.round(
                                   (
                                       count /
-                                      prospects.length
+                                      visibleProspects.length
                                   ) *
                                       100
                               )
@@ -3919,7 +4127,7 @@ function renderDashboard() {
         "";
 
 
-    prospects
+    visibleProspects
         .slice(
             0,
             5
@@ -4068,6 +4276,7 @@ function initializeSalespersonForm() {
         ) => {
 
             event.preventDefault();
+            if (getDemoSession()?.role !== "administrator") return;
 
 
             if (
@@ -4087,7 +4296,11 @@ function initializeSalespersonForm() {
                 );
 
 
-            const salesperson = {
+            if (getDemoSession()?.role !== "administrator") return;
+            const requestedManagerEmail = String(formData.get("manager_email") || "").trim().toLowerCase();
+            if (requestedManagerEmail && requestedManagerEmail !== "manager@smartcrm.demo") return;
+
+                const salesperson = {
 
                 id:
                     editingSalespersonId ||
@@ -4129,10 +4342,17 @@ function initializeSalespersonForm() {
                 status:
                     formData.get(
                         "status"
-                    ) || "active"
+                    ) || "active",
+
+                managerEmail:
+                    requestedManagerEmail
 
             };
 
+
+            if (salesperson.role !== "commercial" || salesperson.status === "inactive") {
+                salesperson.managerEmail = "";
+            }
 
             if (
                 editingSalespersonId
@@ -4210,7 +4430,7 @@ function renderSalespeople() {
         "";
 
 
-    salespeople.forEach(
+    getDemoTeamSalespeople().forEach(
         (
             salesperson
         ) => {
@@ -4319,6 +4539,9 @@ function renderSalespeople() {
             `;
 
 
+            if (getDemoSession()?.role !== "administrator") {
+                row.querySelectorAll("button").forEach(button => button.remove());
+            }
             tableBody.appendChild(
                 row
             );
@@ -4356,6 +4579,8 @@ function initializeSalespeopleActions() {
 
                 }
 
+
+                if (getDemoSession()?.role !== "administrator") return;
 
                 const id =
                     button.dataset.id;
@@ -4427,6 +4652,7 @@ function initializeSalespeopleActions() {
                         "salesperson-status",
                         salesperson.status
                     );
+                    setValue("salesperson-manager-email", salesperson.managerEmail || "");
 
 
                     document
@@ -4541,13 +4767,9 @@ function populateSalespeopleSelect() {
     `;
 
 
-    salespeople
+    getDemoTeamSalespeople()
         .filter(
-            (
-                salesperson
-            ) =>
-                salesperson.status !==
-                "inactive"
+            (salesperson) => salesperson.status !== "inactive"
         )
         .forEach(
             (
@@ -4914,42 +5136,20 @@ function initializeLogin() {
                     ?.value;
 
 
-            if (
-                !email ||
-                !password
-            ) {
-
-                if (
-                    errorElement
-                ) {
-
-                    errorElement.textContent =
-                        currentLanguage ===
-                        "fr"
-                            ? "Veuillez renseigner votre e-mail et votre mot de passe."
-                            : "Please enter your email and password.";
-
-
-                    errorElement.hidden =
-                        false;
-
+            const role = DEMO_ACCOUNTS[(email || "").toLowerCase()];
+            if (!role || password !== DEMO_PASSWORD) {
+                if (errorElement) {
+                    errorElement.textContent = currentLanguage === "fr"
+                        ? "Identifiants de démonstration incorrects."
+                        : "Invalid demo credentials.";
+                    errorElement.hidden = false;
                 }
-
-
                 return;
-
             }
-
-
-            if (
-                errorElement
-            ) {
-
-                errorElement.hidden =
-                    true;
-
-            }
-
+            sessionStorage.setItem(DEMO_SESSION_KEY, JSON.stringify({ email: email.toLowerCase(), role }));
+            currentDemoRole = role;
+            localStorage.setItem(DEMO_ROLE_STORAGE_KEY, role);
+            if (errorElement) errorElement.hidden = true;
 
             window.location.href =
                 "dashboard.html";
@@ -5136,11 +5336,93 @@ function escapeHTML(
 
 
 
+
+
+// CRM-02 6C — Prépare les composants sans simuler de statistiques.
+function initializeCrmDashboardReports() {
+    const daily = document.getElementById("crm-daily-chart");
+    if (!daily) return;
+    const teamSection = document.getElementById("crm-commercial-section");
+    const strings = {
+        fr: {activity:"Activité commerciale",dailyTitle:"Évolution quotidienne",dailyDescription:"Nouveaux prospects et nouveaux clients sur la période sélectionnée.",prospects:"Nouveaux prospects",clients:"Nouveaux clients",pending:"En attente des données Supabase.",dailyAria:"Graphique d'évolution quotidienne en attente de données",team:"Équipe commerciale",commercialTitle:"Performances par commercial",commercialDescription:"Vue d'équipe disponible pour les Managers et Administrateurs.",commercial:"Commercial",totalProspects:"Total prospects",openProspects:"Prospects ouverts",totalClients:"Total clients",newProspects:"Nouveaux prospects",newClients:"Nouveaux clients"},
+        en: {activity:"Sales activity",dailyTitle:"Daily activity",dailyDescription:"New prospects and clients during the selected period.",prospects:"New prospects",clients:"New clients",pending:"Waiting for Supabase data.",dailyAria:"Daily activity chart awaiting data",team:"Sales team",commercialTitle:"Performance by salesperson",commercialDescription:"Team view for Managers and Administrators.",commercial:"Salesperson",totalProspects:"Total prospects",openProspects:"Open prospects",totalClients:"Total clients",newProspects:"New prospects",newClients:"New clients"}
+    };
+    function translateReports() {
+        const lang = document.documentElement.lang === "en" ? "en" : "fr";
+        document.querySelectorAll("[data-report-text]").forEach(el => {
+            const value = strings[lang][el.dataset.reportText];
+            if (value) el.textContent = value;
+        });
+        document.querySelectorAll("[data-report-aria]").forEach(el => {
+            const value = strings[lang][el.dataset.reportAria];
+            if (value) el.setAttribute("aria-label",value);
+        });
+    }
+    // Masquage visuel uniquement. La sécurité réelle sera imposée par Supabase RLS/RPC.
+    function updateRoleVisibility() {
+        const role = String(currentDemoRole || "").toLowerCase();
+        teamSection.hidden = role !== "manager" && role !== "administrator" && role !== "admin";
+    }
+    translateReports();
+    updateRoleVisibility();
+    new MutationObserver(translateReports).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    document.addEventListener("crm:demo-role-change",updateRoleVisibility);
+}
+
+// CRM-02 6B — Sélecteur de période, sans calcul local des indicateurs.
+function initializeCrmDashboardPeriod() {
+    const period = document.getElementById("crm-period");
+    if (!period) return;
+    const custom = document.getElementById("crm-custom-period");
+    const start = document.getElementById("crm-start-date");
+    const end = document.getElementById("crm-end-date");
+    const apply = document.getElementById("crm-apply-period");
+    const feedback = document.getElementById("crm-period-feedback");
+    const labels = {
+        fr: {activityLabel:"Analyse commerciale",title:"Indicateurs du CRM",periodLabel:"Période",refresh:"Actualiser",startDate:"Date de début",endDate:"Date de fin",apply:"Appliquer",periodTitle:"Activité sur la période sélectionnée",currentTitle:"Situation actuelle",newProspects:"Nouveaux prospects",newClients:"Nouveaux clients",totalProspects:"Total prospects",totalClients:"Total clients",openProspects:"Prospects ouverts",noFirstContact:"Sans premier contact",overdueFollowups:"Relances en retard",unassigned:"Non affectés",lastUpdated:"Dernière actualisation :",pending:"Les indicateurs seront connectés à l'API Supabase lors des étapes suivantes.",invalid:"Choisissez une période valide de 366 jours maximum.",ready:"Période sélectionnée : "},
+        en: {activityLabel:"Sales analytics",title:"CRM indicators",periodLabel:"Period",refresh:"Refresh",startDate:"Start date",endDate:"End date",apply:"Apply",periodTitle:"Activity during selected period",currentTitle:"Current snapshot",newProspects:"New prospects",newClients:"New clients",totalProspects:"Total prospects",totalClients:"Total clients",openProspects:"Open prospects",noFirstContact:"No first contact",overdueFollowups:"Overdue follow-ups",unassigned:"Unassigned",lastUpdated:"Last updated:",pending:"Indicators will be connected to the Supabase API in the next steps.",invalid:"Choose a valid period of at most 366 days.",ready:"Selected period: "}
+    };
+    const options = {fr:["Aujourd'hui","Hier","7 derniers jours","30 derniers jours","Dates personnalisées"],en:["Today","Yesterday","Last 7 days","Last 30 days","Custom dates"]};
+    const isoDate = date => date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
+    // Date civile au Maroc, indépendante du fuseau horaire du navigateur.
+    const todayMorocco = () => new Intl.DateTimeFormat("en-CA",{timeZone:"Africa/Casablanca",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+    const shift = (iso, days) => { const d = new Date(iso+"T12:00:00Z"); d.setUTCDate(d.getUTCDate()+days); return d.toISOString().slice(0,10); };
+    function translate() {
+        const lang = document.documentElement.lang === "en" ? "en" : "fr";
+        document.querySelectorAll("[data-dashboard-text]").forEach(el => { const key=el.dataset.dashboardText; if(labels[lang][key]) el.textContent=labels[lang][key]; });
+        [...period.options].forEach((option,i)=>option.textContent=options[lang][i]);
+        return lang;
+    }
+    function update() {
+        const lang=translate();
+        custom.hidden=period.value!=="custom";
+        const today=todayMorocco();
+        let from=today,to=today;
+        if(period.value==="yesterday") from=to=shift(today,-1);
+        if(period.value==="last7") from=shift(today,-6);
+        if(period.value==="last30") from=shift(today,-29);
+        if(period.value==="custom") {from=start.value;to=end.value;}
+        const days=from&&to ? Math.round((Date.parse(to)-Date.parse(from))/86400000)+1 : 0;
+        const valid=days>=1&&days<=366;
+        feedback.textContent=valid ? labels[lang].ready+from+" → "+to : labels[lang].invalid;
+        // La prochaine étape branchera la requête RPC sur cet événement.
+        if(valid) document.dispatchEvent(new CustomEvent("crm:period-change",{detail:{startDate:from,endDate:to}}));
+    }
+    period.addEventListener("change",update);
+    apply.addEventListener("click",update);
+    const langObserver=new MutationObserver(()=>{translate();});
+    langObserver.observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    update();
+}
+
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+        if (!guardDemoPage()) return;
+
         initializeLanguageButtons();
+        initializeCrmDashboardPeriod();
 
         initializeQuoteForm();
 
@@ -5148,6 +5430,7 @@ document.addEventListener(
 
         initializeProspectModal();
 
+        initializeDemoTeamField();
         initializeSalespersonForm();
 
         initializeSalespeopleActions();
@@ -5157,8 +5440,10 @@ document.addEventListener(
         initializeLogin();
 
         initializeDemoRoles();
+        initializeCrmDashboardReports();
 
         populateSalespeopleSelect();
+        configureProspectDemoPermissions();
 
         applyLanguage(
             currentLanguage

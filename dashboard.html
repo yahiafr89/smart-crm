@@ -248,6 +248,87 @@
 
                 </section>
 
+                <!-- CRM Dashboard 6B: structure UI, indicateurs alimentés en 6C/6D -->
+                <section class="crm-analytics" aria-labelledby="crm-analytics-title" id="crm-analytics">
+                    <div class="crm-analytics-toolbar">
+                        <div><span class="section-label" data-dashboard-text="activityLabel">Analyse commerciale</span><h2 id="crm-analytics-title" data-dashboard-text="title">Indicateurs du CRM</h2></div>
+                        <div class="crm-analytics-actions">
+                            <label for="crm-period" data-dashboard-text="periodLabel">Période</label>
+                            <select id="crm-period" aria-controls="crm-period-metrics">
+                                <option value="today">Aujourd'hui</option><option value="yesterday">Hier</option><option value="last7">7 derniers jours</option><option value="last30" selected>30 derniers jours</option><option value="custom">Dates personnalisées</option>
+                            </select>
+                            <button type="button" id="crm-refresh" class="crm-analytics-refresh" disabled data-dashboard-text="refresh">Actualiser</button>
+                        </div>
+                    </div>
+                    <div id="crm-custom-period" class="crm-custom-period" hidden>
+                        <label for="crm-start-date" data-dashboard-text="startDate">Date de début</label><input id="crm-start-date" type="date" />
+                        <label for="crm-end-date" data-dashboard-text="endDate">Date de fin</label><input id="crm-end-date" type="date" />
+                        <button type="button" id="crm-apply-period" data-dashboard-text="apply">Appliquer</button>
+                    </div>
+                    <p id="crm-period-feedback" class="crm-analytics-feedback" role="status" aria-live="polite"></p>
+                    <div class="crm-analytics-section" id="crm-period-metrics">
+                        <h3 data-dashboard-text="periodTitle">Activité sur la période sélectionnée</h3>
+                        <div class="crm-metrics-grid crm-metrics-grid--two">
+                            <article class="crm-metric"><p data-dashboard-text="newProspects">Nouveaux prospects</p><strong id="crm-new-prospects">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="newClients">Nouveaux clients</p><strong id="crm-new-clients">—</strong></article>
+                        </div>
+                    </div>
+                    <div class="crm-analytics-section" id="crm-current-metrics">
+                        <h3 data-dashboard-text="currentTitle">Situation actuelle</h3>
+                        <div class="crm-metrics-grid">
+                            <article class="crm-metric"><p data-dashboard-text="totalProspects">Total prospects</p><strong id="crm-total-prospects">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="totalClients">Total clients</p><strong id="crm-total-clients">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="openProspects">Prospects ouverts</p><strong id="crm-open-prospects">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="noFirstContact">Sans premier contact</p><strong id="crm-no-first-contact">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="overdueFollowups">Relances en retard</p><strong id="crm-overdue-followups">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="unassigned">Non affectés</p><strong id="crm-unassigned">—</strong></article>
+                        </div>
+                    </div>
+                    <p class="crm-analytics-footer"><span data-dashboard-text="lastUpdated">Dernière actualisation :</span> <time id="crm-generated-at">—</time></p>
+                    <p class="crm-analytics-feedback" data-dashboard-text="pending">Les indicateurs seront connectés à l'API Supabase lors des étapes suivantes.</p>
+                </section>
+
+                <!-- CRM-02 6C — Visualisations prêtes pour les données RPC -->
+                <section class="crm-report-card" aria-labelledby="crm-daily-title" id="crm-daily-section">
+                    <div class="section-header">
+                        <div>
+                            <span class="section-label" data-report-text="activity">Activité commerciale</span>
+                            <h2 id="crm-daily-title" data-report-text="dailyTitle">Évolution quotidienne</h2>
+                            <p data-report-text="dailyDescription">Nouveaux prospects et nouveaux clients sur la période sélectionnée.</p>
+                        </div>
+                    </div>
+                    <div class="crm-report-legend" aria-hidden="true">
+                        <span><i class="crm-report-dot crm-report-dot--prospects"></i><span data-report-text="prospects">Nouveaux prospects</span></span>
+                        <span><i class="crm-report-dot crm-report-dot--clients"></i><span data-report-text="clients">Nouveaux clients</span></span>
+                    </div>
+                    <div id="crm-daily-chart" class="crm-daily-chart" role="img" aria-label="Graphique d'évolution quotidienne en attente de données" data-report-aria="dailyAria">
+                        <p class="crm-report-empty" data-report-text="pending">En attente des données Supabase.</p>
+                    </div>
+                </section>
+
+                <section class="crm-report-card" id="crm-commercial-section" aria-labelledby="crm-commercial-title" hidden>
+                    <div class="section-header">
+                        <div>
+                            <span class="section-label" data-report-text="team">Équipe commerciale</span>
+                            <h2 id="crm-commercial-title" data-report-text="commercialTitle">Performances par commercial</h2>
+                            <p data-report-text="commercialDescription">Vue d'équipe disponible pour les Managers et Administrateurs.</p>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="crm-commercial-table">
+                            <thead><tr>
+                                <th scope="col" data-report-text="commercial">Commercial</th>
+                                <th scope="col" data-report-text="totalProspects">Total prospects</th>
+                                <th scope="col" data-report-text="openProspects">Prospects ouverts</th>
+                                <th scope="col" data-report-text="totalClients">Total clients</th>
+                                <th scope="col" data-report-text="newProspects">Nouveaux prospects</th>
+                                <th scope="col" data-report-text="newClients">Nouveaux clients</th>
+                            </tr></thead>
+                            <tbody id="crm-commercial-body"><tr><td colspan="6" class="crm-report-empty" data-report-text="pending">En attente des données Supabase.</td></tr></tbody>
+                        </table>
+                    </div>
+                </section>
+
                 <section
                     class="lead-status-overview"
                     aria-labelledby="lead-status-overview-title"
