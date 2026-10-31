@@ -5425,9 +5425,14 @@ function initializeCrmDashboardPeriod() {
         en: {activityLabel:"Sales analytics",title:"CRM indicators",periodLabel:"Period",refresh:"Refresh",startDate:"Start date",endDate:"End date",apply:"Apply",periodTitle:"Activity during selected period",currentTitle:"Current snapshot",newProspects:"New prospects",newClients:"New clients",totalProspects:"Total prospects",totalClients:"Total clients",openProspects:"Open prospects",noFirstContact:"No first contact",overdueFollowups:"Overdue follow-ups",unassigned:"Unassigned",lastUpdated:"Last updated:",pending:"Indicators will be connected to the Supabase API in the next steps.",invalid:"Choose a valid period of at most 366 days.",ready:"Selected period: "}
     };
     const options = {fr:["Aujourd'hui","Hier","7 derniers jours","30 derniers jours","Dates personnalisées"],en:["Today","Yesterday","Last 7 days","Last 30 days","Custom dates"]};
-    const isoDate = date => date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
-    // Date civile au Maroc, indépendante du fuseau horaire du navigateur.
-    const todayMorocco = () => new Intl.DateTimeFormat("en-CA",{timeZone:"Africa/Casablanca",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+    // Date civile au Maroc, indépendante du fuseau horaire et de la présentation locale.
+    const todayMorocco = () => {
+        const parts = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Africa/Casablanca", year: "numeric", month: "2-digit", day: "2-digit"
+        }).formatToParts(new Date());
+        const get = type => parts.find(part => part.type === type)?.value;
+        return `${get("year")}-${get("month")}-${get("day")}`;
+    };
     const shift = (iso, days) => { const d = new Date(iso+"T12:00:00Z"); d.setUTCDate(d.getUTCDate()+days); return d.toISOString().slice(0,10); };
     function translate() {
         const lang = document.documentElement.lang === "en" ? "en" : "fr";
@@ -5444,15 +5449,30 @@ function initializeCrmDashboardPeriod() {
         if(period.value==="last7") from=shift(today,-6);
         if(period.value==="last30") from=shift(today,-29);
         if(period.value==="custom") {from=start.value;to=end.value;}
-        const days=from&&to ? Math.round((Date.parse(to)-Date.parse(from))/86400000)+1 : 0;
-        const valid=days>=1&&days<=366;
+        const isRealISODate = value => {
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return false;
+            const parsed = new Date(value + "T12:00:00Z");
+            return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0,10) === value;
+        };
+        const validDates = isRealISODate(from) && isRealISODate(to);
+        const days = validDates ? Math.round((Date.parse(to)-Date.parse(from))/86400000)+1 : 0;
+        const valid = validDates && days >= 1 && days <= 366;
         feedback.textContent=valid ? labels[lang].ready+from+" → "+to : labels[lang].invalid;
         // La prochaine étape branchera la requête RPC sur cet événement.
         if(valid) document.dispatchEvent(new CustomEvent("crm:period-change",{detail:{startDate:from,endDate:to}}));
     }
     period.addEventListener("change",update);
     apply.addEventListener("click",update);
-    const langObserver=new MutationObserver(()=>{translate();});
+    // Traduire également le message de période sans déclencher une nouvelle requête.
+    const langObserver=new MutationObserver(()=>{
+        const lang = translate();
+        const message = feedback.textContent;
+        if (!message) return;
+        const match = message.match(/(\d{4}-\d{2}-\d{2}) → (\d{4}-\d{2}-\d{2})$/);
+        feedback.textContent = match
+            ? labels[lang].ready + match[1] + " → " + match[2]
+            : labels[lang].invalid;
+    });
     langObserver.observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
     update();
 }
