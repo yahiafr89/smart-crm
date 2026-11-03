@@ -1523,6 +1523,7 @@ function getDemoSession() {
     } catch { return null; }
 }
 function guardDemoPage() {
+    if (window.SMARTCRM_CONNECTED_MODE) return true;
     const page = location.pathname.split("/").pop();
     if (!["dashboard.html", "prospects.html", "commerciaux.html", "administration.html"].includes(page)) return true;
     const session = getDemoSession();
@@ -2080,6 +2081,7 @@ function applyDemoRoleUI() {
 
 
 function initializeDemoRoles() {
+    if (window.SMARTCRM_CONNECTED_MODE) return;
 
     if (
         !document.querySelector(
@@ -2235,6 +2237,8 @@ function applyLanguage(
 
     }
 
+
+    if (window.SMARTCRM_CONNECTED_MODE) return;
 
     applyDemoRoleUI();
 
@@ -2892,6 +2896,7 @@ function renderProspects() {
 
 
 function initializeProspectForm() {
+    if (window.SMARTCRM_CONNECTED_MODE) return;
 
     const form =
         document.getElementById(
@@ -4212,6 +4217,7 @@ function renderDashboard() {
 
 
 function initializeSalespersonForm() {
+    if (window.SMARTCRM_CONNECTED_MODE) return;
 
     const form =
         document.getElementById(
@@ -5026,6 +5032,7 @@ function renderAdmin() {
 
 
 function initializeAdmin() {
+    if (window.SMARTCRM_CONNECTED_MODE) return;
 
     document
         .getElementById(
@@ -5094,6 +5101,7 @@ function initializeAdmin() {
 
 
 function initializeLogin() {
+    if (window.SMARTCRM_CONNECTED_MODE) return;
 
     const form =
         document.getElementById(
@@ -5484,6 +5492,10 @@ document.addEventListener(
         if (!guardDemoPage()) return;
 
         initializeLanguageButtons();
+        if (window.SMARTCRM_CONNECTED_MODE) {
+            applyLanguage(currentLanguage);
+            return; // Auth integration only; do not initialize legacy demo data or mutations.
+        }
         initializeCrmDashboardPeriod();
 
         initializeQuoteForm();
