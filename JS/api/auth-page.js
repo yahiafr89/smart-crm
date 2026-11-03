@@ -79,13 +79,20 @@ function showVerificationUnavailable(error) {
   // Fail closed: never reveal private CRM UI or legacy demo data.
   document.documentElement.style.visibility = '';
   const main = document.querySelector('main');
-  document.querySelector('.crm-sidebar')?.remove();
-  document.querySelector('.crm-header')?.remove();
   if (!main) return;
+  // Replace the restricted dashboard layout with a single centered error view.
+  // Removing only the sidebar leaves its grid column in place and squeezes the message.
+  const shell = document.querySelector('.crm-app-shell');
+  if (shell) {
+    shell.replaceChildren(main);
+    shell.style.cssText = 'display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;padding:clamp(20px,5vw,56px);box-sizing:border-box;';
+  }
   main.replaceChildren();
+  main.style.cssText = 'display:block;width:100%;max-width:680px;min-width:0;margin:0 auto;';
   const section = document.createElement('section');
-  section.style.cssText = 'max-width:640px;margin:64px auto;padding:32px;border-radius:20px;border:1px solid #cbd5e1;background:#fff;color:#14213d;';
+  section.style.cssText = 'box-sizing:border-box;width:100%;margin:0;padding:clamp(24px,5vw,44px);border-radius:20px;border:1px solid #cbd5e1;background:#fff;color:#14213d;box-shadow:0 16px 48px rgba(15,23,42,.08);';
   section.setAttribute('role', 'alert');
+  section.style.overflowWrap = 'break-word';
   const heading = document.createElement('h1');
   const description = document.createElement('p');
   const retry = document.createElement('button');
