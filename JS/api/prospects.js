@@ -1,8 +1,16 @@
-import { postJson, webhookUrl } from './client.js';
-export async function listProspects(supabase, { page = 1, pageSize = 20 } = {}) {
+export async function listProspects(supabase, { page = 1, pageSize = 20, search = '', status = '' } = {}) {
   if (!Number.isInteger(page) || page < 1 || !Number.isInteger(pageSize) || pageSize < 1 || pageSize > 100) throw new Error('Invalid pagination.');
+  const columns = 'id,created_at,first_name,last_name,company,email,phone,status,priority,assigned_commercial_id';
+  let query = supabase.from('prospects').select(columns, { count: 'exact' });
+  if (status) query = query.eq('status', status);
+  // Restrict search characters to keep the PostgREST OR expression well-formed.
+  const term = String(search).replace(/[^\p{L}\p{N} @._-]/gu, '').trim().slice(0, 80);
+  if (term) {
+    const pattern = `%${term}%`;
+    query = query.or(`first_name.ilike.${pattern},last_name.ilike.${pattern},company.ilike.${pattern},email.ilike.${pattern}`);
+  }
   const start = (page - 1) * pageSize;
-  const { data, count, error } = await supabase.from('prospects').select('*', { count: 'exact' }).range(start, start + pageSize - 1);
+  const { data, count, error } = await query.order('created_at', { ascending: false }).order('id', { ascending: false }).range(start, start + pageSize - 1);
   if (error) throw error;
   return { data, count };
 }

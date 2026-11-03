@@ -1,3 +1,4 @@
+import { mountProspectsReadOnly } from './prospects-readonly.js';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.10';
 import { config } from '../config/config.js';
 import { signIn, signOut, getBusinessProfile } from './auth.js';
@@ -18,7 +19,11 @@ function errorText(message) {
 }
 async function profileForAuthenticatedUser() {
   const { data, error } = await supabase.auth.getUser();
-  if (error || !data.user) return null;
+  if (error) {
+    if ([400, 401, 403].includes(Number(error.status)) || /invalid.*(jwt|token)|jwt.*expired|session.*missing|auth session missing/i.test(error.message || '')) return null;
+    throw error;
+  }
+  if (!data?.user) return null;
   const profile = await getBusinessProfile(supabase, data.user.id);
   if (!roles.has(profile?.role)) throw new Error('Business role unavailable');
   return profile;
@@ -69,6 +74,34 @@ function showUnavailablePage(profile) {
     sidebar.append(button);
   }
 }
+function showVerificationUnavailable(error) {
+  console.error('Authentication verification unavailable', error);
+  // Fail closed: never reveal private CRM UI or legacy demo data.
+  document.documentElement.style.visibility = '';
+  const main = document.querySelector('main');
+  document.querySelector('.crm-sidebar')?.remove();
+  document.querySelector('.crm-header')?.remove();
+  if (!main) return;
+  main.replaceChildren();
+  const section = document.createElement('section');
+  section.style.cssText = 'max-width:640px;margin:64px auto;padding:32px;border-radius:20px;border:1px solid #cbd5e1;background:#fff;color:#14213d;';
+  section.setAttribute('role', 'alert');
+  const heading = document.createElement('h1');
+  const description = document.createElement('p');
+  const retry = document.createElement('button');
+  retry.type = 'button';
+  retry.className = 'btn-primary';
+  const render = () => {
+    heading.textContent = t('Vérification temporairement indisponible', 'Verification temporarily unavailable');
+    description.textContent = t('Impossible de vérifier votre session ou vos autorisations. Vérifiez votre connexion Internet, puis réessayez. Aucune donnée CRM n’est affichée.', 'Unable to verify your session or permissions. Check your Internet connection and try again. No CRM data is displayed.');
+    retry.textContent = t('Réessayer', 'Retry');
+  };
+  retry.addEventListener('click', () => location.reload());
+  render();
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  section.append(heading, description, retry);
+  main.append(section);
+}
 async function init() {
   if (config.mode !== 'connected') return;
   if (privatePages.has(page)) {
@@ -79,8 +112,9 @@ async function init() {
       if (page === 'administration.html' && profile.role !== 'administrator') { location.replace('dashboard.html'); return; }
       clearLegacy();
       showUnavailablePage(profile);
+      if (page === 'prospects.html') { const main = document.querySelector('main'); if (main) mountProspectsReadOnly(supabase, main); }
       document.documentElement.style.visibility = '';
-    } catch (error) { console.error('Profile verification failed', error); clearLegacy(); location.replace('login.html'); }
+    } catch (error) { showVerificationUnavailable(error); }
     return;
   }
   if (page !== 'login.html') return;
@@ -106,4 +140,4 @@ async function init() {
     } finally { button.disabled = false; }
   });
 }
-init().catch(error => { console.error('Auth init failed',error); if(privatePages.has(page)) location.replace('login.html'); else errorText(t('Service temporairement indisponible.', 'Service temporarily unavailable.')); });
+init().catch(error => { console.error('Auth init failed',error); if(privatePages.has(page)) showVerificationUnavailable(error); else errorText(t('Service temporairement indisponible.', 'Service temporarily unavailable.')); });
