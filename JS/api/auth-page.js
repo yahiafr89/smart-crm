@@ -1,4 +1,5 @@
 import { mountProspectsReadOnly } from './prospects-readonly.js';
+import { mountProspectDetailReadOnly } from './prospect-detail-readonly.js';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.10';
 import { config } from '../config/config.js';
 import { signIn, signOut, getBusinessProfile } from './auth.js';
@@ -119,7 +120,14 @@ async function init() {
       if (page === 'administration.html' && profile.role !== 'administrator') { location.replace('dashboard.html'); return; }
       clearLegacy();
       showUnavailablePage(profile);
-      if (page === 'prospects.html') { const main = document.querySelector('main'); if (main) mountProspectsReadOnly(supabase, main); }
+      if (page === 'prospects.html') {
+        const main = document.querySelector('main');
+        if (main) {
+          const params = new URLSearchParams(location.search);
+          if (params.has('id')) mountProspectDetailReadOnly(supabase, main, params.get('id'));
+          else mountProspectsReadOnly(supabase, main);
+        }
+      }
       document.documentElement.style.visibility = '';
     } catch (error) { showVerificationUnavailable(error); }
     return;

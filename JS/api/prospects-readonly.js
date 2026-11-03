@@ -48,7 +48,17 @@ export function mountProspectsReadOnly(supabase, main) {
     rows.forEach(item=>{
       const row=document.createElement('tr');
       const vals=[item.first_name,item.last_name,item.company,item.email,item.phone,item.status,item.priority,item.created_at?new Date(item.created_at).toLocaleDateString(fr()?'fr-FR':'en-GB'):''];
-      vals.forEach(value=>{const cell=document.createElement('td');cell.textContent=value==null||value===''?'—':String(value);row.append(cell);});
+      vals.forEach((value,index)=>{
+        const cell=document.createElement('td');
+        if(index===0){
+          const link=document.createElement('a');
+          link.href=`prospects.html?id=${encodeURIComponent(item.id)}`;
+          link.textContent=value==null||value===''?'—':String(value);
+          link.setAttribute('aria-label',tr(`Ouvrir la fiche du prospect ${item.first_name||''} ${item.last_name||''}`,`Open prospect ${item.first_name||''} ${item.last_name||''}`));
+          cell.append(link);
+        } else cell.textContent=value==null||value===''?'—':String(value);
+        row.append(cell);
+      });
       tbody.append(row);
     });
   };
