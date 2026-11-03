@@ -1,4 +1,5 @@
 import { getProspect } from './prospects.js';
+import { loadCommercialNames, commercialLabel } from './commercial-labels.js';
 
 // Read-only detail: the authenticated Supabase client and database RLS determine access.
 export function mountProspectDetailReadOnly(supabase, main, rawId) {
@@ -20,6 +21,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
   section.append(back, title, subtitle, content);
   main.append(section);
   let record = null, state = 'loading';
+  let commercialNames = new Map();
   const fields = [
     ['first_name','Prénom','First name'], ['last_name','Nom','Last name'],
     ['company','Société','Company'], ['email','E-mail','Email'],
@@ -33,7 +35,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
     ['first_contact_date','Premier contact','First contact'],
     ['last_status_change','Dernier changement de statut','Last status change'],
     ['next_follow_up','Prochain suivi','Next follow-up'],
-    ['assigned_commercial_id','Identifiant du commercial affecté','Assigned salesperson ID']
+    ['assigned_commercial_id','Commercial affecté','Assigned salesperson']
   ];
   const dates = new Set(['created_at','updated_at','first_contact_date','last_status_change','next_follow_up']);
   function render() {
@@ -65,7 +67,9 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
       const label = document.createElement('div'); label.style.cssText = 'font-size:13px;color:#64748b;font-weight:600;margin-bottom:8px;';
       label.textContent = tr(labelFr,labelEn);
       const value = document.createElement('div'); value.style.cssText = 'font-size:15px;color:#14213d;white-space:pre-wrap;overflow-wrap:anywhere;';
-      const raw = record[key];
+      const raw = key === 'assigned_commercial_id'
+        ? commercialLabel(record.assigned_commercial_id, commercialNames, fr())
+        : record[key];
       if (raw === null || raw === undefined || raw === '') value.textContent = '—';
       else if (dates.has(key)) {
         const d = new Date(raw); value.textContent = Number.isNaN(d.getTime()) ? String(raw) : d.toLocaleString(fr()?'fr-FR':'en-GB');
@@ -78,6 +82,12 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
     state = 'loading'; render();
     try {
       record = await getProspect(supabase,id);
+      commercialNames = new Map();
+      try {
+        commercialNames = await loadCommercialNames(supabase, [record.assigned_commercial_id]);
+      } catch (error) {
+        console.warn('Commercial name lookup unavailable', error);
+      }
       state = 'ready';
     } catch (error) {
       console.error('Read-only prospect detail failed', error);

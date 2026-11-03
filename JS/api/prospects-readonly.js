@@ -1,4 +1,5 @@
 import { listProspects } from './prospects.js';
+import { loadCommercialNames, commercialLabel } from './commercial-labels.js';
 
 export function mountProspectsReadOnly(supabase, main) {
   const fr = () => document.documentElement.lang !== 'en';
@@ -29,6 +30,7 @@ export function mountProspectsReadOnly(supabase, main) {
   const counter = document.createElement('span'); pager.append(prev,counter,next);
   section.append(heading,intro,controls,info,tableWrap,pager); main.append(section);
   let page=1, count=0, busy=false, requestId=0, rows=[], searchTimer;
+  let commercialNames = new Map();
   const size=20;
   const labels = () => {
     heading.textContent=tr('Prospects réels','Live prospects');
@@ -36,7 +38,7 @@ export function mountProspectsReadOnly(supabase, main) {
     search.placeholder=tr('Rechercher par nom, société ou e-mail','Search name, company or email');
     status.options[0].textContent=tr('Tous les statuts','All statuses');
     prev.textContent=tr('Précédent','Previous'); next.textContent=tr('Suivant','Next');
-    const names=fr()?['Prénom','Nom','Société','E-mail','Téléphone','Statut','Priorité','Création']:['First name','Last name','Company','Email','Phone','Status','Priority','Created'];
+    const names=fr()?['Prénom','Nom','Société','E-mail','Téléphone','Statut','Priorité','Commercial affecté','Création']:['First name','Last name','Company','Email','Phone','Status','Priority','Assigned salesperson','Created'];
     thead.replaceChildren(); const hr=document.createElement('tr');
     names.forEach(name=>{const th=document.createElement('th');th.textContent=name;hr.append(th);});thead.append(hr);
     counter.textContent=`${page} / ${Math.max(1,Math.ceil(count/size))}`;
@@ -44,10 +46,10 @@ export function mountProspectsReadOnly(supabase, main) {
   };
   const render = () => {
     labels(); tbody.replaceChildren();
-    if (!rows.length) { const row=document.createElement('tr'); const cell=document.createElement('td');cell.colSpan=8;cell.textContent=tr('Aucun prospect pour ces critères.','No prospects match these filters.');row.append(cell);tbody.append(row);return; }
+    if (!rows.length) { const row=document.createElement('tr'); const cell=document.createElement('td');cell.colSpan=9;cell.textContent=tr('Aucun prospect pour ces critères.','No prospects match these filters.');row.append(cell);tbody.append(row);return; }
     rows.forEach(item=>{
       const row=document.createElement('tr');
-      const vals=[item.first_name,item.last_name,item.company,item.email,item.phone,item.status,item.priority,item.created_at?new Date(item.created_at).toLocaleDateString(fr()?'fr-FR':'en-GB'):''];
+      const vals=[item.first_name,item.last_name,item.company,item.email,item.phone,item.status,item.priority,commercialLabel(item.assigned_commercial_id, commercialNames, fr()),item.created_at?new Date(item.created_at).toLocaleDateString(fr()?'fr-FR':'en-GB'):''];
       vals.forEach((value,index)=>{
         const cell=document.createElement('td');
         if(index===0){
@@ -68,11 +70,21 @@ export function mountProspectsReadOnly(supabase, main) {
       const result=await listProspects(supabase,{page,pageSize:size,search:search.value.trim(),status:status.value});
       if(id!==requestId)return;
       rows=result.data||[];count=result.count||0;
+      commercialNames = new Map();
+      try {
+        const names = await loadCommercialNames(supabase, rows.map(item => item.assigned_commercial_id));
+        if (id !== requestId) return;
+        commercialNames = names;
+      } catch (error) {
+        // Do not hide readable prospects if commercial names cannot be retrieved.
+        console.warn('Commercial name lookup unavailable', error);
+      }
+      if (id !== requestId) return;
       info.textContent=tr(`${count} prospect(s) accessible(s)`,`${count} accessible prospect(s)`);
       render();
     }catch(error){
       if(id!==requestId)return;
-      console.error('Prospects read error',error);rows=[];count=0;tbody.replaceChildren();
+      console.error('Prospects read error',error);rows=[];count=0;commercialNames=new Map();tbody.replaceChildren();
       info.textContent=tr('Impossible de charger les prospects. Vérifiez votre connexion ou vos autorisations.','Unable to load prospects. Check your connection or permissions.');
     }finally{if(id===requestId){busy=false;labels();}}
   }
