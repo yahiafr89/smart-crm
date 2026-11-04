@@ -1,6 +1,4 @@
-const API_URL =
-    "https://sxxxxxxxxxxxxxx";
-
+// CRM-01: l’URL du webhook est centralisée dans JS/config/config.js.
 
 const translations = {
 
@@ -2393,31 +2391,34 @@ function getSalespersonName(
 
 
 async function sendProspectToAPI(prospect) {
-    // CRM-01A : endpoint de TEST existant. À remplacer uniquement après validation de Mohcine.
-    // Une erreur HTTP, réseau ou un délai dépassé ne vaut jamais confirmation serveur.
+    // CRM-01 : utilise le même client réseau et la même configuration que le CRM.
+    // Aucune donnée locale ne constitue une confirmation de création serveur.
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            signal: controller.signal,
-            body: JSON.stringify({
-                first_name: prospect.firstName,
-                last_name: prospect.lastName,
-                company: prospect.company,
-                email: prospect.email,
-                phone: prospect.phone,
-                message: prospect.message
-            })
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
+        const [{ config }, { submitPublicLead }] = await Promise.all([
+            import('./JS/config/config.js'),
+            import('./JS/api/prospects.js')
+        ]);
+        if (config.mode !== 'connected') {
+            throw new Error('CRM-01 : mode connecté requis.');
         }
-        // Contrat de réponse non encore confirmé : HTTP 2xx est provisoirement le critère.
+        const result = await submitPublicLead(config, {
+            first_name: prospect.firstName,
+            last_name: prospect.lastName,
+            company: prospect.company,
+            email: prospect.email,
+            phone: prospect.phone,
+            message: prospect.message
+        }, controller.signal);
+        // postJson valide déjà le statut HTTP et la réponse JSON.
+        // En cas de réponse JSON contenant un échec explicite, ne pas confirmer.
+        if (result?.success === false || result?.error) {
+            throw new Error('CRM-01 : le serveur a signalé un échec.');
+        }
         return true;
     } catch (error) {
-        console.error("CRM-01 : envoi non confirmé par le serveur", error);
+        console.error('CRM-01 : envoi non confirmé par le serveur', error);
         return false;
     } finally {
         clearTimeout(timeout);
