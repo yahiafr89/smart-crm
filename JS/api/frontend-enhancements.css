@@ -1,0 +1,14 @@
+/* Smart CRM additive components: scoped, responsive and theme-neutral. */
+.sci-card{margin:20px 0;padding:clamp(16px,2.3vw,26px);border:1px solid #dbe3ee;border-radius:18px;background:#fff;color:#14213d;box-shadow:0 6px 22px rgba(15,23,42,.04);max-width:100%}
+.sci-card h2{font-size:18px;margin:0 0 8px}.sci-card p{line-height:1.5}
+.sci-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:16px}
+.sci-field{display:flex;flex-direction:column;gap:6px;min-width:0;font-size:14px;font-weight:600;color:#334155}
+.sci-field input,.sci-field textarea,.sci-field select{width:100%;min-height:42px;padding:10px 12px;box-sizing:border-box;font:inherit;font-weight:400;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#14213d}
+.sci-field textarea{resize:vertical}.sci-field input:focus-visible,.sci-field textarea:focus-visible,.sci-field select:focus-visible{outline:3px solid #93c5fd;outline-offset:1px}
+.sci-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;grid-column:1/-1}
+.sci-secondary{padding:10px 15px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;color:#1d4ed8;font:inherit;font-weight:650;cursor:pointer}
+.sci-card button{min-height:42px;cursor:pointer}.sci-card button:disabled{opacity:.6;cursor:wait}
+.sci-form>p{grid-column:1/-1;margin:0;overflow-wrap:anywhere}.sci-details{margin-top:12px;border-top:1px solid #e2e8f0;padding-top:12px}
+.sci-details summary{cursor:pointer;font-weight:650;color:#1d4ed8;list-style-position:inside}
+.sci-details summary:focus-visible,.sci-secondary:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+@media(max-width:560px){.sci-form{grid-template-columns:1fr}.sci-card{padding:16px}}
