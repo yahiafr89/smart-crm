@@ -12,6 +12,6 @@ for(const page of pages){if(!fs.existsSync(page))continue;const html=fs.readFile
   for(const match of html.matchAll(/(?:src|href)=["']([^"']+)["']/g)){const ref=match[1];if(/^(?:https?:|mailto:|tel:|#|data:|javascript:)/i.test(ref)||ref.startsWith('//'))continue;const clean=ref.split(/[?#]/)[0];if(!clean)continue;const target=path.resolve(path.dirname(page),decodeURIComponent(clean));if(!fs.existsSync(target))warn(page+' : ressource non trouvée '+ref);}
 }
 function walk(dir){if(!fs.existsSync(dir))return [];return fs.readdirSync(dir,{withFileTypes:true}).flatMap(x=>x.isDirectory()?walk(path.join(dir,x.name)):x.name.endsWith('.js')?[path.join(dir,x.name)]:[]);}
-for(const js of walk('JS')){try{execFileSync(process.execPath,['--check',js],{stdio:'pipe'});}catch{fail('Syntaxe JS : '+js);}}
+for(const js of walk('JS')){try{execFileSync(process.execPath,['--input-type=module','--check'],{input:fs.readFileSync(js,'utf8'),stdio:'pipe'});}catch{fail('Syntaxe JS : '+js);}}
 console.log(`Audit statique terminé : ${failures} échec(s), ${warnings} avertissement(s).`);
 process.exitCode=failures?1:0;
