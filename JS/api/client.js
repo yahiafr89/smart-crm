@@ -12,7 +12,7 @@ export function requireConfigured(value, label) {
   return value.replace(/\/+$/, '');
 }
 export async function postJson(url, body, accessToken, signal) {
-  const headers = { 'Content-Type': 'application/json' };
+  const headers = { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' };
   if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
   let response;
   try { response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body), signal }); }
