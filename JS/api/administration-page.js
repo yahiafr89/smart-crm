@@ -1,4 +1,4 @@
-/** Administrator-only UI. Authorization of database reads remains enforced by Supabase RLS. */
+/** Administrator UI. Database access is exclusively enforced by Supabase RLS. */
 export function mountAdministrationConnected(supabase, main) {
   const fr = () => document.documentElement.lang !== 'en';
   const t = (a,b) => fr() ? a : b;
@@ -22,15 +22,16 @@ export function mountAdministrationConnected(supabase, main) {
   const thead=document.createElement('thead'),tbody=document.createElement('tbody');table.append(thead,tbody);wrap.append(table);
   const note=document.createElement('p');note.style.cssText='font-size:13px;color:#64748b;margin-top:18px;';
   panel.append(toolbar,status,wrap,note);root.append(heading,intro,panel);main.replaceChildren(root);
-  let rows=[],error=null,loading=true;
+  let rows=[],error=null,loading=true,sequence=0;
   const roles={administrator:['Administrateur','Administrator'],manager:['Manager','Manager'],commercial:['Commercial','Sales representative']};
   function render(){
     heading.textContent=t('Administration','Administration');
     intro.textContent=t('Utilisateurs autorisés et rôles enregistrés dans Supabase.','Authorized users and roles from Supabase.');
     search.placeholder=t('Rechercher un utilisateur…','Search users…');search.setAttribute('aria-label',search.placeholder);
     refresh.textContent=t('Actualiser','Refresh');
-    note.textContent=t('Gestion des comptes en lecture seule. La création, la suppression et la modification des permissions nécessitent des endpoints backend sécurisés.','Read-only account management. Creating, deleting or changing permissions requires secure backend endpoints.');
-    status.textContent=loading?t('Chargement…','Loading…'):error?t('Lecture impossible. Vérifiez les droits RLS de la table users.','Unable to load. Check users table RLS permissions.'):t(`${rows.length} compte(s) accessible(s) (maximum 200 affichés)`,`${rows.length} accessible account(s) (up to 200 shown)`);
+    note.textContent=t('Gestion des comptes en lecture seule. Les modifications des permissions exigent des endpoints backend sécurisés.','Read-only account management. Permission changes require secure backend endpoints.');
+    const errorLabel=error ? (error.code==='42501'||error.status===403 ? t('Accès refusé : vérifier les politiques RLS et les droits SELECT.','Access denied: check RLS and SELECT permissions.') : error.code==='42P01'||error.code==='PGRST205' ? t('Table users introuvable ou non exposée : vérifier le schéma Supabase.','Users table not found or exposed: check Supabase schema.') : error.code==='42703' ? t('Colonne attendue absente : vérifier full_name, email et role.','Expected column missing: check full_name, email and role.') : t('Lecture impossible. Vérifiez la connexion, le schéma et les droits RLS.','Unable to load. Check connection, schema and RLS permissions.')) : '';
+    status.textContent=loading?t('Chargement…','Loading…'):error?errorLabel:t(`${rows.length} compte(s) accessible(s) (maximum 200 affichés)`,`${rows.length} accessible account(s) (up to 200 shown)`);
     const tr=document.createElement('tr');(fr()?['Utilisateur','E-mail','Rôle']:['User','Email','Role']).forEach(v=>{const th=document.createElement('th');th.textContent=v;tr.append(th);});thead.replaceChildren(tr);
     tbody.replaceChildren();
     const term=search.value.trim().toLocaleLowerCase();
@@ -38,11 +39,12 @@ export function mountAdministrationConnected(supabase, main) {
     if(!filtered.length){const r=document.createElement('tr'),c=document.createElement('td');c.colSpan=3;c.textContent=error?'—':t('Aucun utilisateur à afficher.','No users to display.');r.append(c);tbody.append(r);return;}
     for(const user of filtered){const tr=document.createElement('tr');const values=[user.full_name||'—',user.email||'—',roles[user.role]?.[fr()?0:1]||String(user.role||'—')];for(const v of values){const td=document.createElement('td');td.textContent=v;td.style.overflowWrap='anywhere';tr.append(td);}tbody.append(tr);}
   }
-  async function load(){loading=true;error=null;refresh.disabled=true;render();try{
+  async function load(){const request=++sequence;loading=true;error=null;refresh.disabled=true;render();try{
     const result=await supabase.from('users').select('full_name,email,role').order('full_name',{ascending:true}).limit(200);
     if(result.error)throw result.error;
+    if(request!==sequence||!root.isConnected)return;
     rows=Array.isArray(result.data)?result.data:[];
-  }catch(e){console.error('Administration users unavailable',e);rows=[];error=e;}finally{loading=false;refresh.disabled=false;render();}}
+  }catch(e){if(request!==sequence||!root.isConnected)return;console.error('Administration users unavailable',e);rows=[];error=e;}finally{if(request===sequence&&root.isConnected){loading=false;refresh.disabled=false;render();}}}
   search.addEventListener('input',render);refresh.addEventListener('click',load);
   const observer=new MutationObserver(()=>{if(root.isConnected)render();else observer.disconnect();});observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   load();
