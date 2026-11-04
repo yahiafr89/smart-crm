@@ -4530,3 +4530,85 @@ td strong {
 @media (prefers-reduced-motion:reduce) {
   .crm-app-body :where(button,.crm-sidebar-nav a) { transition:none!important; }
 }
+
+
+/* SMART CRM — revue visuelle complementaire : public + fiches + responsive.
+   Styles additifs, aucun changement de logique ni d'authentification. */
+:where(body:not(.crm-app-body)) {
+  --visual-border: rgba(20, 43, 80, .10);
+  --visual-shadow: 0 12px 36px rgba(13, 34, 76, .065);
+}
+:where(body:not(.crm-app-body)) :where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .5);
+  outline-offset: 3px;
+}
+:where(body:not(.crm-app-body)) :where(.service-card, .about-card, .contact-card) {
+  border-color: var(--visual-border);
+  box-shadow: var(--visual-shadow);
+}
+:where(body:not(.crm-app-body)) :where(.hero-content, .section-heading, .footer-content) {
+  min-width: 0;
+}
+:where(body:not(.crm-app-body)) :where(.hero h1, .section-heading h2) {
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+:where(body:not(.crm-app-body)) :where(input, select, textarea) {
+  max-width: 100%;
+}
+:where(body:not(.crm-app-body)) :where(.services-grid, .about-content, .footer-content) > * {
+  min-width: 0;
+}
+.crm-app-body :where(.crm-connected-dashboard, .crm-prospects-live, .prospects-page, .salespeople-page, .administration-page) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.crm-app-body :where(.crm-connected-dashboard, .crm-prospects-live) :where(input, select, textarea, button) {
+  font-family: inherit;
+}
+.crm-app-body :where(.crm-connected-dashboard, .crm-prospects-live) :where(button, a):focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .55);
+  outline-offset: 3px;
+}
+.crm-app-body :where(.crm-prospects-live .cpl-table-scroll, .table-container) {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+.crm-app-body :where(.prospects-page, .crm-connected-dashboard) :where(h1, h2, p, td) {
+  overflow-wrap: anywhere;
+}
+.crm-app-body :where(.crm-connected-dashboard .cd-card, .crm-prospects-live .cpl-panel) {
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  :where(body:not(.crm-app-body)) :where(.hero-content, .section-heading) {
+    max-width: 100%;
+  }
+  :where(body:not(.crm-app-body)) :where(.services-grid, .about-content) {
+    min-width: 0;
+  }
+  .crm-app-body :where(.crm-connected-dashboard .cd-period, .crm-prospects-live .cpl-tools) {
+    max-width: 100%;
+  }
+  .crm-app-body :where(.crm-connected-dashboard .cd-period input[type="date"]) {
+    max-width: 100%;
+  }
+}
+@media (max-width: 420px) {
+  .crm-app-body :where(.crm-connected-dashboard .cd-bar-row) {
+    grid-template-columns: minmax(70px, 1fr) minmax(0, 2fr) 28px;
+    gap: 7px;
+  }
+  .crm-app-body :where(.crm-connected-dashboard .cd-kpis) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(body:not(.crm-app-body)) :where(button, a, .service-card) {
+    transition: none !important;
+    animation: none !important;
+  }
+}
