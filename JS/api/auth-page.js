@@ -1,5 +1,8 @@
+import { mountAdministrationConnected } from './administration-page.js';
+import { mountCommerciauxConnected } from './commerciaux-page.js';
 import { mountProspectsReadOnly } from './prospects-readonly.js';
 import { mountProspectDetailReadOnly } from './prospect-detail-readonly.js';
+import { mountDashboardConnected } from './dashboard-page.js';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.10';
 import { config } from '../config/config.js';
 import { signIn, signOut, getBusinessProfile } from './auth.js';
@@ -127,6 +130,18 @@ async function init() {
           if (params.has('id')) mountProspectDetailReadOnly(supabase, main, params.get('id'));
           else mountProspectsReadOnly(supabase, main);
         }
+      }
+      if (page === 'commerciaux.html') {
+        const main = document.querySelector('main');
+        if (main) mountCommerciauxConnected(supabase, main);
+      }
+      if (page === 'administration.html') {
+        const main = document.querySelector('main');
+        if (main) mountAdministrationConnected(supabase, main);
+      }
+      if (page === 'dashboard.html') {
+        const main = document.querySelector('main');
+        if (main) mountDashboardConnected(supabase, main);
       }
       document.documentElement.style.visibility = '';
     } catch (error) { showVerificationUnavailable(error); }

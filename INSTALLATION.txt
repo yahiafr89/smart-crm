@@ -1,0 +1,14 @@
+SMART CRM — ADMINISTRATION CONNECTÉE
+
+1. Faire une copie de sauvegarde du dossier JS/api existant.
+2. Copier le dossier JS de cette archive à la racine du projet Smart CRM.
+3. Remplacer JS/api/auth-page.js et ajouter JS/api/administration-page.js.
+4. Rafraîchir administration.html dans Safari (Cmd + Option + R).
+
+Ce patch auth-page.js reprend l'archive précédente SmartCRM_FRONTEND_COMMERCIAUX_CONNECTE.zip.
+Si auth-page.js a été modifié depuis, fusionner les modifications plutôt que remplacer.
+
+La liste users est en lecture seule. Les accès dépendent des politiques RLS Supabase.
+La page ne permet pas de créer, supprimer ou changer les rôles.
+
+Synchroniser ces deux fichiers dans le projet ChatGPT après modification sur Mac.

@@ -1,0 +1,16 @@
+SMART CRM — Dashboard professionnel connecté (mise à jour ciblée)
+
+1. Décompresser cette archive.
+2. Copier JS/api/dashboard-page.js dans le dossier Smart CRM de votre Mac.
+3. Remplacer le fichier existant (celui installé avec le précédent ZIP).
+4. Recharger dashboard.html dans Safari (Cmd + Option + R).
+
+AUCUN autre fichier ne doit être remplacé.
+L'authentification, le routage, les rôles et l'assistant IA restent inchangés.
+Le dashboard utilise la RPC Supabase get_crm_dashboard et affiche les données
+présentes dans les champs summary/metrics/totals et by_status.
+Les indicateurs absents sont affichés « — » et jamais inventés.
+Les tests fonctionnels en navigateur et la connexion réelle n8n restent à faire.
+
+Synchronisation : mettre à jour JS/api/dashboard-page.js dans le projet ChatGPT
+après modification sur Mac.
