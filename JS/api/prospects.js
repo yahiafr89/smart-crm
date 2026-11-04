@@ -1,3 +1,4 @@
+import { postJson, webhookUrl } from './client.js';
 export async function listProspects(supabase, { page = 1, pageSize = 20, search = '', status = '' } = {}) {
   if (!Number.isInteger(page) || page < 1 || !Number.isInteger(pageSize) || pageSize < 1 || pageSize > 100) throw new Error('Invalid pagination.');
   const columns = 'id,created_at,first_name,last_name,company,email,phone,status,priority,assigned_commercial_id';

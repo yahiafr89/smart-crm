@@ -13,7 +13,7 @@ export function createProspectStatusControl(supabase, prospect, onSaved) {
   const button = document.createElement('button'); button.type='button'; button.className='btn-primary'; button.style.cssText='margin-left:12px;min-height:42px;';
   const feedback = document.createElement('p'); feedback.setAttribute('role','status'); feedback.setAttribute('aria-live','polite');
   const choices = STATUS_TRANSITIONS[prospect.status] || [];
-  for (const choice of choices) { const option=document.createElement('option'); option.value=choice; option.textContent=choice; select.append(option); }
+  for (const choice of choices) { const option=document.createElement('option'); option.value=choice; option.textContent=({new:tr('Nouveau','New'),contacted:tr('Contacté','Contacted'),qualified:tr('Qualifié','Qualified'),proposal_sent:tr('Proposition envoyée','Proposal sent'),negotiation:tr('Négociation','Negotiation'),won:tr('Gagné','Won'),lost:tr('Perdu','Lost'),archived:tr('Archivé','Archived')})[choice] || choice; select.append(option); }
   const configured = Boolean(config.n8nPublicBaseUrl && /^https:\/\//i.test(config.n8nPublicBaseUrl));
   select.disabled=!configured || !choices.length;
   button.disabled=select.disabled;
@@ -21,6 +21,7 @@ export function createProspectStatusControl(supabase, prospect, onSaved) {
     heading.textContent=tr('Changer le statut','Change status');
     label.textContent=tr('Nouveau statut','New status');
     button.textContent=tr('Enregistrer','Save');
+    for (const option of select.options) option.textContent=({new:tr('Nouveau','New'),contacted:tr('Contacté','Contacted'),qualified:tr('Qualifié','Qualified'),proposal_sent:tr('Proposition envoyée','Proposal sent'),negotiation:tr('Négociation','Negotiation'),won:tr('Gagné','Won'),lost:tr('Perdu','Lost'),archived:tr('Archivé','Archived')})[option.value] || option.value;
     if (!configured) feedback.textContent=tr('Adresse HTTPS n8n non configurée dans JS/config/config.js.','HTTPS n8n URL not configured in JS/config/config.js.');
     else if (!choices.length) feedback.textContent=tr('Aucune transition disponible pour ce statut.','No available transition for this status.');
   }
@@ -40,7 +41,7 @@ export function createProspectStatusControl(supabase, prospect, onSaved) {
       await onSaved();
     } catch (error) {
       console.error('Status change failed',error);
-      feedback.textContent=tr('Échec du changement de statut. Vérifiez vos droits, le webhook et la connexion.','Status change failed. Check permissions, webhook and connection.');
+      feedback.textContent=tr('Échec du changement de statut : ','Status change failed: ') + (error?.message || tr('Vérifiez vos droits et la connexion.','Check permissions and connection.'));
       button.disabled=false;select.disabled=false;
     }
   });

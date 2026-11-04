@@ -1,7 +1,8 @@
 import { getProspect } from './prospects.js';
 import { loadCommercialNames, commercialLabel } from './commercial-labels.js';
+import { createProspectStatusControl } from './prospect-status-control.js';
 
-// Read-only detail: the authenticated Supabase client and database RLS determine access.
+// Prospect detail: reads via Supabase RLS; status writes go only through authenticated n8n.
 export function mountProspectDetailReadOnly(supabase, main, rawId) {
   const fr = () => document.documentElement.lang !== 'en';
   const tr = (a, b) => fr() ? a : b;
@@ -60,7 +61,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
       return;
     }
     title.textContent = [record.first_name, record.last_name].filter(Boolean).join(' ') || tr('Prospect sans nom','Unnamed prospect');
-    subtitle.textContent = tr(`Fiche n° ${record.id} · Lecture seule`,`Prospect #${record.id} · Read-only`);
+    subtitle.textContent = tr(`Fiche n° ${record.id} · Modification du statut autorisée selon vos droits`,`Prospect #${record.id} · Status changes subject to your permissions`);
     for (const [key, labelFr, labelEn] of fields) {
       const card = document.createElement('div');
       card.style.cssText = 'min-width:0;padding:20px;border:1px solid #dbe3ee;border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(15,23,42,.04);';
@@ -76,6 +77,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
       } else value.textContent = String(raw);
       card.append(label,value); content.append(card);
     }
+    content.append(createProspectStatusControl(supabase, record, load));
   }
   async function load() {
     if (!/^[1-9]\d*$/.test(id)) { state = 'invalid'; render(); return; }
@@ -90,7 +92,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
       }
       state = 'ready';
     } catch (error) {
-      console.error('Read-only prospect detail failed', error);
+      console.error('Prospect detail failed', error);
       state = error?.code === 'PGRST116' ? 'missing' : 'error';
     }
     render();
