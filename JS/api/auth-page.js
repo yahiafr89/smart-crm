@@ -121,6 +121,9 @@ async function init() {
       const profile = await profileForAuthenticatedUser();
       if (!profile) { clearLegacy(); location.replace('login.html'); return; }
       if (page === 'administration.html' && profile.role !== 'administrator') { location.replace('dashboard.html'); return; }
+      // Defense in depth: block direct navigation, not only the sidebar link.
+      // Supabase RLS must independently enforce data authorization.
+      if (page === 'commerciaux.html' && profile.role === 'commercial') { location.replace('dashboard.html'); return; }
       clearLegacy();
       showUnavailablePage(profile);
       if (page === 'prospects.html') {
