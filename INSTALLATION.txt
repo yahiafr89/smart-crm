@@ -1,14 +1,11 @@
-SMART CRM — ADMINISTRATION CONNECTÉE
+SMART CRM - Finition Front-end Prospects
 
-1. Faire une copie de sauvegarde du dossier JS/api existant.
-2. Copier le dossier JS de cette archive à la racine du projet Smart CRM.
-3. Remplacer JS/api/auth-page.js et ajouter JS/api/administration-page.js.
-4. Rafraîchir administration.html dans Safari (Cmd + Option + R).
+1. Decompresser l'archive.
+2. Copier JS/api/prospects-readonly.js dans le meme chemin de votre projet Mac, en remplacant l'ancien fichier.
+3. Recharger prospects.html dans Safari avec Cmd + Option + R.
 
-Ce patch auth-page.js reprend l'archive précédente SmartCRM_FRONTEND_COMMERCIAUX_CONNECTE.zip.
-Si auth-page.js a été modifié depuis, fusionner les modifications plutôt que remplacer.
+Ce lot modifie uniquement la liste des prospects. Il conserve la fiche detaillee, le statut via n8n, le Dashboard, l'assistant IA et l'authentification.
+Les resultats sont fournis par la requete Supabase existante et restent soumis aux politiques RLS.
+Aucune modification backend, aucun compte ou prospect fictif.
 
-La liste users est en lecture seule. Les accès dépendent des politiques RLS Supabase.
-La page ne permet pas de créer, supprimer ou changer les rôles.
-
-Synchroniser ces deux fichiers dans le projet ChatGPT après modification sur Mac.
+IMPORTANT : synchroniser aussi JS/api/prospects-readonly.js dans votre projet ChatGPT apres la modification locale.
