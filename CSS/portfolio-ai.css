@@ -1,0 +1,13 @@
+/* Smart CRM Portfolio — isolated floating CRM-06 panel */
+.crm-portfolio-ai-launch{border:0;border-radius:999px;background:linear-gradient(120deg,#1769ff,#8b5cf6);color:#fff;padding:13px 22px;font-size:14px;font-weight:700;font-family:inherit;box-shadow:0 12px 26px rgba(49,88,199,.26);cursor:pointer}
+.crm-portfolio-ai-window{position:absolute;bottom:60px;right:0;width:min(440px,calc(100vw - 30px));max-height:min(76vh,690px);overflow:auto;background:white;color:#172746;border:1px solid #dbe4f3;border-radius:19px;box-shadow:0 20px 70px rgba(24,43,90,.24);padding:20px;text-align:left}
+.crm-portfolio-ai-window[hidden]{display:none!important}.crm-portfolio-ai-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.crm-portfolio-ai-top h2{font-size:19px;margin:0}.crm-portfolio-ai-close{background:#f1f5fa;border:0;border-radius:9px;padding:3px 12px;font-size:24px;cursor:pointer}
+.crm-portfolio-ai-note{font-size:13px;color:#64748b;margin:9px 0 16px}.crm-portfolio-ai-actions{display:flex;gap:8px;flex-wrap:wrap}.crm-portfolio-ai-actions button,.crm-portfolio-ai-copy{background:#eef4ff;color:#1d4ed8;border:1px solid #d3e3ff;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer}
+.crm-portfolio-ai-actions button:disabled{opacity:.55;cursor:wait}.crm-portfolio-ai-status{font-size:13px;color:#64748b;min-height:18px}.crm-portfolio-ai-answer{font-size:14px;line-height:1.65;overflow-wrap:anywhere}.crm-portfolio-ai-answer h3,.crm-portfolio-ai-answer h4{margin:18px 0 8px}.crm-portfolio-ai-answer ul,.crm-portfolio-ai-answer ol{padding-left:22px}
+.crm-portfolio-ai-answer pre,.crm-portfolio-ai-window pre{overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}.crm-portfolio-ai-table-scroll{overflow:auto;max-width:100%;margin:14px 0;border:1px solid #dce5f2;border-radius:10px}.crm-portfolio-ai-table-scroll table{border-collapse:collapse;width:max-content;min-width:100%;font-size:13px}.crm-portfolio-ai-table-scroll th,.crm-portfolio-ai-table-scroll td{padding:9px 10px;border:1px solid #edf1f7;text-align:left}.crm-portfolio-ai-table-scroll th{background:#f2f6fc}
+.crm-portfolio-ai-window details{margin-top:14px;padding-top:10px;border-top:1px solid #e7edf5}.crm-portfolio-ai-window summary{cursor:pointer}.crm-portfolio-ai-copy{margin-top:10px}
+.crm-portfolio-ai button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+@media(max-width:520px){.crm-portfolio-ai{right:12px!important;bottom:12px!important}.crm-portfolio-ai-window{max-height:75vh;padding:15px}}
+/* Hide previous permanently embedded CRM-06 view; the new floating panel is independent. */
+.crm-connected-dashboard .crm-ai-panel,.prospects-page .crm-ai-panel{display:none!important}

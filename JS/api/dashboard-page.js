@@ -65,7 +65,7 @@ export function mountDashboardConnected(supabase, main) {
   root.append(top,status,kpis,layout,assistantWrap);main.replaceChildren(root);
   const statuses={new:['Nouveau','New'],contacted:['Contacté','Contacted'],qualified:['Qualifié','Qualified'],proposal_sent:['Proposition envoyée','Proposal sent'],negotiation:['Négociation','Negotiation'],won:['Gagné','Won'],lost:['Perdu','Lost'],archived:['Archivé','Archived']};
   let data=null;let loading=false;let failed=false;let lastError='';let request=0;
-  const metric=(key)=>{const n=Number(data?.summary?.[key] ?? data?.totals?.[key] ?? data?.metrics?.[key]);return Number.isFinite(n)&&n>=0?n:null;};
+  const metric=(key)=>{const group=['new_prospects','new_clients'].includes(key)?data?.period_metrics:data?.current_snapshot;const raw=group?.[key];if(raw===null||raw===undefined)return null;const n=Number(raw);return Number.isFinite(n)&&n>=0?n:null;};
   const num=v=>v==null?'—':new Intl.NumberFormat(fr()?'fr-FR':'en-GB').format(v);
   const make=(tag,className,text)=>{const el=document.createElement(tag);if(className)el.className=className;if(text!=null)el.textContent=text;return el;};
   function render(){
@@ -76,7 +76,7 @@ export function mountDashboardConnected(supabase, main) {
     status.textContent=loading?tr('Chargement des données…','Loading data…'):failed?tr('Données indisponibles : ','Data unavailable: ')+lastError:data?tr('Données actualisées depuis Supabase.','Data updated from Supabase.'):' ';
     status.classList.toggle('cd-error',failed);
     kpis.replaceChildren();
-    const cards=[['total_prospects','Total prospects','Total prospects'],['open_prospects','Prospects ouverts','Open prospects'],['won_prospects','Prospects gagnés','Won prospects'],['overdue_follow_ups','Relances en retard','Overdue follow-ups']];
+    const cards=[['total_prospects','Total prospects','Total prospects'],['total_clients','Total clients','Total clients'],['uncontacted_prospects','Non contactés','Not contacted'],['overdue_follow_ups','Relances en retard','Overdue follow-ups'],['new_prospects','Nouveaux prospects (période)','New prospects (period)'],['new_clients','Nouveaux clients (période)','New clients (period)']];
     for(const [key,frLabel,enLabel] of cards){const card=make('article','cd-card');card.append(make('p','cd-kpi-label',tr(frLabel,enLabel)),make('div','cd-kpi-number',num(metric(key))),make('div','cd-kpi-accent'));kpis.append(card);}
     chart.replaceChildren();
     const rows=Array.isArray(data?.by_status)?data.by_status.filter(x=>x&&typeof x.status==='string'&&Number.isFinite(Number(x.count))&&Number(x.count)>=0):[];

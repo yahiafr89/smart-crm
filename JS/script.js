@@ -2393,12 +2393,13 @@ function getSalespersonName(
 async function sendProspectToAPI(prospect) {
     // CRM-01 : utilise le même client réseau et la même configuration que le CRM.
     // Aucune donnée locale ne constitue une confirmation de création serveur.
+    sendProspectToAPI.lastError = null;
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
         const [{ config }, { submitPublicLead }] = await Promise.all([
-            import('./JS/config/config.js'),
-            import('./JS/api/prospects.js')
+            import('./config/config.js'),
+            import('./api/prospects.js')
         ]);
         if (config.mode !== 'connected') {
             throw new Error('CRM-01 : mode connecté requis.');
@@ -2413,11 +2414,12 @@ async function sendProspectToAPI(prospect) {
         }, controller.signal);
         // postJson valide déjà le statut HTTP et la réponse JSON.
         // En cas de réponse JSON contenant un échec explicite, ne pas confirmer.
-        if (result?.success === false || result?.error) {
+        if (result?.success !== true || result?.error) {
             throw new Error('CRM-01 : le serveur a signalé un échec.');
         }
         return true;
     } catch (error) {
+        sendProspectToAPI.lastError = error;
         console.error('CRM-01 : envoi non confirmé par le serveur', error);
         return false;
     } finally {
@@ -2533,9 +2535,14 @@ function initializeQuoteForm() {
         try {
             const sent = await sendProspectToAPI(request);
             if (!sent) {
+                const crm01Error = sendProspectToAPI.lastError;
+                const crm01Status = Number(crm01Error?.status || 0);
                 errorMessage.textContent = currentLanguage === "en"
                     ? "Your request could not be confirmed by the server. Please try again. Your entries have been kept."
                     : "Votre demande n'a pas été confirmée par le serveur. Veuillez réessayer. Vos saisies ont été conservées.";
+                if ((crm01Status === 400 || crm01Status === 503) && typeof crm01Error?.message === 'string') {
+                    errorMessage.textContent = crm01Error.message;
+                }
                 errorMessage.hidden = false;
                 return;
             }

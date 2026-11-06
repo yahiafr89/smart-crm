@@ -5,6 +5,7 @@ import { mountCommerciauxConnected } from './commerciaux-page.js';
 import { mountProspectsReadOnly } from './prospects-readonly.js';
 import { mountProspectDetailReadOnly } from './prospect-detail-readonly.js';
 import { mountDashboardConnected } from './dashboard-page.js';
+import { createPortfolioAIPanel } from './portfolio-ai-panel.js';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.10';
 import { config } from '../config/config.js';
 import { signIn, signOut, getBusinessProfile } from './auth.js';
@@ -151,6 +152,22 @@ async function init() {
       if (page === 'dashboard.html') {
         const main = document.querySelector('main');
         if (main) { mountDashboardConnected(supabase, main); mountConversionCard(supabase, main); }
+      }
+      // Portfolio CRM-06 — one floating panel per supported page.
+      if (page === 'dashboard.html' || (page === 'prospects.html' && new URLSearchParams(location.search).has('id'))) {
+        if (!document.getElementById('crm-portfolio-ai-style')) {
+          const css = document.createElement('link');css.id='crm-portfolio-ai-style';css.rel='stylesheet';css.href='CSS/portfolio-ai.css';document.head.append(css);
+        }
+        if (!document.querySelector('.crm-portfolio-ai')) {
+          const currentId = page === 'prospects.html' ? Number(new URLSearchParams(location.search).get('id')) : null;
+          const getPeriod = () => {
+            const dates=document.querySelectorAll('.cd-period input[type="date"]');
+            return {start_date:dates[0]?.value,end_date:dates[1]?.value};
+          };
+          if (currentId === null || (Number.isSafeInteger(currentId) && currentId > 0)) {
+            document.body.append(createPortfolioAIPanel(supabase,{prospectId:currentId,getPeriod}));
+          }
+        }
       }
       document.documentElement.style.visibility = '';
     } catch (error) { showVerificationUnavailable(error); }

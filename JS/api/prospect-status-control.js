@@ -40,6 +40,7 @@ export function createProspectStatusControl(supabase, prospect, onSaved) {
       feedback.textContent=tr('Demande acceptée. Actualisation de la fiche…','Request accepted. Refreshing prospect…');
       await onSaved();
     } catch (error) {
+      if (Number(error?.status) === 409) { console.warn('CRM-02 conflict: refreshing prospect'); await onSaved(); return; }
       console.error('Status change failed',error);
       feedback.textContent=tr('Échec du changement de statut : ','Status change failed: ') + (error?.message || tr('Vérifiez vos droits et la connexion.','Check permissions and connection.'));
       button.disabled=false;select.disabled=false;
