@@ -101,8 +101,13 @@ export function createAssistantPanel(supabase, { prospectId = null, getPeriod = 
   const style = mdNode('style'); style.textContent = `
     .crm-ai-widget{font-family:inherit;color:#14213d}
     .crm-ai-launcher{position:fixed;right:24px;bottom:24px;z-index:1100;border:0;border-radius:999px;padding:16px 24px;background:linear-gradient(120deg,#1668ec,#7054d9);color:white;font-family:inherit;font-size:15px;font-weight:700;box-shadow:0 8px 30px #223c7650;cursor:pointer}
-    .crm-ai-panel{position:fixed;right:20px;top:20px;bottom:90px;z-index:1101;width:min(520px,calc(100vw - 40px));box-sizing:border-box;padding:24px;background:#fff;border:1px solid #dbe3ee;border-radius:22px;box-shadow:0 18px 70px #14213d30;overflow-y:auto;overscroll-behavior:contain}
+    .crm-ai-panel{position:fixed;right:20px;top:20px;bottom:90px;z-index:1101;width:min(520px,calc(100vw - 40px));box-sizing:border-box;padding:24px;background:#fff;border:1px solid #dbe3ee;border-radius:22px;box-shadow:0 18px 70px #14213d30;display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:contain}
     .crm-ai-panel[hidden]{display:none!important}.crm-ai-panel *{box-sizing:border-box}
+    .crm-ai-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:3px}
+    .crm-ai-footer{flex-shrink:0;display:flex;justify-content:flex-end;padding:12px 3px 3px;border-top:1px solid #e2e8f0;margin-top:12px}
+    .crm-ai-panel .crm-ai-copy{display:inline-flex;align-items:center;justify-content:center;width:auto;min-height:30px;padding:6px 12px;border:1px solid #dbe3ee;border-radius:8px;background:#f8fafc;color:#475569;font-family:inherit;font-size:12px;font-weight:500;line-height:1.4;box-shadow:none}
+    .crm-ai-panel .crm-ai-copy:hover{background:#eef2fa;color:#14213d}
+    .crm-ai-panel .crm-ai-copy[hidden],.crm-ai-footer[hidden]{display:none!important}
     .crm-ai-header{display:flex;justify-content:space-between;align-items:center;gap:12px}.crm-ai-header h2{margin:0;font-size:22px}
     .crm-ai-actions{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}.crm-ai-panel button{cursor:pointer}.crm-ai-panel button:disabled{opacity:.55;cursor:wait}
     .crm-ai-close{border:0;background:#eef2fa;border-radius:50%;width:36px;height:36px;font-size:24px}.crm-ai-note{color:#64748b;font-size:14px;line-height:1.6}
@@ -123,7 +128,8 @@ export function createAssistantPanel(supabase, { prospectId = null, getPeriod = 
   const status = mdNode('p'); status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
   const draftNote = mdNode('p', 'Draft — review before copying. This action sends no message and makes no changes to the prospect.'); draftNote.className = 'crm-ai-note'; draftNote.hidden = true;
   const answer = mdNode('div'); answer.className = 'crm-ai-answer';
-  const copy = mdNode('button', 'Copy answer'); copy.type = 'button'; copy.className = 'btn-secondary'; copy.hidden = true;
+  const copy = mdNode('button', 'Copy answer'); copy.type = 'button'; copy.className = 'crm-ai-copy'; copy.hidden = true;
+  const footer = mdNode('div'); footer.className = 'crm-ai-footer'; footer.hidden = true; footer.append(copy);
   let originalAnswer = '', pending = false, controller = null, generation = 0, disposed = false;
   const initialLocation = location.href;
   const current = () => !disposed && host.isConnected && location.href === initialLocation;
@@ -150,7 +156,7 @@ export function createAssistantPanel(supabase, { prospectId = null, getPeriod = 
       const run = ++generation; controller = new AbortController(); pending = true;
       for (const item of actions.children) item.disabled = true;
       panel.setAttribute('aria-busy', 'true'); status.textContent = 'Preparing your answer…';
-      answer.replaceChildren(); originalAnswer = ''; copy.hidden = true; draftNote.hidden = true;
+      answer.replaceChildren(); originalAnswer = ''; copy.hidden = true; footer.hidden = true; draftNote.hidden = true;
       const timeout = setTimeout(() => controller?.abort(), 90000);
       try {
         const payload = { action, ...params() };
@@ -163,7 +169,7 @@ export function createAssistantPanel(supabase, { prospectId = null, getPeriod = 
         if (result?.success === false || (result?.action && result.action !== action) || typeof result?.answer !== 'string' || !result.answer.trim()) throw new Error('Unexpected assistant response.');
         originalAnswer = result.answer; renderMarkdown(answer, originalAnswer);
         const draft = action === 'draft_followup'; draftNote.hidden = !draft;
-        copy.textContent = draft ? 'Copy draft' : 'Copy answer'; copy.hidden = false;
+        copy.textContent = draft ? 'Copy draft' : 'Copy answer'; copy.hidden = false; footer.hidden = false;
         status.textContent = draft ? 'Your draft is ready to review.' : 'Answer ready.';
       } catch (error) { if (current() && run === generation) status.textContent = errorMessage(error); }
       finally {
@@ -179,7 +185,9 @@ export function createAssistantPanel(supabase, { prospectId = null, getPeriod = 
     button('prioritize_followups', 'Prioritize follow-ups', () => ({}));
     button('explain_dashboard', 'Explain dashboard', () => { const period = getPeriod?.(); if (!period) throw new Error('Dashboard period unavailable.'); return period; });
   }
-  panel.append(header, description, actions, status, draftNote, answer, copy); host.append(style, launcher, panel);
+  const body = mdNode('div'); body.className = 'crm-ai-body';
+  body.append(header, description, actions, status, draftNote, answer);
+  panel.append(body, footer); host.append(style, launcher, panel);
   function dispose() { disposed = true; generation++; controller?.abort(); document.removeEventListener('keydown', keydown); observer.disconnect(); }
   const observer = new MutationObserver(() => { if (!host.isConnected) dispose(); });
   // The caller appends the widget synchronously after this factory returns.
