@@ -1,62 +1,134 @@
-import { lang, make, status, inputField } from './frontend-operations.js';
+/** Smart CRM portfolio: role-aware edit UI. RLS remains authoritative. */
 import { updateProspect } from './prospects.js';
 
-// Writes go directly to Supabase with the end-user JWT and MUST be enforced by RLS.
-// If Mohcine chooses an API-only write policy, replace this adapter, not its UI.
-const EDITABLE = Object.freeze(['first_name','last_name','company','email','phone','notes','next_follow_up']);
-const FIELDS = [
-  ['first_name','Prénom','First name',{required:true,maxLength:120}],
-  ['last_name','Nom','Last name',{required:true,maxLength:120}],
-  ['company','Société','Company',{maxLength:200}],
-  ['email','E-mail','Email',{required:true,type:'email',maxLength:250}],
-  ['phone','Téléphone','Phone',{maxLength:50}],
-  ['notes','Notes','Notes',{maxLength:2000}],
-  ['next_follow_up','Prochaine relance','Next follow-up',{type:'datetime-local',maxLength:40}]
-];
-export function createProspectEditor(supabase, prospect, onSaved) {
-  const section=make('section'); section.className='sci-card';section.style.gridColumn='1/-1';
-  const heading=make('h2',lang('Modifier le prospect','Edit prospect'));
-  const notice=make('p',lang('Les modifications sont soumises à vos autorisations Supabase.','Changes are subject to your Supabase permissions.'));
-  const form=make('form');form.className='sci-form';
-  const values={};
-  for (const [name,fr,en,opts] of FIELDS) {
-    let value=prospect[name] ?? '';
-    if (name==='next_follow_up' && value) { const date=new Date(value); value=Number.isNaN(date.getTime())?'':`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}T${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`; }
-    if(name==='notes') {
-      const wrapper=make('label');wrapper.className='sci-field';wrapper.append(make('span',lang(fr,en)));
-      const field=document.createElement('textarea');field.name=name;field.maxLength=opts.maxLength;field.rows=3;field.value=String(value);wrapper.append(field);form.append(wrapper);values[name]=field;
-    } else values[name]=inputField(form,fr,en,name,{...opts,value});
+const COMMON = ['notes', 'next_follow_up'];
+const MANAGER = ['first_name', 'last_name', 'company', 'email', 'phone', 'qualification', 'priority', 'reason', 'recommended_action', 'assigned_commercial_id'];
+const DEFINITIONS = {
+  first_name: ['First name', 'text', 120], last_name: ['Last name', 'text', 120],
+  company: ['Company', 'text', 200], email: ['Email', 'email', 250], phone: ['Phone', 'tel', 50],
+  qualification: ['AI qualification', 'text', 500], priority: ['Priority', 'text', 100],
+  reason: ['Analysis / summary', 'textarea', 4000],
+  recommended_action: ['Recommended action', 'textarea', 4000],
+  notes: ['Notes', 'textarea', 4000], next_follow_up: ['Next follow-up', 'datetime-local', 0]
+};
+function element(tag, text, className) {
+  const node=document.createElement(tag);
+  if (text !== undefined) node.textContent=text;
+  if (className) node.className=className;
+  return node;
+}
+function formatLocalDate(value) {
+  if (!value) return '';
+  const d=new Date(value);
+  if (Number.isNaN(d.getTime())) return '';
+  const pad=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function normalizeDate(value) {
+  if (!value) return null;
+  const date=new Date(value);
+  if (Number.isNaN(date.getTime())) throw new Error('Invalid follow-up date.');
+  return date.toISOString();
+}
+function setMessage(node,text,isError=false) {
+  node.textContent=text;node.setAttribute('role',isError?'alert':'status');
+}
+async function eligibleCommercials(supabase) {
+  // Read through the current JWT and RLS. Backend may expose `is_active` or `active`.
+  const {data,error}=await supabase.from('commercials').select('*').order('display_name',{ascending:true}).limit(200);
+  if(error)throw error;
+  const all=Array.isArray(data)?data:[];
+  const hasFlag=all.length>0 && all.every(row=>typeof row.is_active==='boolean'||typeof row.active==='boolean');
+  return {rows:hasFlag?all.filter(row=>row.is_active===true||row.active===true):[],hasFlag};
+}
+
+export function createProspectEditor(supabase,prospect,onSaved) {
+  const role=document.documentElement.dataset.authRole;
+  const manager=role==='manager'||role==='administrator';
+  const allowed=manager?[...COMMON,...MANAGER]:role==='commercial'?[...COMMON]:[];
+  const section=element('section',undefined,'sci-card');section.style.gridColumn='1/-1';
+  section.append(element('h2','Edit prospect'));
+  const form=element('form',undefined,'sci-form');
+  const inputs=new Map();
+  const fields=allowed.filter(key=>key!=='assigned_commercial_id');
+  for(const key of fields) {
+    const [label,type,maxLength]=DEFINITIONS[key];
+    const wrapper=element('label',undefined,'sci-field');wrapper.append(element('span',label));
+    const node=document.createElement(type==='textarea'?'textarea':'input');
+    if(type!=='textarea')node.type=type;
+    else node.rows=3;
+    node.name=key;
+    if(maxLength)node.maxLength=maxLength;
+    node.value=key==='next_follow_up'?formatLocalDate(prospect[key]):String(prospect[key]??'');
+    wrapper.append(node);form.append(wrapper);inputs.set(key,node);
   }
-  const controls=make('div');controls.className='sci-actions';
-  const submit=make('button',lang('Enregistrer les modifications','Save changes'),'btn-primary');submit.type='submit';
-  const cancel=make('button',lang('Annuler','Cancel'),'sci-secondary');cancel.type='button';
-  const feedback=make('p');feedback.setAttribute('aria-live','polite');
-  controls.append(submit,cancel);form.append(controls,feedback);section.append(heading,notice,form);
+  if(manager) {
+    const wrapper=element('label',undefined,'sci-field');wrapper.append(element('span','Assigned salesperson'));
+    const select=document.createElement('select');select.name='assigned_commercial_id';select.disabled=true;
+    const loading=element('option','Loading active salespeople…');loading.value='';select.append(loading);
+    wrapper.append(select);form.append(wrapper);inputs.set('assigned_commercial_id',select);
+    eligibleCommercials(supabase).then(({rows,hasFlag})=>{
+      select.replaceChildren();
+      if(!hasFlag){const option=element('option','Active salesperson field not exposed; reassignment unavailable');option.value='';select.append(option);return;}
+      const unassigned=element('option','Unassigned');unassigned.value='';select.append(unassigned);
+      for(const row of rows){const o=element('option',row.display_name||String(row.id));o.value=String(row.id);select.append(o);}
+      const current=String(prospect.assigned_commercial_id??'');
+      if(current && !rows.some(row=>String(row.id)===current)) {
+        const keep=element('option',`Current assignment (${current}) — not eligible for new assignment`);
+        keep.value=current;select.append(keep);
+      }
+      select.value=current;select.disabled=false;
+    }).catch(error=>{
+      console.error('Salesperson selection unavailable',error);
+      select.replaceChildren(element('option','Cannot load eligible salespeople'));
+    });
+  }
+  const actions=element('div',undefined,'sci-actions');
+  const submit=element('button','Save changes','btn-primary');submit.type='submit';
+  const cancel=element('button','Cancel','sci-secondary');cancel.type='button';
+  const feedback=element('p');feedback.setAttribute('aria-live','polite');
+  actions.append(submit,cancel);form.append(actions,feedback);section.append(form);
   cancel.addEventListener('click',()=>section.remove());
-  form.addEventListener('submit',async e=>{
-    e.preventDefault(); if (!form.reportValidity()) return;
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();if(!form.reportValidity())return;
     const changes={};
-    for (const key of EDITABLE) {
-      let value=values[key].value.trim();
-      if(key==='next_follow_up') value=value ? new Date(value).toISOString() : null;
-      if(key==='email')value=value.toLowerCase();
-      const old=prospect[key]??null;
-      if(key==='next_follow_up') { if ((old?new Date(old).getTime():null)!==(value?new Date(value).getTime():null)) changes[key]=value; }
-      else if (value!==String(old??''))changes[key]=value;
+    try {
+      for(const [key,node] of inputs) {
+        if(node.disabled)continue;
+        let value=node.value.trim();
+        if(key==='next_follow_up') {
+          value=normalizeDate(value);
+          const prior=prospect[key]?new Date(prospect[key]).getTime():null;
+          const next=value?new Date(value).getTime():null;
+          if(prior!==next)changes[key]=value;
+        } else if(key==='assigned_commercial_id') {
+          const prior=String(prospect[key]??'');
+          if(value!==prior)changes[key]=value||null;
+        } else {
+          if(key==='email')value=value.toLowerCase();
+          if(value!==String(prospect[key]??''))changes[key]=value;
+        }
+      }
+    } catch(error){setMessage(feedback,error.message,true);return;}
+    if(!Object.keys(changes).length){setMessage(feedback,'No changes to save.');return;}
+    submit.disabled=true;setMessage(feedback,'Saving…');
+    try {
+      await updateProspect(supabase,prospect.id,changes,allowed);
+      setMessage(feedback,'Saved. Refreshing record…');
+      await onSaved();
+    } catch(error) {
+      console.error('Prospect update rejected',error);
+      setMessage(feedback,error?.message||'Update denied or unavailable.',true);
+      submit.disabled=false;
     }
-    if(!Object.keys(changes).length){status(feedback,lang('Aucun changement.','No changes.'));return;}
-    submit.disabled=true;status(feedback,lang('Enregistrement…','Saving…'));
-    try {await updateProspect(supabase,prospect.id,changes,EDITABLE);status(feedback,lang('Enregistré. Actualisation…','Saved. Refreshing…'));await onSaved();}
-    catch(error){console.error('Prospect update error',error);status(feedback,lang('Modification refusée ou indisponible. Vérifiez vos droits.','Update denied or unavailable. Check permissions.'),true);submit.disabled=false;}
   });
   return section;
 }
-export function appendProspectEditor(supabase, prospect, onSaved, content) {
-  // The readonly detail already has a status widget. Editing is an additional panel.
-  const opener=make('button',lang('Modifier les informations','Edit details'),'sci-secondary');opener.type='button';
+export function appendProspectEditor(supabase,prospect,onSaved,content) {
+  const role=document.documentElement.dataset.authRole;
+  if(!['commercial','manager','administrator'].includes(role))return;
+  const opener=element('button','Edit details','sci-secondary');opener.type='button';
   opener.style.gridColumn='1/-1';
-  opener.addEventListener('click',()=>{
-    opener.replaceWith(createProspectEditor(supabase, prospect, onSaved));
-  });
+  opener.addEventListener('click',()=>opener.replaceWith(createProspectEditor(supabase,prospect,onSaved)));
   content.append(opener);
 }
