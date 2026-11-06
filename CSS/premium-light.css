@@ -1,0 +1,102 @@
+/* Smart CRM — Premium Light 1.0 | additive stylesheet, internal CRM only.
+   Does not alter translations, auth, API contracts, or backend functionality. */
+:root {
+  --pl-blue:#1769ff; --pl-blue-hover:#0955e8; --pl-violet:#855bff;
+  --pl-ink:#162747; --pl-muted:#697992; --pl-border:#e2e9f4;
+  --pl-bg:#f5f7fc; --pl-surface:#fff;
+  --pl-shadow:0 8px 32px rgba(28,55,105,.055);
+}
+body.crm-app-body {
+  background:var(--pl-bg);
+  color:var(--pl-ink);
+  font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+/* Preserve existing responsive sidebar behavior; upgrade visual appearance. */
+body.crm-app-body .crm-sidebar {
+  background:linear-gradient(179deg,#fff 0%,#fbfcff 72%,#eef2ff 100%);
+  color:var(--pl-ink);
+  border-right:1px solid var(--pl-border);
+  box-shadow:6px 0 32px rgba(28,55,105,.035);
+}
+body.crm-app-body .crm-brand-text strong{color:#142544}
+body.crm-app-body .crm-brand-text small{color:#72829d}
+body.crm-app-body .crm-sidebar-nav a{color:#495d80;border-radius:13px;font-weight:600}
+body.crm-app-body .crm-sidebar-nav a:hover{color:#175de4;background:#eef4ff;transform:none}
+body.crm-app-body .crm-sidebar-nav a.active,
+body.crm-app-body .crm-sidebar-nav a[aria-current='page'] {
+  background:linear-gradient(110deg,#2377ff,#175ae9);
+  border-color:transparent;color:#fff;
+  box-shadow:0 7px 19px rgba(28,102,235,.19);
+}
+body.crm-app-body .crm-nav-icon{background:#edf3ff;color:#3974e6}
+body.crm-app-body .crm-sidebar-nav a.active .crm-nav-icon,
+body.crm-app-body .crm-sidebar-nav a[aria-current='page'] .crm-nav-icon{color:#fff;background:rgba(255,255,255,.2)}
+body.crm-app-body .crm-user-card{background:#fff;border:1px solid var(--pl-border);box-shadow:var(--pl-shadow)}
+body.crm-app-body .crm-user-meta strong{color:var(--pl-ink)}
+body.crm-app-body .crm-user-meta span{color:#71809a}
+body.crm-app-body .crm-user-menu-button{color:#6c7d99}
+body.crm-app-body .crm-topbar{
+  background:rgba(255,255,255,.89);border-color:var(--pl-border);
+  box-shadow:0 2px 17px rgba(34,53,91,.025);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+body.crm-app-body .crm-topbar-title h1{color:var(--pl-ink);font-weight:750}
+body.crm-app-body .crm-topbar-eyebrow{color:#8090a8}
+body.crm-app-body .crm-dashboard-main{max-width:1540px}
+body.crm-app-body :is(.crm-page-intro,.crm-connected-dashboard,.crm-prospects-live,.salespeople-page,.administration-page,.crm-clients-live){color:var(--pl-ink)}
+/* Harmonize original and connected module cards without touching dynamic content. */
+body.crm-app-body :is(.crm-metric,.lead-status-overview,.recent-prospects,
+  .cd-card,.cpl-panel,.crm-client-card,.crm-client-panel,
+  .table-container,.dashboard-card,.summary-card){
+  background:#fff;border:1px solid var(--pl-border);
+  border-radius:18px;box-shadow:var(--pl-shadow);
+}
+body.crm-app-body :is(.crm-connected-dashboard,.crm-prospects-live) h1{color:#15284b}
+body.crm-app-body .crm-connected-dashboard .cd-card,
+body.crm-app-body .crm-prospects-live .cpl-panel{
+  border-color:var(--pl-border);box-shadow:var(--pl-shadow);
+}
+body.crm-app-body :is(.cpl-table,.crm-clients-live table,.salespeople-page table,.administration-page table){border-collapse:separate;border-spacing:0}
+body.crm-app-body :is(.cpl-table,.crm-clients-live table,.salespeople-page table,.administration-page table) thead th{
+  background:#f5f8ff;color:#5b6e90;font-size:12px;font-weight:700;
+}
+body.crm-app-body :is(.cpl-table,.crm-clients-live table,.salespeople-page table,.administration-page table) tbody tr:hover{background:#f8fbff}
+body.crm-app-body :is(.cpl-table,.crm-clients-live table,.salespeople-page table,.administration-page table) td{border-color:#eef2fa}
+body.crm-app-body :is(input,select,textarea):not([type='checkbox']):not([type='radio']){
+  border-radius:12px;accent-color:var(--pl-blue);
+}
+body.crm-app-body :is(input,select,textarea):focus-visible,
+body.crm-app-body button:focus-visible,
+body.crm-app-body a:focus-visible{
+  outline:3px solid rgba(23,105,255,.38);outline-offset:2px;
+}
+body.crm-app-body :is(.btn-primary,.cpl-btn,.cd-refresh,.crm-new-prospect-button){
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+body.crm-app-body :is(.btn-primary,.cd-refresh,.crm-new-prospect-button):not(:disabled):hover{
+  transform:translateY(-1px);box-shadow:0 7px 20px rgba(23,105,255,.15);
+}
+body.crm-app-body :is(.crm-connected-dashboard .cd-kpi-number,.crm-metric strong){font-variant-numeric:tabular-nums;color:#18305b}
+body.crm-app-body .crm-connected-dashboard .cd-kpi-accent{background:linear-gradient(90deg,var(--pl-blue),var(--pl-violet))}
+body.crm-app-body .crm-connected-dashboard .cd-fill{background:linear-gradient(90deg,#3182ff,#9566f2)}
+body.crm-app-body :is(.language-selector,.crm-topbar-actions .language-selector){border-radius:14px}
+body.crm-app-body .crm-app-main{background:linear-gradient(180deg,#f9fbff 0%,#f4f7fc 58%,#f5f7fc 100%)}
+/* Keep long AI answers and Markdown tables readable rather than clipped. */
+body.crm-app-body .cd-assistant,body.crm-app-body .cd-assistant section{max-width:100%;min-width:0}
+body.crm-app-body .cd-assistant :is(pre,table){max-width:100%}
+body.crm-app-body .cd-assistant pre{overflow:auto}
+body.crm-app-body .cd-assistant table{border-collapse:collapse}
+body.crm-app-body .cd-assistant :is(th,td){padding:10px 12px;border:1px solid #dce6f6}
+@media(max-width:950px){
+  body.crm-app-body .crm-topbar{padding-inline:18px}
+  body.crm-app-body .crm-dashboard-main{padding-inline:18px}
+}
+@media(max-width:650px){
+  body.crm-app-body .crm-topbar{min-height:66px;gap:10px}
+  body.crm-app-body .crm-topbar-title h1{font-size:clamp(18px,5vw,23px)}
+  body.crm-app-body :is(.cd-card,.cpl-panel){border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.crm-app-body *,body.crm-app-body *::before,body.crm-app-body *::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}

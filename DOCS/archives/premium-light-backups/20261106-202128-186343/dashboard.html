@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title data-i18n="dashboard.pageTitle">
+        Dashboard - Smart CRM
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/style.css"
+    >
+</head>
+
+<body class="crm-app-body">
+
+    <div class="crm-app-shell">
+
+        <aside class="crm-sidebar">
+
+            <div class="crm-sidebar-top">
+
+                <a
+                    href="dashboard.html"
+                    class="crm-brand"
+                    aria-label="Smart CRM"
+                >
+
+                    <span
+                        class="brand-mark"
+                        aria-hidden="true"
+                    >
+
+                        <svg
+                            viewBox="0 0 32 32"
+                            role="img"
+                            focusable="false"
+                        >
+                            <path d="M7 22.5V17.5M16 22.5V12.5M25 22.5V7.5"></path>
+                            <path d="M6.5 9.5L13 7L18.5 9.5L26 4.5"></path>
+
+                            <circle cx="6.5" cy="9.5" r="1.8"></circle>
+                            <circle cx="13" cy="7" r="1.8"></circle>
+                            <circle cx="18.5" cy="9.5" r="1.8"></circle>
+                            <circle cx="26" cy="4.5" r="1.8"></circle>
+                        </svg>
+
+                    </span>
+
+                    <span class="crm-brand-text">
+
+                        <strong>
+                            Smart CRM
+                        </strong>
+
+                        <small>
+                            Workspace
+                        </small>
+
+                    </span>
+
+                </a>
+
+                <nav
+                    class="crm-sidebar-nav"
+                    aria-label="Navigation principale"
+                    data-i18n-aria-label="nav.mainLabel"
+                >
+
+                    <a
+                        href="dashboard.html"
+                        class="active"
+                        aria-current="page"
+                    >
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ▦
+                        </span>
+
+                        <span data-i18n="nav.dashboard">
+                            Tableau de bord
+                        </span>
+
+                    </a>
+
+                    <a href="prospects.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ◇
+                        </span>
+
+                        <span data-i18n="nav.prospects">
+                            Prospects
+                        </span>
+
+                    </a>
+                    <a href="clients.html" class="crm-clients-nav"><span class="crm-nav-icon" aria-hidden="true">▤</span><span>Clients</span></a>
+
+
+
+                    <a href="commerciaux.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ♙
+                        </span>
+
+                        <span data-i18n="nav.salespeople">
+                            Commerciaux
+                        </span>
+
+                    </a>
+
+                    <a href="administration.html">
+
+                        <span
+                            class="crm-nav-icon"
+                            aria-hidden="true"
+                        >
+                            ⚙
+                        </span>
+
+                        <span data-i18n="nav.administration">
+                            Administration
+                        </span>
+
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="crm-sidebar-bottom">
+
+                <div class="crm-user-card">
+
+                    <span
+                        class="crm-user-avatar"
+                        aria-hidden="true"
+                    >
+                        DM
+                    </span>
+
+                    <div class="crm-user-meta">
+
+                        <strong>
+                            Compte démo
+                        </strong>
+
+                        <span>
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="crm-user-menu-button"
+                        aria-label="Options utilisateur"
+                    >
+                        •••
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <div class="crm-app-main">
+
+            <header class="crm-topbar">
+
+                <div class="crm-topbar-title">
+
+                    <span
+                        class="crm-topbar-eyebrow"
+                        data-i18n="dashboard.overview"
+                    >
+                        Vue d'ensemble
+                    </span>
+
+                    <h1 data-i18n="nav.dashboard">
+                        Tableau de bord
+                    </h1>
+
+                </div>
+
+                <div class="crm-topbar-actions">
+
+                    <div
+                        class="language-selector"
+                        aria-label="Choix de la langue"
+                        data-i18n-aria-label="language.selectorLabel"
+                    >
+
+                        <button
+                            type="button"
+                            id="lang-fr"
+                            data-i18n="language.french"
+                            aria-label="Français"
+                        >
+                            🇫🇷 Français
+                        </button>
+
+                        <button
+                            type="button"
+                            id="lang-en"
+                            data-i18n="language.english"
+                            aria-label="English"
+                        >
+                            🇬🇧 English
+                        </button>
+
+                    </div>
+
+                    <a
+                        href="prospects.html"
+                        class="btn-primary crm-new-prospect-button"
+                        data-i18n="dashboard.newProspect"
+                    >
+                        + Nouveau prospect
+                    </a>
+
+                </div>
+
+            </header>
+
+            <main class="dashboard crm-dashboard-main">
+
+                <section class="crm-page-intro">
+
+                    <p data-i18n="dashboard.welcome">
+                        Bienvenue dans votre espace de gestion des prospects.
+                    </p>
+
+                </section>
+
+                <!-- CRM Dashboard 6B: structure UI, indicateurs alimentés en 6C/6D -->
+                <section class="crm-analytics" aria-labelledby="crm-analytics-title" id="crm-analytics">
+                    <div class="crm-analytics-toolbar">
+                        <div><span class="section-label" data-dashboard-text="activityLabel">Analyse commerciale</span><h2 id="crm-analytics-title" data-dashboard-text="title">Indicateurs du CRM</h2></div>
+                        <div class="crm-analytics-actions">
+                            <label for="crm-period" data-dashboard-text="periodLabel">Période</label>
+                            <select id="crm-period" aria-controls="crm-period-metrics">
+                                <option value="today">Aujourd'hui</option><option value="yesterday">Hier</option><option value="last7">7 derniers jours</option><option value="last30" selected>30 derniers jours</option><option value="custom">Dates personnalisées</option>
+                            </select>
+                            <button type="button" id="crm-refresh" class="crm-analytics-refresh" disabled data-dashboard-text="refresh">Actualiser</button>
+                        </div>
+                    </div>
+                    <div id="crm-custom-period" class="crm-custom-period" hidden>
+                        <label for="crm-start-date" data-dashboard-text="startDate">Date de début</label><input id="crm-start-date" type="date" />
+                        <label for="crm-end-date" data-dashboard-text="endDate">Date de fin</label><input id="crm-end-date" type="date" />
+                        <button type="button" id="crm-apply-period" data-dashboard-text="apply">Appliquer</button>
+                    </div>
+                    <p id="crm-period-feedback" class="crm-analytics-feedback" role="status" aria-live="polite"></p>
+                    <div class="crm-analytics-section" id="crm-period-metrics">
+                        <h3 data-dashboard-text="periodTitle">Activité sur la période sélectionnée</h3>
+                        <div class="crm-metrics-grid crm-metrics-grid--two">
+                            <article class="crm-metric"><p data-dashboard-text="newProspects">Nouveaux prospects</p><strong id="crm-new-prospects">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="newClients">Nouveaux clients</p><strong id="crm-new-clients">—</strong></article>
+                        </div>
+                    </div>
+                    <div class="crm-analytics-section" id="crm-current-metrics">
+                        <h3 data-dashboard-text="currentTitle">Situation actuelle</h3>
+                        <div class="crm-metrics-grid">
+                            <article class="crm-metric"><p data-dashboard-text="totalProspects">Total prospects</p><strong id="crm-total-prospects">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="totalClients">Total clients</p><strong id="crm-total-clients">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="openProspects">Prospects ouverts</p><strong id="crm-open-prospects">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="noFirstContact">Sans premier contact</p><strong id="crm-no-first-contact">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="overdueFollowups">Relances en retard</p><strong id="crm-overdue-followups">—</strong></article>
+                            <article class="crm-metric"><p data-dashboard-text="unassigned">Non affectés</p><strong id="crm-unassigned">—</strong></article>
+                        </div>
+                    </div>
+                    <p class="crm-analytics-footer"><span data-dashboard-text="lastUpdated">Dernière actualisation :</span> <time id="crm-generated-at">—</time></p>
+                    <p id="crm-dashboard-state" class="crm-dashboard-state" role="status" aria-live="polite" data-state="pending">Connexion aux données prévue lors de l’étape 6F.</p>
+                </section>
+
+                <!-- CRM-02 6C — Visualisations prêtes pour les données RPC -->
+                <section class="crm-report-card" aria-labelledby="crm-daily-title" id="crm-daily-section">
+                    <div class="section-header">
+                        <div>
+                            <span class="section-label" data-report-text="activity">Activité commerciale</span>
+                            <h2 id="crm-daily-title" data-report-text="dailyTitle">Évolution quotidienne</h2>
+                            <p data-report-text="dailyDescription">Nouveaux prospects et nouveaux clients sur la période sélectionnée.</p>
+                        </div>
+                    </div>
+                    <div class="crm-report-legend" aria-hidden="true">
+                        <span><i class="crm-report-dot crm-report-dot--prospects"></i><span data-report-text="prospects">Nouveaux prospects</span></span>
+                        <span><i class="crm-report-dot crm-report-dot--clients"></i><span data-report-text="clients">Nouveaux clients</span></span>
+                    </div>
+                    <div id="crm-daily-chart" class="crm-daily-chart" role="img" aria-label="Graphique d'évolution quotidienne en attente de données" data-report-aria="dailyAria">
+                        <p class="crm-report-empty" data-report-state="daily">Connexion aux données prévue lors de l’étape 6F.</p>
+                    </div>
+                </section>
+
+                <section class="crm-report-card" id="crm-commercial-section" aria-labelledby="crm-commercial-title" hidden>
+                    <div class="section-header">
+                        <div>
+                            <span class="section-label" data-report-text="team">Équipe commerciale</span>
+                            <h2 id="crm-commercial-title" data-report-text="commercialTitle">Performances par commercial</h2>
+                            <p data-report-text="commercialDescription">Vue d'équipe disponible pour les Managers et Administrateurs.</p>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="crm-commercial-table">
+                            <thead><tr>
+                                <th scope="col" data-report-text="commercial">Commercial</th>
+                                <th scope="col" data-report-text="totalProspects">Total prospects</th>
+                                <th scope="col" data-report-text="openProspects">Prospects ouverts</th>
+                                <th scope="col" data-report-text="totalClients">Total clients</th>
+                                <th scope="col" data-report-text="newProspects">Nouveaux prospects</th>
+                                <th scope="col" data-report-text="newClients">Nouveaux clients</th>
+                            </tr></thead>
+                            <tbody id="crm-commercial-body"><tr><td colspan="6" class="crm-report-empty" data-report-state="team">Connexion aux données prévue lors de l’étape 6F.</td></tr></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section
+                    class="lead-status-overview"
+                    aria-labelledby="lead-status-overview-title"
+                >
+
+                    <div class="section-header lead-status-header">
+
+                        <div>
+
+                            <span
+                                class="section-label"
+                                data-i18n="dashboard.pipelineLabel"
+                            >
+                                Pipeline commercial
+                            </span>
+
+                            <h2
+                                id="lead-status-overview-title"
+                                data-i18n="dashboard.pipelineTitle"
+                            >
+                                Répartition des leads par statut
+                            </h2>
+
+                            <p data-i18n="dashboard.pipelineDescription">
+                                Visualisez en un coup d'œil la progression de vos leads dans le cycle commercial.
+                            </p>
+
+                        </div>
+
+                        <div class="pipeline-total">
+
+                            <span data-i18n="dashboard.pipelineTotal">
+                                Total leads
+                            </span>
+
+                            <strong id="pipeline-total-leads">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="lead-status-chart"
+                        id="lead-status-chart"
+                        aria-live="polite"
+                    ></div>
+
+                </section>
+
+                <section
+                    class="recent-prospects"
+                    aria-labelledby="recent-prospects-title"
+                >
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <span
+                                class="section-label"
+                                data-i18n="dashboard.recentActivity"
+                            >
+                                Activité récente
+                            </span>
+
+                            <h2
+                                id="recent-prospects-title"
+                                data-i18n="dashboard.latestProspects"
+                            >
+                                Derniers prospects
+                            </h2>
+
+                            <p data-i18n="dashboard.recentlyAdded">
+                                Les prospects récemment ajoutés au CRM.
+                            </p>
+
+                        </div>
+
+                        <a
+                            href="prospects.html"
+                            class="view-all-link"
+                            data-i18n="dashboard.viewAll"
+                        >
+                            Voir tous les prospects
+                        </a>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th data-i18n="prospect.name">
+                                        Prospect
+                                    </th>
+
+                                    <th data-i18n="prospect.company">
+                                        Entreprise
+                                    </th>
+
+                                    <th data-i18n="prospect.city">
+                                        Ville
+                                    </th>
+
+                                    <th data-i18n="prospect.status">
+                                        Statut
+                                    </th>
+
+                                    <th data-i18n="prospect.salesperson">
+                                        Commercial
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="dashboard-recent-prospects"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>window.SMARTCRM_CONNECTED_MODE = true; document.documentElement.style.visibility = "hidden";</script>
+    <script src="JS/script.js"></script>
+    <script type="module" src="JS/api/auth-page.js"></script>
+
+</body>
+
+</html>
