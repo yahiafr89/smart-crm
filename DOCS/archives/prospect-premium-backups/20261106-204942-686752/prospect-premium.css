@@ -1,0 +1,163 @@
+/* Smart CRM — Prospect detail premium light UI v1.0
+   Visual-only. Keeps Supabase/n8n, form field names, permissions and FR/EN state untouched.
+   Scoped to CRM prospect detail and existing CRM-06 panel. */
+body.crm-app-body {
+  --spp-blue:#1769ff;--spp-violet:#7952ef;--spp-ink:#172b4f;
+  --spp-muted:#627493;--spp-line:#e0e8f6;--spp-shadow:0 12px 34px rgba(29,70,146,.065);
+}
+/* EDIT DETAILS: primary call to action at the top of the existing details grid. */
+body.crm-app-body .prospects-page > div > button.sci-secondary,
+body.crm-app-body .prospects-page button.sci-secondary:not(.sci-actions button) {
+  appearance:none;justify-self:start;width:auto;min-width:168px;max-width:100%;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  margin:4px 0 2px;padding:13px 25px;border:1px solid rgba(85,76,219,.12);
+  border-radius:14px;background:linear-gradient(115deg,var(--spp-blue),var(--spp-violet));
+  color:#fff;font:600 14px/1.35 'Poppins',system-ui,sans-serif;
+  box-shadow:0 9px 22px rgba(51,87,224,.22);
+  cursor:pointer;transition:transform .18s,box-shadow .18s,filter .18s;
+}
+body.crm-app-body .prospects-page button.sci-secondary:not(.sci-actions button)::before{
+  content:'✎';font-size:18px;line-height:1;aria-hidden:true;
+}
+body.crm-app-body .prospects-page button.sci-secondary:not(.sci-actions button):hover{
+  transform:translateY(-2px);box-shadow:0 13px 25px rgba(52,88,214,.25);filter:brightness(1.04);
+}
+/* Editor container: fix bare inline labels, overlapped textarea and cramped date input. */
+body.crm-app-body .prospects-page .sci-card{
+  box-sizing:border-box;min-width:0;width:100%;margin:6px 0 16px;
+  padding:clamp(18px,3vw,30px);border-radius:21px;
+  background:linear-gradient(146deg,#fff 0%,#fafbff 100%);
+  border:1px solid #d7e3ff;box-shadow:var(--spp-shadow);
+}
+body.crm-app-body .prospects-page .sci-card > h2{
+  margin:0 0 5px;color:var(--spp-ink);font:700 clamp(19px,2.3vw,23px)/1.25 'Poppins',system-ui,sans-serif;
+  letter-spacing:-.025em;
+}
+body.crm-app-body .prospects-page .sci-card > h2::after{
+  content:'';display:block;width:40px;height:4px;margin:12px 0 17px;
+  background:linear-gradient(90deg,var(--spp-blue),var(--spp-violet));border-radius:99px;
+}
+body.crm-app-body .prospects-page .sci-form{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px 20px;min-width:0;width:100%;
+  align-items:start;
+}
+body.crm-app-body .prospects-page .sci-form .sci-field{
+  display:flex;flex-direction:column;gap:9px;min-width:0;margin:0;
+  color:#395176;font:600 13px/1.4 'Poppins',system-ui,sans-serif;
+}
+body.crm-app-body .prospects-page .sci-form .sci-field > span{
+  display:block;color:#465c80;font-size:13px;letter-spacing:.004em;
+}
+body.crm-app-body .prospects-page .sci-form .sci-field:has(textarea){grid-column:1/-1}
+body.crm-app-body .prospects-page .sci-form .sci-field :is(input,textarea,select){
+  appearance:auto;box-sizing:border-box;min-width:0;width:100%;max-width:100%;
+  margin:0;padding:12px 14px;border:1px solid #d7e0ef;border-radius:12px;
+  background:#fff;color:#1c3054;
+  font:500 14px/1.55 'Poppins',system-ui,sans-serif;
+  box-shadow:inset 0 1px 2px rgba(20,42,86,.015);
+  transition:border-color .18s,box-shadow .18s;
+}
+body.crm-app-body .prospects-page .sci-form .sci-field input{min-height:47px}
+body.crm-app-body .prospects-page .sci-form .sci-field textarea{min-height:110px;resize:vertical;line-height:1.7}
+body.crm-app-body .prospects-page .sci-form .sci-field :is(input,textarea,select):focus-visible{
+  border-color:var(--spp-blue);outline:none;
+  box-shadow:0 0 0 4px rgba(23,105,255,.13);
+}
+body.crm-app-body .prospects-page .sci-form .sci-field :is(input,textarea,select):disabled{
+  background:#f3f6fb;color:#8492a9;cursor:not-allowed;
+}
+body.crm-app-body .prospects-page .sci-form .sci-actions{
+  display:flex;justify-content:flex-end;align-items:center;gap:12px;grid-column:1/-1;
+  min-width:0;margin:8px 0 0;flex-wrap:wrap;
+}
+body.crm-app-body .prospects-page .sci-form .sci-actions button{
+  box-sizing:border-box;min-height:46px;border-radius:12px;padding:11px 21px;
+  font:650 14px/1.3 'Poppins',system-ui,sans-serif;cursor:pointer;
+  transition:transform .18s,box-shadow .18s;
+}
+body.crm-app-body .prospects-page .sci-form .sci-actions button[type=submit]{
+  order:2;color:white;border:1px solid transparent;
+  background:linear-gradient(115deg,var(--spp-blue),var(--spp-violet));
+  box-shadow:0 7px 17px rgba(35,94,231,.18);
+}
+body.crm-app-body .prospects-page .sci-form .sci-actions button.sci-secondary{
+  order:1;background:#f5f7fc;color:#324667;border:1px solid #dce4f1;box-shadow:none;
+}
+body.crm-app-body .prospects-page .sci-form .sci-actions button:hover:not(:disabled){transform:translateY(-1px)}
+body.crm-app-body .prospects-page .sci-form .sci-actions button:disabled{opacity:.58;cursor:wait}
+body.crm-app-body .prospects-page .sci-form > p[aria-live]{
+  grid-column:1/-1;margin:0;min-width:0;overflow-wrap:anywhere;font-size:13px;color:#466082;
+}
+body.crm-app-body .prospects-page .sci-form > p[role=alert]{color:#b42318}
+/* CRM-06: works with the existing DOM, including floating assistant layouts. */
+body.crm-app-body .crm-ai-panel{
+  box-sizing:border-box;min-width:0;max-width:100%;
+  border:1px solid #e0e7fb!important;border-radius:22px!important;
+  background:linear-gradient(145deg,#fff,#fbfaff 65%,#f7f9ff)!important;
+  box-shadow:0 18px 50px rgba(41,66,130,.11);
+  color:var(--spp-ink);
+}
+body.crm-app-body .crm-ai-panel > h2{
+  font:750 clamp(19px,2.4vw,23px)/1.25 'Poppins',system-ui,sans-serif!important;
+  color:var(--spp-ink);letter-spacing:-.025em;
+}
+body.crm-app-body .crm-ai-panel > p{color:var(--spp-muted);font-size:13px;line-height:1.6}
+body.crm-app-body .crm-ai-panel button{
+  min-height:42px;border-radius:12px;padding:10px 15px;
+  font:600 13px 'Poppins',system-ui,sans-serif;
+  transition:transform .18s,box-shadow .18s;
+}
+body.crm-app-body .crm-ai-panel button[data-action]{
+  color:#244baf;background:#f5f8ff;border:1px solid #d8e4ff;
+  box-shadow:0 3px 8px rgba(30,72,163,.035);
+}
+body.crm-app-body .crm-ai-panel button[data-action]:hover:not(:disabled){
+  background:#eaf1ff;transform:translateY(-1px);box-shadow:0 6px 16px rgba(31,92,204,.10);
+}
+body.crm-app-body .crm-ai-panel .crm-ai-answer:not(:empty){
+  margin:17px 0;padding:clamp(14px,2vw,21px);
+  background:white;border:1px solid #e3eafb;border-radius:16px;
+  box-shadow:0 4px 18px rgba(31,67,132,.035);
+  color:#1b3156;line-height:1.75;overflow-wrap:anywhere;
+}
+body.crm-app-body .crm-ai-panel .crm-ai-answer h1,
+body.crm-app-body .crm-ai-panel .crm-ai-answer h2,
+body.crm-app-body .crm-ai-panel .crm-ai-answer h3{
+  color:#182d53;line-height:1.35;margin:18px 0 10px;
+}
+body.crm-app-body .crm-ai-panel .crm-ai-answer h1:first-child,
+body.crm-app-body .crm-ai-panel .crm-ai-answer h2:first-child,
+body.crm-app-body .crm-ai-panel .crm-ai-answer h3:first-child{margin-top:0}
+body.crm-app-body .crm-ai-panel .crm-ai-answer :is(strong,b){color:#102952}
+body.crm-app-body .crm-ai-panel .crm-ai-table-scroll{border-radius:13px;border:1px solid #dde6fa;overflow-x:auto}
+body.crm-app-body .crm-ai-panel .crm-ai-table-scroll th{background:#f0f5ff;color:#243e70}
+body.crm-app-body .crm-ai-panel :is(details){
+  border:1px solid #e5ecf9;border-radius:13px;background:#fff;
+  margin-top:12px;padding:10px 14px;
+}
+body.crm-app-body .crm-ai-panel details > summary{
+  cursor:pointer;font-weight:650;color:#41577d;list-style-position:inside;
+}
+body.crm-app-body .crm-ai-panel textarea{width:100%;max-width:100%;box-sizing:border-box}
+/* Functional and accessibility safeguards */
+body.crm-app-body .prospects-page button:focus-visible,
+body.crm-app-body .crm-ai-panel button:focus-visible{
+  outline:3px solid rgba(23,105,255,.4);outline-offset:3px;
+}
+@media(max-width:780px){
+  body.crm-app-body .prospects-page .sci-form{grid-template-columns:minmax(0,1fr);gap:16px}
+  body.crm-app-body .prospects-page .sci-form .sci-field:has(textarea){grid-column:auto}
+  body.crm-app-body .prospects-page .sci-form .sci-actions{grid-column:auto}
+  body.crm-app-body .prospects-page .sci-form > p[aria-live]{grid-column:auto}
+}
+@media(max-width:520px){
+  body.crm-app-body .prospects-page .sci-card{padding:17px;border-radius:16px}
+  body.crm-app-body .prospects-page button.sci-secondary:not(.sci-actions button){width:100%}
+  body.crm-app-body .prospects-page .sci-form .sci-actions{flex-direction:column-reverse;align-items:stretch}
+  body.crm-app-body .prospects-page .sci-form .sci-actions button{width:100%}
+  body.crm-app-body .crm-ai-panel{border-radius:17px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body.crm-app-body .prospects-page .sci-card *,
+  body.crm-app-body .crm-ai-panel *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}

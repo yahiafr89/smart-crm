@@ -2,6 +2,7 @@ import { createAssistantPanel } from './assistant-panel.js';
 import { getProspect } from './prospects.js';
 import { loadCommercialNames, commercialLabel } from './commercial-labels.js';
 import { createProspectStatusControl } from './prospect-status-control.js';
+import { appendProspectEditor } from './prospect-editor.js';
 
 // Prospect detail: reads via Supabase RLS; status writes go only through authenticated n8n.
 export function mountProspectDetailReadOnly(supabase, main, rawId) {
@@ -63,6 +64,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
     }
     title.textContent = [record.first_name, record.last_name].filter(Boolean).join(' ') || tr('Prospect sans nom','Unnamed prospect');
     subtitle.textContent = tr(`Fiche n° ${record.id} · Modification du statut autorisée selon vos droits`,`Prospect #${record.id} · Status changes subject to your permissions`);
+    appendProspectEditor(supabase, record, load, content);
     for (const [key, labelFr, labelEn] of fields) {
       const card = document.createElement('div');
       card.style.cssText = 'min-width:0;padding:20px;border:1px solid #dbe3ee;border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(15,23,42,.04);';
