@@ -1,3 +1,5 @@
+import { mountClientsConnected } from './clients-page.js';
+import { mountConversionCard } from './conversion-card.js';
 import { mountAdministrationConnected } from './administration-page.js';
 import { mountCommerciauxConnected } from './commerciaux-page.js';
 import { mountProspectsReadOnly } from './prospects-readonly.js';
@@ -7,7 +9,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.10';
 import { config } from '../config/config.js';
 import { signIn, signOut, getBusinessProfile } from './auth.js';
 
-const privatePages = new Set(['dashboard.html', 'prospects.html', 'commerciaux.html', 'administration.html']);
+const privatePages = new Set(['dashboard.html', 'prospects.html', 'commerciaux.html', 'administration.html', 'clients.html']);
 const page = location.pathname.split('/').pop();
 const roles = new Set(['commercial', 'manager', 'administrator']);
 const supabase = createClient(config.supabaseUrl, config.supabasePublishableKey);
@@ -142,9 +144,13 @@ async function init() {
         const main = document.querySelector('main');
         if (main) mountAdministrationConnected(supabase, main);
       }
+      if (page === 'clients.html') {
+        const main = document.querySelector('main');
+        if (main) mountClientsConnected(supabase, main);
+      }
       if (page === 'dashboard.html') {
         const main = document.querySelector('main');
-        if (main) mountDashboardConnected(supabase, main);
+        if (main) { mountDashboardConnected(supabase, main); mountConversionCard(supabase, main); }
       }
       document.documentElement.style.visibility = '';
     } catch (error) { showVerificationUnavailable(error); }

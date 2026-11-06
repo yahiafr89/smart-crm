@@ -1,27 +1,35 @@
-# SMART CRM — Portfolio frontend alignment (corrective patch)
+# Smart CRM Portfolio — Clients + Conversion (Front-end only)
 
-**Purpose:** align the previously installed `SMARTCRM_FRONTEND_INTEGRATION_COMPLETE` package with Mohcine's authoritative backend specification. This package is NOT a production-ready release.
+This pack ADDS the CRM-04 client directory without creating clients from the browser and adds an **all-time** lead-to-client conversion card. It uses existing Supabase Auth and RLS. No new webhook and no changes to Mohcine's backend.
 
-## Install (Mac, VS Code terminal at project root)
+## Install on Mac (VS Code terminal in the Smart CRM project directory)
 
-1. Unzip in Downloads.
-2. Preview: `python3 ~/Downloads/SMARTCRM_PORTFOLIO_ALIGNMENT/installer.py --check`
-3. Apply: `python3 ~/Downloads/SMARTCRM_PORTFOLIO_ALIGNMENT/installer.py`
-4. Review: `git diff --stat` and `git status`.
+1. Download and unzip `SMARTCRM_CLIENTS_CONVERSION.zip` to Downloads.
+2. Run `python3 ~/Downloads/SMARTCRM_CLIENTS_CONVERSION/installer.py` (assuming Finder extracted that folder name).
+3. Reload Live Server. Open **Clients** in the sidebar, then **Dashboard**.
 
-The script makes a backup under `~/SmartCRM-Backups/<project>/portfolio-...` and **does not commit or push**. It stops on unexpected local file versions.
+The installer refuses incompatible existing files. It saves originals in `~/SmartCRM-Backups/clients-.../`, checks JS syntax, does not commit or push, and can be run twice.
 
-## What changes
-- Removes UI wiring to fictional `/webhook/crm/admin/users`, `/webhook/crm/commercials` and integrated password recovery.
-- Keeps user directory and commercial directory read-only.
-- Replaces prospect editor with role-aware RLS-backed field editing, sending changed fields only.
-- Manager/admin can reassign to a salesperson ID from active, accessible `commercials`; never an Auth user ID.
-- Forces English translations across pages using existing translation engine; existing visual design stays untouched.
-- Leaves CRM-01 to CRM-06 integrations and status transitions unchanged.
+## What is installed
 
-## Notes
-- A current salesperson marked inactive but already assigned stays visible as the current value so users don't accidentally change it. New assignment is restricted to active accessible entries.
-- If `commercials` doesn't expose `is_active` or `active`, the reassignment control is disabled. Confirm the existing field name with Mohcine rather than inventing an endpoint.
-- Previous helper files (account-recovery.js, management-operations.js, frontend-operations.js) may remain on disk but are not imported by active pages; do not delete them until the wider project is checked.
-- Existing markdown rendering and dashboard semantics weren't rewritten. Inspect these separately if actual UI differs from agreed contracts.
-- Test with the four pre-created demo accounts and non-sensitive fictitious data; manual backend tests are still necessary.
+- `clients.html` — read-only Clients page, all roles, existing CRM sidebar.
+- `JS/api/clients-page.js` — real Supabase data, 20 rows per page, refresh, client-side search on loaded page, errors and empty states; does not fabricate client records.
+- `JS/api/conversion-card.js` — live count-based **all-time** conversion rate.
+- Patches `JS/api/auth-page.js` to protect Clients, mount page, and mount conversion KPI.
+- Adds **Clients** navigation link to the four existing CRM HTML pages.
+
+## Important functional definition / backend contract
+
+- Administrator and manager see all clients; commercial sees only their clients **if and only if existing Supabase RLS on `clients` enforces this**. Front-end must not simulate RLS. If policy is absent, do not demonstrate access until Mohcine fixes it.
+- `clients` records are written by CRM-04 on status `won`. No manual client creation.
+- Conversion KPI = count of *visible clients* ÷ count of *visible prospects* × 100, using Supabase `head:true,count:'exact'` under the signed-in JWT. It is **all-time**, not bound to the Dashboard period. It assumes clients originate from converted prospects and each converted prospect yields one client. If this assumption is untrue, the metric needs a verified database RPC instead.
+- The table uses `.select('*')` via the existing `JS/api/clients.js` adapter because actual client field names are not fully established. It displays names/company/email/phone when present, without inventing data. Limit SELECT permissions to public columns with appropriate RLS.
+- No CSV export, account management, new services, or write operations.
+
+## Files to synchronize into ChatGPT Project after installation
+
+`clients.html`, `JS/api/clients-page.js`, `JS/api/conversion-card.js`, `JS/api/auth-page.js`, `dashboard.html`, `prospects.html`, `commerciaux.html`, `administration.html`.
+
+## Validation boundaries
+
+Automated checks verify JS syntax and patch application, not actual Supabase client data or policy behavior. Test data access under the three existing roles and the counts before making a public portfolio demo.
