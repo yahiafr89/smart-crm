@@ -60,7 +60,8 @@ export function mountDashboardConnected(supabase, main) {
   const chartCard=document.createElement('div');chartCard.className='cd-card';const chartTitle=document.createElement('h2');const chartDesc=document.createElement('p');chartDesc.className='cd-muted';const chart=document.createElement('div');chart.className='cd-chart';chartCard.append(chartTitle,chartDesc,chart);
   const insightCard=document.createElement('div');insightCard.className='cd-card';const insightTitle=document.createElement('h2');const insightDesc=document.createElement('p');insightDesc.className='cd-muted';const insights=document.createElement('div');insights.className='cd-insights';insightCard.append(insightTitle,insightDesc,insights);layout.append(chartCard,insightCard);
   const assistantWrap=document.createElement('div');assistantWrap.className='cd-assistant';
-  const assistant=createAssistantPanel(supabase,{getPeriod:()=>({start_date:start.value,end_date:end.value})});assistantWrap.append(assistant);
+  let displayedPeriod = null;
+  const assistant=createAssistantPanel(supabase,{getPeriod:()=>displayedPeriod});assistantWrap.append(assistant);
   root.append(top,status,kpis,layout,assistantWrap);main.replaceChildren(root);
   const statuses={new:['Nouveau','New'],contacted:['Contacté','Contacted'],qualified:['Qualifié','Qualified'],proposal_sent:['Proposition envoyée','Proposal sent'],negotiation:['Négociation','Negotiation'],won:['Gagné','Won'],lost:['Perdu','Lost'],archived:['Archivé','Archived']};
   let data=null;let loading=false;let failed=false;let lastError='';let request=0;
@@ -86,7 +87,7 @@ export function mountDashboardConnected(supabase, main) {
     const items=[['unassigned_prospects','Non affectés','Unassigned'],['uncontacted_prospects','Non contactés','Not contacted'],['overdue_follow_ups','Relances en retard','Overdue follow-ups']];
     for(const [key,frLabel,enLabel] of items){const item=make('div','cd-insight');item.append(make('span','',tr(frLabel,enLabel)),make('strong','',num(metric(key))));insights.append(item);}
   }
-  async function load(event){event?.preventDefault();const current=++request;loading=true;failed=false;render();try{const response=await getDashboard(supabase,start.value,end.value);if(current!==request)return;data=response;failed=false;}catch(error){if(current!==request)return;console.error('Dashboard RPC failed',error);data=null;failed=true;lastError=error?.message||tr('Erreur réseau ou autorisation','Network or permission error');}finally{if(current===request){loading=false;render();}}}
+  async function load(event){event?.preventDefault();const current=++request;loading=true;failed=false;render();try{const requestedPeriod={start_date:start.value,end_date:end.value};const response=await getDashboard(supabase,requestedPeriod.start_date,requestedPeriod.end_date);if(current!==request)return;data=response;displayedPeriod=requestedPeriod;failed=false;}catch(error){if(current!==request)return;console.error('Dashboard RPC failed',error);data=null;displayedPeriod=null;failed=true;lastError=error?.message||tr('Erreur réseau ou autorisation','Network or permission error');}finally{if(current===request){loading=false;render();}}}
   form.addEventListener('submit',load);
   const observer=new MutationObserver(()=>{if(root.isConnected)render();else observer.disconnect();});observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   render();load();

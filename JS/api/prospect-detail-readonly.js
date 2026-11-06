@@ -1,7 +1,7 @@
+import { createAssistantPanel } from './assistant-panel.js';
 import { getProspect } from './prospects.js';
 import { loadCommercialNames, commercialLabel } from './commercial-labels.js';
 import { createProspectStatusControl } from './prospect-status-control.js';
-import { appendProspectEditor } from './prospect-editor.js';
 
 // Prospect detail: reads via Supabase RLS; status writes go only through authenticated n8n.
 export function mountProspectDetailReadOnly(supabase, main, rawId) {
@@ -79,7 +79,7 @@ export function mountProspectDetailReadOnly(supabase, main, rawId) {
       card.append(label,value); content.append(card);
     }
     content.append(createProspectStatusControl(supabase, record, load));
-    appendProspectEditor(supabase, record, load, content);
+    if (Number.isSafeInteger(Number(record.id)) && Number(record.id) > 0) content.append(createAssistantPanel(supabase, { prospectId: Number(record.id) }));
   }
   async function load() {
     if (!/^[1-9]\d*$/.test(id)) { state = 'invalid'; render(); return; }
